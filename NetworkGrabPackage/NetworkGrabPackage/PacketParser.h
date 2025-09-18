@@ -5,11 +5,7 @@ class PacketParser: public PacketCapture
 {
 private:
 
-	struct pcap_pkthdr* header;//包文头指针
-
-	const u_char* pktData;//包数据指针
-
-	int result;//抓包结果
+	
 
 public:
 

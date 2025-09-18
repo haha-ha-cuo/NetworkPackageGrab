@@ -9,6 +9,6 @@ Application::Application() {
 	// 初始化网络接口管理器
 	NetworkInterface* networkInterface = new NetworkInterface();
 	networkInterface->printAllDevices();
-	PacketParser* packetParser = new PacketParser();
-	packetParser->startParse("\\Device\\NPF_{DB3D8D4E-8126-44D3-AF82-DA2276ADAA30}"); // 替换为实际的网络接口名称
+	PacketCapture* packetParser = new PacketCapture();
+	packetParser->startCapture("\\Device\\NPF_{DB3D8D4E-8126-44D3-AF82-DA2276ADAA30}"); // 替换为实际的网络接口名称
 }

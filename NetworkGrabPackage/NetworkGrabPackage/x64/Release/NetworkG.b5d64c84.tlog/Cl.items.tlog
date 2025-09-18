@@ -1,5 +1,5 @@
-F:\project\CppProject\NetworkGrabPackage\NetworkGrabPackage\Application.cpp;F:\project\CppProject\NetworkGrabPackage\NetworkGrabPackage\x64\Release\Application.obj
-F:\project\CppProject\NetworkGrabPackage\NetworkGrabPackage\Main.cpp;F:\project\CppProject\NetworkGrabPackage\NetworkGrabPackage\x64\Release\Main.obj
-F:\project\CppProject\NetworkGrabPackage\NetworkGrabPackage\NetworkInterface.cpp;F:\project\CppProject\NetworkGrabPackage\NetworkGrabPackage\x64\Release\NetworkInterface.obj
-F:\project\CppProject\NetworkGrabPackage\NetworkGrabPackage\PacketCapture.cpp;F:\project\CppProject\NetworkGrabPackage\NetworkGrabPackage\x64\Release\PacketCapture.obj
-F:\project\CppProject\NetworkGrabPackage\NetworkGrabPackage\PacketParser.cpp;F:\project\CppProject\NetworkGrabPackage\NetworkGrabPackage\x64\Release\PacketParser.obj
+F:\github\NetworkPackageGrab\NetworkGrabPackage\NetworkGrabPackage\Application.cpp;F:\github\NetworkPackageGrab\NetworkGrabPackage\NetworkGrabPackage\x64\Release\Application.obj
+F:\github\NetworkPackageGrab\NetworkGrabPackage\NetworkGrabPackage\Main.cpp;F:\github\NetworkPackageGrab\NetworkGrabPackage\NetworkGrabPackage\x64\Release\Main.obj
+F:\github\NetworkPackageGrab\NetworkGrabPackage\NetworkGrabPackage\NetworkInterface.cpp;F:\github\NetworkPackageGrab\NetworkGrabPackage\NetworkGrabPackage\x64\Release\NetworkInterface.obj
+F:\github\NetworkPackageGrab\NetworkGrabPackage\NetworkGrabPackage\PacketCapture.cpp;F:\github\NetworkPackageGrab\NetworkGrabPackage\NetworkGrabPackage\x64\Release\PacketCapture.obj
+F:\github\NetworkPackageGrab\NetworkGrabPackage\NetworkGrabPackage\PacketParser.cpp;F:\github\NetworkPackageGrab\NetworkGrabPackage\NetworkGrabPackage\x64\Release\PacketParser.obj

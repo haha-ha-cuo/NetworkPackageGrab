@@ -6,9 +6,17 @@
 using namespace std;
 using namespace Contants;
 
-PacketCapture::PacketCapture(){};
+PacketCapture::PacketCapture(){
+	handle = nullptr;
+	header = nullptr;
+	pktData = nullptr;
+	result = 0;
+	Counter = 30; //循环10次（之后用线程控制）
+};
 
-PacketCapture::~PacketCapture() {};
+PacketCapture::~PacketCapture() {
+	closeCapture();
+};
 
 void PacketCapture::startCapture(const char* deviceName) {
 
@@ -27,6 +35,30 @@ void PacketCapture::startCapture(const char* deviceName) {
 	}
 
 	cout << "[Info]Packet capture started on device: " << deviceName << endl;
+
+	while ((result = pcap_next_ex(handle, &header, &pktData)) >= 0 && Counter--) {
+		if (result == 0) {
+			cout << "[Info]Timeout elapsed." << endl;
+			continue;
+		}
+
+		// 打印时间戳和长度
+		cout << "[Info]Packet captured." << endl;
+		const time_t ts = header->ts.tv_sec;
+		struct tm tmDest;
+		errno_t erro = localtime_s(&tmDest, &ts);
+		char timestr[16];
+		strftime(timestr, sizeof(timestr), "%H:%M:%S", &tmDest);
+		printf("[Info]时间: %s.%06ld 长度: %d 字节\n", timestr, header->ts.tv_usec, header->len);
+
+		//数据存储
+		packetMap.insert( pair<const time_t, const u_char* >(ts, pktData));
+		cout << "[Info]Packet stored. Total packets stored: " << packetMap.size() << endl;
+
+	}
+	if (result == -1) {
+		cerr << "[Error]Error reading the packets: " << pcap_geterr(handle) << endl;
+	}
 }
 
 void PacketCapture::closeCapture() {
@@ -36,6 +68,6 @@ void PacketCapture::closeCapture() {
 	}
 }
 
-pcap* PacketCapture::getHandle() {
-	return handle;
+map <const time_t, const u_char*> PacketCapture::getPacketMap() {
+	return packetMap;
 }
