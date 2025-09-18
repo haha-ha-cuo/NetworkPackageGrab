@@ -1,5 +1,5 @@
-#pragma once
-//°ü¹ıÂËÆ÷
+ï»¿#pragma once
+//åŒ…è¿‡æ»¤å™¨
 #include "PacketCapture.h"
 class PacketFilter : public PacketCapture
 {

@@ -1,25 +1,25 @@
-#pragma once
-//¹«¹²Êı¾İÀàĞÍ¶¨Òå
+ï»¿#pragma once
+//å…¬å…±æ•°æ®ç±»å‹å®šä¹‰
 
 	enum class PacketDirection
 	{
-		Incoming, //ÈëÕ¾
-		Outgoing, //³öÕ¾
-		Both      //Ë«Ïò
+		Incoming, //å…¥ç«™
+		Outgoing, //å‡ºç«™
+		Both      //åŒå‘
 	};
-	//´æ´¢ÀàĞÍ
+	//å­˜å‚¨ç±»å‹
 	enum class StorageType
 	{
-		Memory, //ÄÚ´æ´æ´¢
-		File    //ÎÄ¼ş´æ´¢
+		Memory, //å†…å­˜å­˜å‚¨
+		File    //æ–‡ä»¶å­˜å‚¨
 	};
-	//ÍøÂç½Ó¿ÚÀàĞÍ
+	//ç½‘ç»œæ¥å£ç±»å‹
 	enum class NetworkInterfaceType
 	{
-		Ethernet, //ÒÔÌ«Íø
-		WiFi,     //ÎŞÏßÍø
-		Loopback, //»·»Ø½Ó¿Ú
-		Other     //ÆäËûÀàĞÍ
+		Ethernet, //ä»¥å¤ªç½‘
+		WiFi,     //æ— çº¿ç½‘
+		Loopback, //ç¯å›æ¥å£
+		Other     //å…¶ä»–ç±»å‹
 	};
 
 	enum MyEnum

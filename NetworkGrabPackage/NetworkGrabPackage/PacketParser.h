@@ -1,5 +1,5 @@
-#pragma once
-//°ü½âÎöÆ÷
+ï»¿#pragma once
+//åŒ…è§£æå™¨
 #include "PacketCapture.h"
 class PacketParser: public PacketCapture
 {
@@ -12,5 +12,5 @@ public:
 	PacketParser();
 	~PacketParser();
 
-	void startParse(const char* deviceName); //¿ªÊ¼½âÎö
+	void startParse(const char* deviceName); //å¼€å§‹è§£æ
 };

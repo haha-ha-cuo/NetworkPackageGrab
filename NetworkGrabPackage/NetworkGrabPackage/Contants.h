@@ -1,9 +1,9 @@
-#pragma once
-//³£Á¿¶¨ÒåÍ·ÎÄ¼ş
+ï»¿#pragma once
+//å¸¸é‡å®šä¹‰å¤´æ–‡ä»¶
 namespace Contants {
-	static const int MAX_PACKET_SIZE = 65536; //×î´óÊı¾İ°ü´óĞ¡
-	static const int DEFAULT_BUFFER_SIZE = 1024 * 1024; //Ä¬ÈÏ»º³åÇø´óĞ¡1MB
-	static const int DEFAULT_SESSION_TIMEOUT = 300; //Ä¬ÈÏ»á»°³¬Ê±Ê±¼ä300Ãë
-	static const int MAX_SESSIONS = 10000; //×î´ó»á»°Êı
-	static const int TRAFFIC_STAT_INTERVAL = 60; //Á÷Á¿Í³¼ÆÊ±¼ä¼ä¸ô60Ãë
+	static const int MAX_PACKET_SIZE = 65536; //æœ€å¤§æ•°æ®åŒ…å¤§å°
+	static const int DEFAULT_BUFFER_SIZE = 1024 * 1024; //é»˜è®¤ç¼“å†²åŒºå¤§å°1MB
+	static const int DEFAULT_SESSION_TIMEOUT = 300; //é»˜è®¤ä¼šè¯è¶…æ—¶æ—¶é—´300ç§’
+	static const int MAX_SESSIONS = 10000; //æœ€å¤§ä¼šè¯æ•°
+	static const int TRAFFIC_STAT_INTERVAL = 60; //æµé‡ç»Ÿè®¡æ—¶é—´é—´éš”60ç§’
 }

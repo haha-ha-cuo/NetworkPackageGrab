@@ -1,4 +1,4 @@
-#include "NetworkInterface.h"
+﻿#include "NetworkInterface.h"
 #include<cstring>
 #include<stdexcept>
 #include<iostream>

@@ -1,9 +1,9 @@
-#pragma once
+ï»¿#pragma once
 #include <unordered_map>
 #include <pcap.h>
 
 using namespace std;
-//Êı¾İ°ü´¢´æ½Ó¿Ú
+//æ•°æ®åŒ…å‚¨å­˜æ¥å£
 class PacketStorage
 {
 public:

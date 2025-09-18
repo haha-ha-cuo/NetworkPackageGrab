@@ -1,5 +1,5 @@
-#pragma once
-//¹¤¾ßº¯Êý
+ï»¿#pragma once
+//å·¥å…·å‡½æ•°
 class Utilities
 {
 public:

@@ -1,5 +1,5 @@
-#pragma once
-//ÍøÂç½Ó¿Ú¹ÜÀíÀà
+ï»¿#pragma once
+//ç½‘ç»œæ¥å£ç®¡ç†ç±»
 #include<pcap.h>
 #include <Map>
 #include <cstring>
@@ -8,22 +8,22 @@ class NetworkInterface
 {
 private:
 
-	pcap_if_t* alldevs; //ËùÓĞÍøÂç½Ó¿Ú(Á´±í)
+	pcap_if_t* alldevs; //æ‰€æœ‰ç½‘ç»œæ¥å£(é“¾è¡¨)
 
-	map<const char*, pcap_if_t*> deviceMap; //Ãû³Æµ½½Ó¿ÚµÄÓ³Éä
+	map<const char*, pcap_if_t*> deviceMap; //åç§°åˆ°æ¥å£çš„æ˜ å°„
 
 public:
 
 	NetworkInterface();
 	~NetworkInterface();
 
-	//»ñÈ¡ËùÓĞÍøÂç½Ó¿Ú
+	//è·å–æ‰€æœ‰ç½‘ç»œæ¥å£
 	pcap_if_t* getAllDevices();
 
-	//´òÓ¡ËùÓĞÍøÂç½Ó¿ÚĞÅÏ¢
+	//æ‰“å°æ‰€æœ‰ç½‘ç»œæ¥å£ä¿¡æ¯
 	void printAllDevices();
 
-	//¸ù¾İÃû³Æ²éÕÒÍøÂç½Ó¿Ú
+	//æ ¹æ®åç§°æŸ¥æ‰¾ç½‘ç»œæ¥å£
 	pcap_if_t* findDeviceByName(const char* name);
 
 };

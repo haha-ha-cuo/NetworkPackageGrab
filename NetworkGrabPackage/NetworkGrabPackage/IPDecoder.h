@@ -1,2 +1,2 @@
-#pragma once
-//IP╨н╥щ╜т┬ы
+я╗┐#pragma once
+//IPхНПшоошзгчаБ

@@ -1,2 +1,2 @@
-#pragma once
-//TCP╨н╥щ╜т┬ы
+я╗┐#pragma once
+//TCPхНПшоошзгчаБ

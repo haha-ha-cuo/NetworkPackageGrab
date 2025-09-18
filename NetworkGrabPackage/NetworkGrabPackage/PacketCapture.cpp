@@ -1,4 +1,4 @@
-#include "PacketCapture.h"
+ï»¿#include "PacketCapture.h"
 #include <iostream>
 #include "Contants.h"
 #include <pcap.h>
@@ -11,7 +11,7 @@ PacketCapture::PacketCapture(){
 	header = nullptr;
 	pktData = nullptr;
 	result = 0;
-	Counter = 30; //Ñ­»·10´Î£¨Ö®ºóÓÃÏß³Ì¿ØÖÆ£©
+	Counter = 30; //å¾ªç¯10æ¬¡ï¼ˆä¹‹åç”¨çº¿ç¨‹æ§åˆ¶ï¼‰
 };
 
 PacketCapture::~PacketCapture() {
@@ -30,7 +30,7 @@ void PacketCapture::startCapture(const char* deviceName) {
 	);
 
 	if (handle == nullptr) {
-		cerr << "[Warn]Could not open device " << deviceName << ": " << errorbuf << endl;//Ä£ÄâÈÕÖ¾£¬Ç°¶Ëlog
+		cerr << "[Warn]Could not open device " << deviceName << ": " << errorbuf << endl;//æ¨¡æ‹Ÿæ—¥å¿—ï¼Œå‰ç«¯log
 		return;
 	}
 
@@ -42,16 +42,16 @@ void PacketCapture::startCapture(const char* deviceName) {
 			continue;
 		}
 
-		// ´òÓ¡Ê±¼ä´ÁºÍ³¤¶È
+		// æ‰“å°æ—¶é—´æˆ³å’Œé•¿åº¦
 		cout << "[Info]Packet captured." << endl;
 		const time_t ts = header->ts.tv_sec;
 		struct tm tmDest;
 		errno_t erro = localtime_s(&tmDest, &ts);
 		char timestr[16];
 		strftime(timestr, sizeof(timestr), "%H:%M:%S", &tmDest);
-		printf("[Info]Ê±¼ä: %s.%06ld ³¤¶È: %d ×Ö½Ú\n", timestr, header->ts.tv_usec, header->len);
+		printf("[Info]æ—¶é—´: %s.%06ld é•¿åº¦: %d å­—èŠ‚\n", timestr, header->ts.tv_usec, header->len);
 
-		//Êı¾İ´æ´¢
+		//æ•°æ®å­˜å‚¨
 		packetMap.insert( pair<const time_t, const u_char* >(ts, pktData));
 		cout << "[Info]Packet stored. Total packets stored: " << packetMap.size() << endl;
 

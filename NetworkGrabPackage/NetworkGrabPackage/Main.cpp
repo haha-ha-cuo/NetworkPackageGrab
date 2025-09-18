@@ -1,7 +1,7 @@
-#include <pcap.h>
+ï»¿#include <pcap.h>
 #include <iostream>
 #include "Application.h"
-//Ö÷³ÌĞòÈë¿Ú
+//ä¸»ç¨‹åºå…¥å£
 int main() {
 	Application* application = new Application();
 }

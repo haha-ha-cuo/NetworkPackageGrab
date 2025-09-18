@@ -1,4 +1,4 @@
-#include "Application.h"
+ï»¿#include "Application.h"
 #include "NetworkInterface.h"
 #include "PacketCapture.h"
 #include "PacketParser.h"
@@ -6,9 +6,9 @@
 using namespace std;
 
 Application::Application() {
-	// ³õÊ¼»¯ÍøÂç½Ó¿Ú¹ÜÀíÆ÷
+	// åˆå§‹åŒ–ç½‘ç»œæ¥å£ç®¡ç†å™¨
 	NetworkInterface* networkInterface = new NetworkInterface();
 	networkInterface->printAllDevices();
 	PacketCapture* packetParser = new PacketCapture();
-	packetParser->startCapture("\\Device\\NPF_{DB3D8D4E-8126-44D3-AF82-DA2276ADAA30}"); // Ìæ»»ÎªÊµ¼ÊµÄÍøÂç½Ó¿ÚÃû³Æ
+	packetParser->startCapture("\\Device\\NPF_{DB3D8D4E-8126-44D3-AF82-DA2276ADAA30}"); // æ›¿æ¢ä¸ºå®é™…çš„ç½‘ç»œæ¥å£åç§°
 }

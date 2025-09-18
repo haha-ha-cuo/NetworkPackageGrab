@@ -1,5 +1,5 @@
-#pragma once
-// Ó¦ÓÃ³ÌĞòÖ÷Àà
+ï»¿#pragma once
+// åº”ç”¨ç¨‹åºä¸»ç±»
 
 class Application
 {

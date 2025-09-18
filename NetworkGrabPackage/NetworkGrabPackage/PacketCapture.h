@@ -1,5 +1,5 @@
-#pragma once
-//×¥°üºËĞÄÀà£¨³éÏóÀà½Ó¿Ú£©
+ï»¿#pragma once
+//æŠ“åŒ…æ ¸å¿ƒç±»ï¼ˆæŠ½è±¡ç±»æ¥å£ï¼‰
 #include <pcap.h>
 #include<Map>
 
@@ -9,17 +9,17 @@ class PacketCapture
 {
 private:
 
-	struct pcap_pkthdr* header;//°üÎÄÍ·Ö¸Õë
+	struct pcap_pkthdr* header;//åŒ…æ–‡å¤´æŒ‡é’ˆ
 
-	const u_char* pktData;//°üÊı¾İÖ¸Õë
+	const u_char* pktData;//åŒ…æ•°æ®æŒ‡é’ˆ
 
-	int result;//×¥°ü½á¹û
+	int result;//æŠ“åŒ…ç»“æœ
 
-	pcap_t* handle; //×¥°ü¾ä±ú
+	pcap_t* handle; //æŠ“åŒ…å¥æŸ„
 
-	char errorbuf[PCAP_ERRBUF_SIZE]; //´íÎóĞÅÏ¢»º³åÇø
+	char errorbuf[PCAP_ERRBUF_SIZE]; //é”™è¯¯ä¿¡æ¯ç¼“å†²åŒº
 
-	map <const time_t, const u_char*> packetMap; //Ê¹ÓÃ°üID×÷Îª¼ü£¬°üÊı¾İ×÷ÎªÖµ
+	map <const time_t, const u_char*> packetMap; //ä½¿ç”¨åŒ…IDä½œä¸ºé”®ï¼ŒåŒ…æ•°æ®ä½œä¸ºå€¼
 
 	int Counter;
 public:
@@ -27,10 +27,10 @@ public:
 	PacketCapture();
 	~PacketCapture();
 
-	void startCapture(const char* deviceName);//¿ªÊ¼×¥°ü
+	void startCapture(const char* deviceName);//å¼€å§‹æŠ“åŒ…
 
-	void closeCapture();//¹Ø±Õ×¥°ü
+	void closeCapture();//å…³é—­æŠ“åŒ…
 
-	map <const time_t, const u_char*> getPacketMap();//»ñÈ¡°üÊı¾İ
+	map <const time_t, const u_char*> getPacketMap();//è·å–åŒ…æ•°æ®
 };
 
