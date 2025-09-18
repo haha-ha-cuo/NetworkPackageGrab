@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\NetWork">
+      <UniqueIdentifier>{6c367e0c-b761-4366-8dfd-3e122246a7ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Core">
+      <UniqueIdentifier>{441609d9-fc9b-4b11-b43e-e4edbc30bbe6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Common">
+      <UniqueIdentifier>{6905260c-69b5-4ba7-b777-07a327ecd097}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Storage">
+      <UniqueIdentifier>{77c62f3c-779c-4546-9360-eebb0f37fe3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\NetWork\Decoder">
+      <UniqueIdentifier>{ebe8d1c1-61b1-4590-a34c-d6674183bdda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Statistics">
+      <UniqueIdentifier>{23729393-7ec9-4195-b084-169de6ebe946}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Common">
+      <UniqueIdentifier>{d9d8a71a-9d98-416e-8f93-6ae6d0ada649}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Core">
+      <UniqueIdentifier>{ca2e6355-cc50-4d20-980b-4ca8a438fbd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\NetWork">
+      <UniqueIdentifier>{7f18f3e8-566b-4d8c-aebc-b9f7c6c913d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Statistics">
+      <UniqueIdentifier>{21311be3-967b-4fae-9685-34ddd89d6dfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Storage">
+      <UniqueIdentifier>{67627110-2018-407c-9a8c-5651b778c46a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\NetWork\Decoder">
+      <UniqueIdentifier>{af123a21-37f1-4b60-bf70-bd7367df4cdc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkInterface.cpp">
+      <Filter>源文件\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketCapture.cpp">
+      <Filter>源文件\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketParser.cpp">
+      <Filter>源文件\Core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Contants.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketCapture.h">
+      <Filter>头文件\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketParser.h">
+      <Filter>头文件\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketFilter.h">
+      <Filter>头文件\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="BufferManager.h">
+      <Filter>头文件\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkInterface.h">
+      <Filter>头文件\NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="ProtocolDecoder.h">
+      <Filter>头文件\NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="ARPDecoder.h">
+      <Filter>头文件\NetWork\Decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="IPDecoder.h">
+      <Filter>头文件\NetWork\Decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="EthernetDecoder.h">
+      <Filter>头文件\NetWork\Decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="TCPDecoder.h">
+      <Filter>头文件\NetWork\Decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="UDPDecoder.h">
+      <Filter>头文件\NetWork\Decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketStorage.h">
+      <Filter>头文件\Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryStorage.h">
+      <Filter>头文件\Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="FileStorage.h">
+      <Filter>头文件\Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="SessionTracker.h">
+      <Filter>头文件\Statistics</Filter>
+    </ClInclude>
+    <ClInclude Include="TrafficStatistics.h">
+      <Filter>头文件\Statistics</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="NetworkGrabPackage.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
