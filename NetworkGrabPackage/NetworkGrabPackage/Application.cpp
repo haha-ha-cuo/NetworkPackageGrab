@@ -13,3 +13,7 @@ void Application::StartApplication() {
 	networkInterface.printAllDevices();
 	packetCapture.startCapture("\\Device\\NPF_{DB3D8D4E-8126-44D3-AF82-DA2276ADAA30}");
 }
+
+Application::~Application() {
+	
+}

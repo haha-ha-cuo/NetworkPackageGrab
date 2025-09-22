@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>F:\project\CppProject\NetworkGrabPackage\x64\Debug\NetworkGrabPackage.exe</FullPath>
+      <FullPath>F:\github\NetworkPackageGrab\NetworkGrabPackage\x64\Debug\NetworkGrabPackage.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
