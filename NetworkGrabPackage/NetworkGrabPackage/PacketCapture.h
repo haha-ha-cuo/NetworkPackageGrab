@@ -1,7 +1,8 @@
 ﻿#pragma once
-//抓包核心类（抽象类接口）
+//抓包核心类
 #include <pcap.h>
 #include<Map>
+#include "PacketFilter.h"
 
 using namespace std;
 
@@ -22,6 +23,9 @@ private:
 	map <const time_t, const u_char*> packetMap; //使用包ID作为键，包数据作为值
 
 	int Counter;
+
+	PacketFilter packetFilter;//包过滤器对象
+
 public:
 
 	PacketCapture();

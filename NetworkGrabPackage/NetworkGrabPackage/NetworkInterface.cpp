@@ -2,6 +2,9 @@
 #include<cstring>
 #include<stdexcept>
 #include<iostream>
+#include <ws2tcpip.h>
+#include <winsock2.h>
+
 using namespace std;
 
 NetworkInterface::NetworkInterface()
@@ -46,4 +49,32 @@ void NetworkInterface::printAllDevices()
 			std::cout << " (" << device->description << ")";
 		std::cout << std::endl;
 	}
+}
+
+uint32_t NetworkInterface::getSubnetMask(const char* name)
+{
+	//pcap_if_t* device = findDeviceByName(name);
+
+	try{
+		for(pcap_if_t *device = alldevs; device != nullptr; device = device->next) {
+			if (strcmp(device->name, name) == 0) {
+				for (pcap_addr_t* addr = device->addresses; addr != nullptr; addr = addr->next) {
+					if (addr->addr && addr->addr->sa_family == AF_INET) {
+						if (addr->netmask) {
+							struct sockaddr_in* netmask = (struct sockaddr_in*)addr->netmask;
+							struct in_adrr* inaddr = &(netmask->sin_addr);
+							char* buf = new char[INET_ADDRSTRLEN];
+							cout << "[Info]Subnet Mask for device " << name << ": " << inet_ntop(AF_INET,inaddr,buf, INET_ADDRSTRLEN) << endl;
+							return netmask->sin_addr.S_un.S_addr;
+						}
+					}
+				}
+			}
+		}
+		throw runtime_error("Device not found or no IPv4 address available.");
+	}
+	catch (const std::runtime_error& e) {
+		std::cerr << "Defualt：" << e.what() << std::endl;
+	}
+	
 }

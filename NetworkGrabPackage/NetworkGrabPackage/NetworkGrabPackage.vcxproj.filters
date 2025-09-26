@@ -66,6 +66,9 @@
     <ClCompile Include="PacketParser.cpp">
       <Filter>源文件\Core</Filter>
     </ClCompile>
+    <ClCompile Include="PacketFilter.cpp">
+      <Filter>源文件\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Contants.h">

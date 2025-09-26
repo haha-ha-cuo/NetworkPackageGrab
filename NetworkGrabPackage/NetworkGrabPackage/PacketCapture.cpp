@@ -22,7 +22,8 @@ void PacketCapture::startCapture(const char* deviceName) {
 
 	cout << "[Info]Starting packet capture on device: " << deviceName << endl;
 
-	handle = pcap_open_live(deviceName, 
+	handle = pcap_open_live(
+		deviceName, 
 		MAX_PACKET_SIZE, 
 		1, 
 		DEFAULT_SESSION_TIMEOUT, 
@@ -38,7 +39,7 @@ void PacketCapture::startCapture(const char* deviceName) {
 
 	while ((result = pcap_next_ex(handle, &header, &pktData)) >= 0 && Counter--) {
 		if (result == 0) {
-			cout << "[Info]Timeout elapsed." << endl;
+			cout << "[Warn]Timeout elapsed." << endl;
 			continue;
 		}
 

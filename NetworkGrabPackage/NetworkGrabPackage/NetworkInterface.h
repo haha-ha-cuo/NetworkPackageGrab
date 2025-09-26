@@ -26,4 +26,6 @@ public:
 	//根据名称查找网络接口
 	pcap_if_t* findDeviceByName(const char* name);
 
+	uint32_t getSubnetMask(const char* name);
+
 };
