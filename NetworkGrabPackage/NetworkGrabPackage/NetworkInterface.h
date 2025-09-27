@@ -3,7 +3,9 @@
 #include<pcap.h>
 #include <Map>
 #include <cstring>
+
 using namespace std;
+
 class NetworkInterface
 {
 private:
@@ -26,6 +28,8 @@ public:
 	//根据名称查找网络接口
 	pcap_if_t* findDeviceByName(const char* name);
 
-	uint32_t getSubnetMask(const char* name);
+	uint32_t getIPV4SubnetMask(const char* name);
+
+	const char* getIPV6SubnetMask(const char* name);
 
 };

@@ -37,6 +37,8 @@ void PacketCapture::startCapture(const char* deviceName) {
 
 	cout << "[Info]Packet capture started on device: " << deviceName << endl;
 
+	packetFilter.setFilter("ip", handle); //设置过滤器，只捕获IP包
+
 	while ((result = pcap_next_ex(handle, &header, &pktData)) >= 0 && Counter--) {
 		if (result == 0) {
 			cout << "[Warn]Timeout elapsed." << endl;

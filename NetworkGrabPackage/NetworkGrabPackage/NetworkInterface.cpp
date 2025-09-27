@@ -51,30 +51,56 @@ void NetworkInterface::printAllDevices()
 	}
 }
 
-uint32_t NetworkInterface::getSubnetMask(const char* name)
+uint32_t NetworkInterface::getIPV4SubnetMask(const char* name)
 {
-	//pcap_if_t* device = findDeviceByName(name);
+	//pcap_if_t* device = deviceMap[name];
 
 	try{
-		for(pcap_if_t *device = alldevs; device != nullptr; device = device->next) {
-			if (strcmp(device->name, name) == 0) {
+		for(pcap_if_t* device = alldevs; device != nullptr; device = device->next) {
+			if(strcmp(device->name,name)==0){
 				for (pcap_addr_t* addr = device->addresses; addr != nullptr; addr = addr->next) {
 					if (addr->addr && addr->addr->sa_family == AF_INET) {
 						if (addr->netmask) {
 							struct sockaddr_in* netmask = (struct sockaddr_in*)addr->netmask;
-							struct in_adrr* inaddr = &(netmask->sin_addr);
+							struct in_addr* inaddr = &(netmask->sin_addr);
 							char* buf = new char[INET_ADDRSTRLEN];
-							cout << "[Info]Subnet Mask for device " << name << ": " << inet_ntop(AF_INET,inaddr,buf, INET_ADDRSTRLEN) << endl;
+							cout << "[Info]Subnet Mask for device " << name << ": " << inet_ntop(AF_INET, inaddr, buf, INET_ADDRSTRLEN) << endl;
 							return netmask->sin_addr.S_un.S_addr;
 						}
 					}
 				}
 			}
 		}
+		
 		throw runtime_error("Device not found or no IPv4 address available.");
 	}
 	catch (const std::runtime_error& e) {
 		std::cerr << "Defualt：" << e.what() << std::endl;
 	}
 	
+}
+
+const char * NetworkInterface::getIPV6SubnetMask(const char* name)
+{
+	try {
+		for (pcap_if_t* device = alldevs; device != nullptr; device = device->next) {
+			if (strcmp(device->name, name) == 0) {
+				for (pcap_addr_t* addr = device->addresses; addr != nullptr; addr = addr->next) {
+					if (addr->addr && addr->addr->sa_family == AF_INET6) {
+						if (addr->netmask) {
+							struct sockaddr_in6* netmask = (struct sockaddr_in6*)addr->netmask;
+							struct in6_addr* inaddr = &(netmask->sin6_addr);
+							char* buf = new char[INET6_ADDRSTRLEN];
+							cout << "[Info]Subnet Mask for device " << name << ": " << inet_ntop(AF_INET6, inaddr, buf, INET6_ADDRSTRLEN) << endl;
+							return buf;
+						}
+					}
+				}
+			}
+		}
+		throw runtime_error("Device not found or no IPv6 address available.");
+	}
+	catch (const std::runtime_error& e) {
+		std::cerr << "Defualt：" << e.what() << std::endl;
+	}
 }

@@ -69,6 +69,9 @@
     <ClCompile Include="PacketFilter.cpp">
       <Filter>源文件\Core</Filter>
     </ClCompile>
+    <ClCompile Include="IPDecoder.cpp">
+      <Filter>源文件\NetWork\Decoder</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Contants.h">
