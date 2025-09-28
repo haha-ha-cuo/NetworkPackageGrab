@@ -1,4 +1,4 @@
-#include "PacketFilter.h"
+﻿#include "PacketFilter.hpp"
 #include <iostream>
 
 using namespace std;
@@ -10,7 +10,7 @@ PacketFilter::PacketFilter() {
 PacketFilter::~PacketFilter() {
 }
 
-void PacketFilter::setFilter(const char* filterExp,pcap_t* handle,const char* name) {
+void PacketFilter::setFilter(const char* filterExp, pcap_t* handle, const char* name) {
 	char rpcapName[100];
 
 	snprintf(rpcapName, sizeof(rpcapName), "rpcap://%s", name);

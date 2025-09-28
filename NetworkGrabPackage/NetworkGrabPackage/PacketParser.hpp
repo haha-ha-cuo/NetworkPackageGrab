@@ -1,11 +1,11 @@
 ﻿#pragma once
 //包解析器
-#include "PacketCapture.h"
-class PacketParser: public PacketCapture
+#include "PacketCapture.hpp"
+class PacketParser : public PacketCapture
 {
 private:
 
-	
+
 
 public:
 

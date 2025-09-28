@@ -153,27 +153,27 @@
     <ClCompile Include="PacketParser.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Application.h" />
-    <ClInclude Include="ARPDecoder.h" />
-    <ClInclude Include="BufferManager.h" />
-    <ClInclude Include="Contants.h" />
-    <ClInclude Include="EthernetDecoder.h" />
-    <ClInclude Include="FileStorage.h" />
-    <ClInclude Include="IPDecoder.h" />
-    <ClInclude Include="MemoryStorage.h" />
-    <ClInclude Include="NetworkInterface.h" />
-    <ClInclude Include="PacketCapture.h" />
-    <ClInclude Include="PacketFilter.h" />
-    <ClInclude Include="PacketParser.h" />
-    <ClInclude Include="PacketStorage.h" />
-    <ClInclude Include="ProtocolDecoder.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="SessionTracker.h" />
-    <ClInclude Include="TCPDecoder.h" />
-    <ClInclude Include="TrafficStatistics.h" />
-    <ClInclude Include="Types.h" />
-    <ClInclude Include="UDPDecoder.h" />
-    <ClInclude Include="Utilities.h" />
+    <ClInclude Include="Application.hpp" />
+    <ClInclude Include="ARPDecoder.hpp" />
+    <ClInclude Include="BufferManager.hpp" />
+    <ClInclude Include="Contants.hpp" />
+    <ClInclude Include="EthernetDecoder.hpp" />
+    <ClInclude Include="FileStorage.hpp" />
+    <ClInclude Include="IPDecoder.hpp" />
+    <ClInclude Include="MemoryStorage.hpp" />
+    <ClInclude Include="NetworkInterface.hpp" />
+    <ClInclude Include="PacketCapture.hpp" />
+    <ClInclude Include="PacketFilter.hpp" />
+    <ClInclude Include="PacketParser.hpp" />
+    <ClInclude Include="PacketStorage.hpp" />
+    <ClInclude Include="ProtocolDecoder.hpp" />
+    <ClInclude Include="resource.hpp" />
+    <ClInclude Include="SessionTracker.hpp" />
+    <ClInclude Include="TCPDecoder.hpp" />
+    <ClInclude Include="TrafficStatistics.hpp" />
+    <ClInclude Include="Types.hpp" />
+    <ClInclude Include="UDPDecoder.hpp" />
+    <ClInclude Include="Utilities.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="NetworkGrabPackage.rc" />

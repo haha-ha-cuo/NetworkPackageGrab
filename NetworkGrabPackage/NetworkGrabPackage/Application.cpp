@@ -1,12 +1,13 @@
-﻿#include "Application.h"
-#include "NetworkInterface.h"
-#include "PacketCapture.h"
-#include "PacketParser.h"
+﻿#include "Application.hpp"
+#include "NetworkInterface.hpp"
+#include "PacketCapture.hpp"
+#include "PacketParser.hpp"
 #include <iostream>
+
 using namespace std;
 
 Application::Application() {
-	
+
 }
 
 Application::~Application() {

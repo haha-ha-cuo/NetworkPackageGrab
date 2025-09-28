@@ -1,12 +1,12 @@
-﻿#include "PacketCapture.h"
+﻿#include "Contants.hpp"
+#include "PacketCapture.hpp"
 #include <iostream>
-#include "Contants.h"
 #include <pcap.h>
 
 using namespace std;
 using namespace Contants;
 
-PacketCapture::PacketCapture(){
+PacketCapture::PacketCapture() {
 	handle = nullptr;
 	header = nullptr;
 	pktData = nullptr;
@@ -23,10 +23,10 @@ void PacketCapture::startCapture(const char* deviceName) {
 	cout << "[Info]Starting packet capture on device: " << deviceName << endl;
 
 	handle = pcap_open_live(
-		deviceName, 
-		MAX_PACKET_SIZE, 
-		1, 
-		DEFAULT_SESSION_TIMEOUT, 
+		deviceName,
+		MAX_PACKET_SIZE,
+		1,
+		DEFAULT_SESSION_TIMEOUT,
 		errorbuf
 	);
 
@@ -55,7 +55,7 @@ void PacketCapture::startCapture(const char* deviceName) {
 		printf("[Info]时间: %s.%06ld 长度: %d 字节\n", timestr, header->ts.tv_usec, header->len);
 
 		//数据存储
-		packetMap.insert( pair<const time_t, const u_char* >(ts, pktData));
+		packetMap.insert(pair<const time_t, const u_char* >(ts, pktData));
 		cout << "[Info]Packet stored. Total packets stored: " << packetMap.size() << endl;
 
 	}

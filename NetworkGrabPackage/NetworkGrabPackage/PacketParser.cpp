@@ -1,4 +1,4 @@
-﻿#include "PacketParser.h"
+﻿#include "PacketParser.hpp"
 #include<iostream>
 #include<time.h>
 
@@ -12,4 +12,4 @@ PacketParser::~PacketParser()
 {
 }
 
-void PacketParser::startParse(const char* deviceName){}
+void PacketParser::startParse(const char* deviceName) {}

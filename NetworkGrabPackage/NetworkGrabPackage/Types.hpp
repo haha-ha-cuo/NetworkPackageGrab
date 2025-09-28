@@ -1,19 +1,21 @@
 ﻿#pragma once
 //公共数据类型定义
-#include<pcap.h>
+#include <pcap.h>
 
 enum class PacketDirection
 {
-	Incoming, //入站
-	Outgoing, //出站
+	Incoming, //入栈
+	Outgoing, //出栈
 	Both      //双向
 };
+
 //存储类型
 enum class StorageType
 {
 	Memory, //内存存储
 	File    //文件存储
 };
+
 //网络接口类型
 enum class NetworkInterfaceType
 {
@@ -32,7 +34,7 @@ enum MyEnum
 	ARP
 };
 
-/* 4 bytes IP address */
+// IPv4地址
 typedef struct ip_address {
 	u_char byte1;
 	u_char byte2;

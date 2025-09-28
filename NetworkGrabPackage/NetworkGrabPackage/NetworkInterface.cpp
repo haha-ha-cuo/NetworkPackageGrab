@@ -1,9 +1,9 @@
-﻿#include "NetworkInterface.h"
-#include<cstring>
-#include<stdexcept>
-#include<iostream>
-#include <ws2tcpip.h>
+﻿#include "NetworkInterface.hpp"
+#include <cstring>
+#include <iostream>
+#include <stdexcept>
 #include <winsock2.h>
+#include <ws2tcpip.h>
 
 using namespace std;
 
@@ -55,9 +55,9 @@ uint32_t NetworkInterface::getIPV4SubnetMask(const char* name)
 {
 	//pcap_if_t* device = deviceMap[name];
 
-	try{
-		for(pcap_if_t* device = alldevs; device != nullptr; device = device->next) {
-			if(strcmp(device->name,name)==0){
+	try {
+		for (pcap_if_t* device = alldevs; device != nullptr; device = device->next) {
+			if (strcmp(device->name, name) == 0) {
 				for (pcap_addr_t* addr = device->addresses; addr != nullptr; addr = addr->next) {
 					if (addr->addr && addr->addr->sa_family == AF_INET) {
 						if (addr->netmask) {
@@ -71,17 +71,17 @@ uint32_t NetworkInterface::getIPV4SubnetMask(const char* name)
 				}
 			}
 		}
-		
+
 		throw runtime_error("Device not found or no IPv4 address available.");
 		return NULL;
 	}
 	catch (const std::runtime_error& e) {
 		std::cerr << "Defualt：" << e.what() << std::endl;
 	}
-	
+
 }
 
-const char * NetworkInterface::getIPV6SubnetMask(const char* name)
+const char* NetworkInterface::getIPV6SubnetMask(const char* name)
 {
 	try {
 		for (pcap_if_t* device = alldevs; device != nullptr; device = device->next) {

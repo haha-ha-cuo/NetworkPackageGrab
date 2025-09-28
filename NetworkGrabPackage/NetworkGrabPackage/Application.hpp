@@ -1,7 +1,7 @@
 ﻿#pragma once
 // 应用程序主类
-#include "NetworkInterface.h"
-#include "PacketCapture.h"
+#include "NetworkInterface.hpp"
+#include "PacketCapture.hpp"
 
 class Application
 {
