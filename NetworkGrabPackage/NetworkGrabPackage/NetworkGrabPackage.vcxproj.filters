@@ -74,68 +74,65 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Contants.h">
-      <Filter>头文件\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Types.h">
-      <Filter>头文件\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Utilities.h">
-      <Filter>头文件\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="PacketCapture.h">
-      <Filter>头文件\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="PacketParser.h">
-      <Filter>头文件\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="PacketFilter.h">
-      <Filter>头文件\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="BufferManager.h">
-      <Filter>头文件\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="NetworkInterface.h">
-      <Filter>头文件\NetWork</Filter>
-    </ClInclude>
-    <ClInclude Include="ProtocolDecoder.h">
-      <Filter>头文件\NetWork</Filter>
-    </ClInclude>
-    <ClInclude Include="ARPDecoder.h">
-      <Filter>头文件\NetWork\Decoder</Filter>
-    </ClInclude>
-    <ClInclude Include="IPDecoder.h">
-      <Filter>头文件\NetWork\Decoder</Filter>
-    </ClInclude>
-    <ClInclude Include="EthernetDecoder.h">
-      <Filter>头文件\NetWork\Decoder</Filter>
-    </ClInclude>
-    <ClInclude Include="TCPDecoder.h">
-      <Filter>头文件\NetWork\Decoder</Filter>
-    </ClInclude>
-    <ClInclude Include="UDPDecoder.h">
-      <Filter>头文件\NetWork\Decoder</Filter>
-    </ClInclude>
-    <ClInclude Include="PacketStorage.h">
-      <Filter>头文件\Storage</Filter>
-    </ClInclude>
-    <ClInclude Include="MemoryStorage.h">
-      <Filter>头文件\Storage</Filter>
-    </ClInclude>
-    <ClInclude Include="FileStorage.h">
-      <Filter>头文件\Storage</Filter>
-    </ClInclude>
-    <ClInclude Include="SessionTracker.h">
-      <Filter>头文件\Statistics</Filter>
-    </ClInclude>
-    <ClInclude Include="TrafficStatistics.h">
-      <Filter>头文件\Statistics</Filter>
-    </ClInclude>
-    <ClInclude Include="Application.h">
+    <ClInclude Include="Application.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="ARPDecoder.hpp">
+      <Filter>头文件\NetWork\Decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="BufferManager.hpp">
+      <Filter>头文件\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="EthernetDecoder.hpp">
+      <Filter>头文件\NetWork\Decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkInterface.hpp">
+      <Filter>头文件\NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Contants.hpp">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="FileStorage.hpp">
+      <Filter>头文件\Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="IPDecoder.hpp">
+      <Filter>头文件\NetWork\Decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryStorage.hpp">
+      <Filter>头文件\Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="TCPDecoder.hpp">
+      <Filter>头文件\NetWork\Decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="UDPDecoder.hpp">
+      <Filter>头文件\NetWork\Decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.hpp">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities.hpp">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="TrafficStatistics.hpp">
+      <Filter>头文件\Statistics</Filter>
+    </ClInclude>
+    <ClInclude Include="SessionTracker.hpp">
+      <Filter>头文件\Statistics</Filter>
+    </ClInclude>
+    <ClInclude Include="ProtocolDecoder.hpp">
+      <Filter>头文件\NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketCapture.hpp">
+      <Filter>头文件\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketFilter.hpp">
+      <Filter>头文件\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketParser.hpp">
+      <Filter>头文件\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketStorage.hpp">
+      <Filter>头文件\Storage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
