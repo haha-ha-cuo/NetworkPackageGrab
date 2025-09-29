@@ -3,6 +3,7 @@
 #include "PacketFilter.hpp"
 #include <Map>
 #include <pcap.h>
+#include "ProtocolDecoder.hpp"
 
 using namespace std;
 
@@ -25,6 +26,11 @@ private:
 	int Counter;
 
 	PacketFilter packetFilter;//包过滤器对象
+
+	ProtocolDecoder* protocolDecoderEthernet;//协议解码器对象
+
+	ProtocolDecoder* protocolDecoderIPV4;//协议解码器对象
+
 
 public:
 

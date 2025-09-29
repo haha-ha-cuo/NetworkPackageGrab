@@ -6,8 +6,9 @@ class ProtocolDecoder
 {
 public:
 
-	virtual void paketHandle(u_char* param, const struct pcap_pkthdr* header, const u_char* pkt_data) = 0; //纯虚函数，必须由派生类实现
+	virtual void packetHandle(const u_char* data_pkt) = 0; //纯虚函数，必须由派生类实现
 
 	virtual ~ProtocolDecoder() {} //虚析构函数，确保派生类的析构函数被调用
+
 
 };

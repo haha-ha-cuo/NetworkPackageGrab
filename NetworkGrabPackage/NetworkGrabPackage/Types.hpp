@@ -43,7 +43,7 @@ typedef struct ip_address {
 }ip_address;
 
 /* IPv4 header */
-typedef struct ip_header {
+typedef struct ipHeader {
 	u_char  ver_ihl; // Version (4 bits) + IP header length (4 bits)
 	u_char  tos;     // Type of service 
 	u_short tlen;    // Total length 
@@ -55,12 +55,18 @@ typedef struct ip_header {
 	ip_address  saddr; // Source address
 	ip_address  daddr; // Destination address
 	u_int  op_pad;     // Option + Padding
-}ip_header;
+}ipHeader;
 
 /* UDP header*/
-typedef struct udp_header {
+typedef struct udpHeader {
 	u_short sport; // Source port
 	u_short dport; // Destination port
 	u_short len;   // Datagram length
 	u_short crc;   // Checksum
-}udp_header;
+}udpHeader;
+
+typedef struct etherHeader {
+	u_char ether_dhost[6];  // 目标 MAC 地址
+	u_char ether_shost[6];  // 源 MAC 地址
+	u_short ether_type;     // 上层协议类型（如 IPv4、ARP）
+} etherHeader;
