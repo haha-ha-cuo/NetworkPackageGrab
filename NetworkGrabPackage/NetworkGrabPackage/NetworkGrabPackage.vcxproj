@@ -152,6 +152,7 @@
     <ClCompile Include="PacketCapture.cpp" />
     <ClCompile Include="PacketFilter.cpp" />
     <ClCompile Include="PacketParser.cpp" />
+    <ClCompile Include="TCPDecoder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />

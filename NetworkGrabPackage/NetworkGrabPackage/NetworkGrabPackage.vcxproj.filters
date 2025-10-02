@@ -75,6 +75,9 @@
     <ClCompile Include="EtherDecoder.cpp">
       <Filter>源文件\NetWork\Decoder</Filter>
     </ClCompile>
+    <ClCompile Include="TCPDecoder.cpp">
+      <Filter>源文件\NetWork\Decoder</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">

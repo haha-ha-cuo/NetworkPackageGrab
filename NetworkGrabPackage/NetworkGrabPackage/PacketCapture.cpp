@@ -4,6 +4,7 @@
 #include <pcap.h>
 #include "IPDecoder.hpp"
 #include "EthernetDecoder.hpp"
+#include "TCPDecoder.hpp"
 
 using namespace std;
 using namespace Contants;
@@ -13,9 +14,10 @@ PacketCapture::PacketCapture() {
 	header = nullptr;
 	pktData = nullptr;
 	result = 0;
-	Counter = 30; //循环10次（之后用线程控制）
+	Counter = 100; //循环10次（之后用线程控制）
 	protocolDecoderIPV4 = new IPDecoder(); //暂时只支持IP协议解码
 	protocolDecoderEthernet = new EthernetDecoder();
+	protocolDecoderTCP = new TCPDecoder();
 };
 
 PacketCapture::~PacketCapture() {
@@ -41,7 +43,7 @@ void PacketCapture::startCapture(const char* deviceName) {
 
 	cout << "[Info]Packet capture started on device: " << deviceName << endl;
 
-	packetFilter.setFilter("ip", handle, deviceName); //设置过滤器，只捕获IP包
+	packetFilter.setFilter("tcp port 80", handle, deviceName); //设置过滤器，只捕获IP包
 
 	while ((result = pcap_next_ex(handle, &header, &pktData)) >= 0 && Counter--) {
 		if (result == 0) {
@@ -61,6 +63,7 @@ void PacketCapture::startCapture(const char* deviceName) {
 		//调用协议解码器
 		protocolDecoderEthernet->packetHandle(pktData);
 		protocolDecoderIPV4->packetHandle(pktData);
+		protocolDecoderTCP->packetHandle(pktData);
 
 		//数据存储
 		packetMap.insert(pair<const time_t, const u_char* >(ts, pktData));

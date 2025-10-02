@@ -70,3 +70,17 @@ typedef struct etherHeader {
 	u_char ether_shost[6];  // 源 MAC 地址
 	u_short ether_type;     // 上层协议类型（如 IPv4、ARP）
 } etherHeader;
+
+
+/* TCP header */
+typedef struct tcpHeader {
+	u_short sport; // Source port
+	u_short dport; // Destination port
+	u_int seqnum;  // Sequence number
+	u_int acknum;  // Acknowledgment number
+	u_char dataOffsetReserved; // Data offset (4 bits) + Reserved (4 bits)
+	u_char flags;  // Flags
+	u_short window; // Window size
+	u_short checksum; // Checksum
+	u_short urgptr;  // Urgent pointer
+}tcpHeader;

@@ -31,6 +31,7 @@ private:
 
 	ProtocolDecoder* protocolDecoderIPV4;//协议解码器对象
 
+	ProtocolDecoder* protocolDecoderTCP;//协议解码器对象
 
 public:
 
