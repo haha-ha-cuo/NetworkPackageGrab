@@ -38,24 +38,24 @@ bool FileStorage::Packets2Json(const map<const time_t, const u_char*>& packetMap
         cout << "[Info]No packets captured. Creating test packets for JSON file." << endl;
     }
     else {
-        // ´¦ÀíÊµ¼Ê²¶»ñµÄÊý¾Ý°ü
+        // å¤„ç†å®žé™…æ•èŽ·çš„æ•°æ®åŒ…
         for (const auto& pair : packetMap) {
             json packetObj;
             time_t timestamp = pair.first;
             const u_char* data = pair.second;
 
             packetObj["timestamp"] = timestamp;
-            // ¼ÙÉèÃ¿¸öÊý¾Ý°üµÄ³¤¶ÈÎª100×Ö½Ú
+            // å‡è®¾æ¯ä¸ªæ•°æ®åŒ…çš„é•¿åº¦ä¸º100å­—èŠ‚
             packetObj["data"] = bytesToHexString(data, 100);
 
             packetsArray.push_back(packetObj);
         }
     }
 
-    // Ð´ÈëÎÄ¼þ
+    // å†™å…¥æ–‡ä»¶
     ofstream file(filename);
     if (!file.is_open()) {
-        cerr << "ÎÞ·¨´ò¿ªÎÄ¼þ½øÐÐÐ´Èë: " << filename << endl;
+        cerr << "æ— æ³•æ‰“å¼€æ–‡ä»¶è¿›è¡Œå†™å…¥: " << filename << endl;
         return false;
     }
 
@@ -72,7 +72,7 @@ std::vector<std::pair<time_t, std::vector<u_char>>> FileStorage::readPacketsFrom
     try {
         std::ifstream file(filename);
         if (!file.is_open()) {
-            std::cerr << "ÎÞ·¨´ò¿ªÎÄ¼þ: " << filename << std::endl;
+            std::cerr << "æ— æ³•æ‰“å¼€æ–‡ä»¶: " << filename << std::endl;
             return packets;
         }
 
@@ -87,10 +87,10 @@ std::vector<std::pair<time_t, std::vector<u_char>>> FileStorage::readPacketsFrom
             packets.emplace_back(timestamp, data);
         }
 
-        std::cout << "³É¹¦´ÓJSONÎÄ¼þ¶ÁÈ¡ " << packets.size() << " ¸öÊý¾Ý°ü" << std::endl;
+        std::cout << "æˆåŠŸä»ŽJSONæ–‡ä»¶è¯»å– " << packets.size() << " ä¸ªæ•°æ®åŒ…" << std::endl;
     }
     catch (const std::exception& e) {
-        std::cerr << "¶ÁÈ¡JSONÎÄ¼þÊ±·¢Éú´íÎó: " << e.what() << std::endl;
+        std::cerr << "è¯»å–JSONæ–‡ä»¶æ—¶å‘ç”Ÿé”™è¯¯: " << e.what() << std::endl;
     }
 
     return packets;
@@ -112,68 +112,68 @@ FileStorage::~FileStorage() {
 }
 
 string FileStorage::bytesToHexString(const u_char* data, int length) {
-	stringstream ss;
-	ss << hex << setfill('0');
-	for (int i = 0; i < length; ++i) {
-		ss << setw(2) << static_cast<int>(data[i]);
-	}
-	return ss.str();
+    stringstream ss;
+    ss << hex << setfill('0');
+    for (int i = 0; i < length; ++i) {
+        ss << setw(2) << static_cast<int>(data[i]);
+    }
+    return ss.str();
 }
 
 vector<u_char> FileStorage::hexStringToBytes(const string& hexStr) {
-	vector<u_char> bytes;
-	for (size_t i = 0; i < hexStr.length(); i += 2) {
-		string byteString = hexStr.substr(i, 2);
-		u_char byte = static_cast<u_char>(strtol(byteString.c_str(), nullptr, 16));
-		bytes.push_back(byte);
-	}
-	return bytes;
+    vector<u_char> bytes;
+    for (size_t i = 0; i < hexStr.length(); i += 2) {
+        string byteString = hexStr.substr(i, 2);
+        u_char byte = static_cast<u_char>(strtol(byteString.c_str(), nullptr, 16));
+        bytes.push_back(byte);
+    }
+    return bytes;
 }
 
 bool FileStorage::Packets2Json(const map<const time_t, const u_char*>& packetMap, const string& filename) {
-	json j;
-	for (const auto& pair : packetMap) {
-		time_t timestamp = pair.first;
-		const u_char* data = pair.second;
-		// ¼ÙÉèÃ¿¸öÊý¾Ý°üµÄ³¤¶ÈÊÇ100×Ö½Ú,ºóÆÚÐèÒª¸ü¸Ä£¡£¡£¡
-		string hexData = bytesToHexString(data,100);
-		j[to_string(timestamp)] = hexData;
-	}
-	ofstream file(filename);
-	if (!file.is_open()) {
-		cerr << "ÎÞ·¨´ò¿ªÎÄ¼þ½øÐÐÐ´Èë: " << filename << endl;
-		return false;
-	}
-	file << setw(4) << j << endl; // ÃÀ»¯Êä³ö
-	file.close();
-	return true;
+    json j;
+    for (const auto& pair : packetMap) {
+        time_t timestamp = pair.first;
+        const u_char* data = pair.second;
+        // å‡è®¾æ¯ä¸ªæ•°æ®åŒ…çš„é•¿åº¦æ˜¯100å­—èŠ‚,åŽæœŸéœ€è¦æ›´æ”¹ï¼ï¼ï¼
+        string hexData = bytesToHexString(data,100);
+        j[to_string(timestamp)] = hexData;
+    }
+    ofstream file(filename);
+    if (!file.is_open()) {
+        cerr << "æ— æ³•æ‰“å¼€æ–‡ä»¶è¿›è¡Œå†™å…¥: " << filename << endl;
+        return false;
+    }
+    file << setw(4) << j << endl; // ç¾ŽåŒ–è¾“å‡º
+    file.close();
+    return true;
 }
 std::vector<std::pair<time_t, std::vector<u_char>>> FileStorage::readPacketsFromJson(const std::string& filename) {
-	std::vector<std::pair<time_t, std::vector<u_char>>> packets;
+    std::vector<std::pair<time_t, std::vector<u_char>>> packets;
 
-	try {
-		std::ifstream file(filename);
-		if (!file.is_open()) {
-			std::cerr << "ÎÞ·¨´ò¿ªÎÄ¼þ: " << filename << std::endl;
-			return packets;
-		}
+    try {
+        std::ifstream file(filename);
+        if (!file.is_open()) {
+            std::cerr << "æ— æ³•æ‰“å¼€æ–‡ä»¶: " << filename << std::endl;
+            return packets;
+        }
 
-		json packetsJson;
-		file >> packetsJson;
+        json packetsJson;
+        file >> packetsJson;
 
-		for (const auto& packetJson : packetsJson) {
-			time_t timestamp = packetJson["timestamp"];
-			std::string hexData = packetJson["data"];
-			std::vector<u_char> data = hexStringToBytes(hexData);
+        for (const auto& packetJson : packetsJson) {
+            time_t timestamp = packetJson["timestamp"];
+            std::string hexData = packetJson["data"];
+            std::vector<u_char> data = hexStringToBytes(hexData);
 
-			packets.emplace_back(timestamp, data);
-		}
+            packets.emplace_back(timestamp, data);
+        }
 
-		std::cout << "³É¹¦´ÓJSONÎÄ¼þ¶ÁÈ¡ " << packets.size() << " ¸öÊý¾Ý°ü" << std::endl;
-	}
-	catch (const std::exception& e) {
-		std::cerr << "¶ÁÈ¡JSONÎÄ¼þÊ±·¢Éú´íÎó: " << e.what() << std::endl;
-	}
+        std::cout << "æˆåŠŸä»ŽJSONæ–‡ä»¶è¯»å– " << packets.size() << " ä¸ªæ•°æ®åŒ…" << std::endl;
+    }
+    catch (const std::exception& e) {
+        std::cerr << "è¯»å–JSONæ–‡ä»¶æ—¶å‘ç”Ÿé”™è¯¯: " << e.what() << std::endl;
+    }
 
-	return packets;
+    return packets;
 }*/

@@ -45,7 +45,7 @@ bool PacketParser:: loadAndParseFromJson(const std::string& filename) {
 		tcpDecoder.packetHandle(data + sizeof(etherHeader) + sizeof(ipHeader));
 		cout << "\n" << endl;
 	}
-	cout << "解析完成" << endl;
+	cout << "[Info]解析完成" << endl;
 	return true;
 }
 

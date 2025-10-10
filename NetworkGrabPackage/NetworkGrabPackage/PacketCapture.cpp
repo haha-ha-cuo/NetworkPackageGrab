@@ -77,6 +77,15 @@ void PacketCapture::startCapture(const char* deviceName) {
 		packetMap.insert(pair<const time_t, const u_char* >(ts, pktData));
 		cout << "[Info]Packet stored. Total packets stored: " << packetMap.size() << endl;
 
+		//数据转储
+		try{
+			pcap_dumper_t* dumper = pcap_dump_open(handle, "Output.pcap");
+			pcap_dump((u_char*)dumper, header, pktData);
+			pcap_dump_close(dumper);
+		}catch(...) {
+			cerr << "[Error]Failed to save dump file: " << "Output.pcap" << endl;
+			continue;
+		}
 		cout <<"\n" << endl;
 
 	}
