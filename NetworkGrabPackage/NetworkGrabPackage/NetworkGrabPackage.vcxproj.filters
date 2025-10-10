@@ -78,6 +78,9 @@
     <ClCompile Include="TCPDecoder.cpp">
       <Filter>源文件\NetWork\Decoder</Filter>
     </ClCompile>
+    <ClCompile Include="FileStorage.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -145,5 +148,8 @@
     <ResourceCompile Include="NetworkGrabPackage.rc">
       <Filter>资源文件</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="captured_packets.json" />
   </ItemGroup>
 </Project>

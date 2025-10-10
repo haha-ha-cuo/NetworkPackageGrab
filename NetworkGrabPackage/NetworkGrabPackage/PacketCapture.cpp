@@ -32,7 +32,7 @@ void PacketCapture::startCapture(const char* deviceName) {
 		deviceName,
 		MAX_PACKET_SIZE,
 		1,
-		DEFAULT_SESSION_TIMEOUT,
+		1000,
 		errorbuf
 	);
 
@@ -43,13 +43,21 @@ void PacketCapture::startCapture(const char* deviceName) {
 
 	cout << "[Info]Packet capture started on device: " << deviceName << endl;
 
-	packetFilter.setFilter("tcp port 80", handle, deviceName); //设置过滤器，只捕获IP包
+	packetFilter.setFilter("ip", handle, deviceName); //设置过滤器，只捕获IP包
 
-	while ((result = pcap_next_ex(handle, &header, &pktData)) >= 0 && Counter--) {
+	int capturedPackets = 0;
+	int timeoutCount = 0;
+	const int maxTimeouts = 20; // 最大超时次数
+
+	while ((result = pcap_next_ex(handle, &header, &pktData)) >= 0 &&
+		(capturedPackets < 10 && timeoutCount < maxTimeouts && Counter--)) {
 		if (result == 0) {
 			cout << "[Warn]Timeout elapsed.\n\n" << endl;
 			continue;
 		}
+
+		timeoutCount = 0;
+		capturedPackets++;
 
 		// 打印时间戳和长度
 		cout << "[Info]Packet captured." << endl;
@@ -74,6 +82,9 @@ void PacketCapture::startCapture(const char* deviceName) {
 	}
 	if (result == -1) {
 		cerr << "[Error]Error reading the packets: " << pcap_geterr(handle) << endl;
+	}
+	else if (capturedPackets == 0) {
+		cout << "[Warn]No packets captured after " << maxTimeouts << " timeouts." << endl;
 	}
 }
 
