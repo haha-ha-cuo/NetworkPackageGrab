@@ -14,10 +14,11 @@ PacketCapture::PacketCapture() {
 	header = nullptr;
 	pktData = nullptr;
 	result = 0;
-	Counter = 100; //循环10次（之后用线程控制）
+	Counter = 200; //循环10次（之后用线程控制）
 	protocolDecoderIPV4 = new IPDecoder(); //暂时只支持IP协议解码
 	protocolDecoderEthernet = new EthernetDecoder();
 	protocolDecoderTCP = new TCPDecoder();
+	
 };
 
 PacketCapture::~PacketCapture() {
@@ -32,7 +33,7 @@ void PacketCapture::startCapture(const char* deviceName) {
 		deviceName,
 		MAX_PACKET_SIZE,
 		1,
-		1000,
+		3000,
 		errorbuf
 	);
 
@@ -43,14 +44,15 @@ void PacketCapture::startCapture(const char* deviceName) {
 
 	cout << "[Info]Packet capture started on device: " << deviceName << endl;
 
-	packetFilter.setFilter("ip", handle, deviceName); //设置过滤器，只捕获IP包
+	packetFilter.setFilter("tcp port 80", handle, deviceName); //设置过滤器，只捕获ip包
 
 	int capturedPackets = 0;
 	int timeoutCount = 0;
 	const int maxTimeouts = 20; // 最大超时次数
 
-	while ((result = pcap_next_ex(handle, &header, &pktData)) >= 0 &&
-		(capturedPackets < 10 && timeoutCount < maxTimeouts && Counter--)) {
+	
+
+	while ((result = pcap_next_ex(handle, &header, &pktData)) >= 0&&capturedPackets<20) {
 		if (result == 0) {
 			cout << "[Warn]Timeout elapsed.\n\n" << endl;
 			continue;
@@ -74,19 +76,30 @@ void PacketCapture::startCapture(const char* deviceName) {
 		protocolDecoderTCP->packetHandle(pktData);
 
 		//数据存储
-		packetMap.insert(pair<const time_t, const u_char* >(ts, pktData));
+		//packetMap.insert(pair<const time_t, const u_char* >(ts, pktData));
 		cout << "[Info]Packet stored. Total packets stored: " << packetMap.size() << endl;
 
+		char timeName[16];
+		strftime(timeName, sizeof(timeName), "%H-%M-%S", &tmDest);
+
+		char name[100];
+		snprintf(name, sizeof(name), "../Output/%s.pcap", timeName);
+
 		//数据转储
-		try{
-			pcap_dumper_t* dumper = pcap_dump_open(handle, "Output.pcap");
+		try {
+			dumper = pcap_dump_open(handle, name);
+			if (!dumper) {
+				cerr << "[Error] Failed to open dump file: " << name<< endl;
+				continue;
+			}
 			pcap_dump((u_char*)dumper, header, pktData);
 			pcap_dump_close(dumper);
-		}catch(...) {
-			cerr << "[Error]Failed to save dump file: " << "Output.pcap" << endl;
+		}
+		catch (...) {
+			cerr << "[Error]Failed to save dump file: " << name<< endl;
 			continue;
 		}
-		cout <<"\n" << endl;
+		cout << "\n" << endl;
 
 	}
 	if (result == -1) {

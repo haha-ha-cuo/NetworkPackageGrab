@@ -33,6 +33,7 @@ private:
 
 	ProtocolDecoder* protocolDecoderTCP;//协议解码器对象
 
+	pcap_dumper_t* dumper;
 public:
 
 	PacketCapture();
