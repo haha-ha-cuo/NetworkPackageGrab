@@ -3,6 +3,7 @@
 #include "PacketCapture.hpp"
 #include "PacketParser.hpp"
 #include <iostream>
+#include <zlib.h>
 
 using namespace std;
 
@@ -23,5 +24,6 @@ void Application::StartApplication() {
 	//parser.startParse("\\Device\\NPF_{DB3D8D4E-8126-44D3-AF82-DA2276ADAA30}");
 	//parser.saveToFile("captured_packets.json");
 	//parser.loadAndParseFromJson("captured_packets.json");
+	std::cout << "zlib version: " << zlibVersion() << std::endl;
 }
 
