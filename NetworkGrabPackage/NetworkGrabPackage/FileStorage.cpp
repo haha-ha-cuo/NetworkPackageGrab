@@ -31,7 +31,7 @@ vector<u_char> FileStorage::hexStringToBytes(const string& hexStr) {
     return bytes;
 }
 
-bool FileStorage::Packets2Json(const map<const time_t, const u_char*>& packetMap, const string& filename) {
+bool FileStorage::Packets2Json(const unordered_map<time_t, const u_char*>& packetMap, const string& filename) {
     json packetsArray = json::array();
 
     if (packetMap.empty()) {

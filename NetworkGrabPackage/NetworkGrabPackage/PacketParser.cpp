@@ -7,13 +7,9 @@
 
 using namespace std;
 
-PacketParser::PacketParser()
-{
-}
+PacketParser::PacketParser(){}
 
-PacketParser::~PacketParser()
-{
-}
+PacketParser::~PacketParser(){}
 
 void PacketParser::startParse(const char* deviceName) {
 	startCapture(deviceName);

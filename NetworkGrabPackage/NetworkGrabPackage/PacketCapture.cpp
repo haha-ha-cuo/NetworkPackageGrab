@@ -76,7 +76,7 @@ void PacketCapture::startCapture(const char* deviceName) {
 		protocolDecoderTCP->packetHandle(pktData);
 
 		//数据存储
-		//packetMap.insert(pair<const time_t, const u_char* >(ts, pktData));
+		packetMap.insert(pair<const time_t, const u_char* >(ts, pktData));
 		cout << "[Info]Packet stored. Total packets stored: " << packetMap.size() << endl;
 
 		char timeName[16];
@@ -117,6 +117,6 @@ void PacketCapture::closeCapture() {
 	}
 }
 
-map <const time_t, const u_char*> PacketCapture::getPacketMap() {
+unordered_map <time_t, const u_char*> PacketCapture::getPacketMap() {
 	return packetMap;
 }

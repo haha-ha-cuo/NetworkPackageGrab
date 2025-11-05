@@ -1,7 +1,7 @@
 ﻿#pragma once
 //抓包核心类
 #include "PacketFilter.hpp"
-#include <Map>
+#include <unordered_map>
 #include <pcap.h>
 #include "ProtocolDecoder.hpp"
 
@@ -21,7 +21,7 @@ private:
 
 	char errorbuf[PCAP_ERRBUF_SIZE]; //错误信息缓冲区
 
-	map <const time_t, const u_char*> packetMap; //使用包ID作为键，包数据作为值
+	unordered_map <time_t, const u_char*> packetMap; //使用包ID作为键，包数据作为值
 
 	int Counter;
 
@@ -43,6 +43,6 @@ public:
 
 	void closeCapture();//关闭抓包
 
-	map <const time_t, const u_char*> getPacketMap();//获取包数据
+	unordered_map <time_t, const u_char*> getPacketMap();//获取包数据
 };
 
