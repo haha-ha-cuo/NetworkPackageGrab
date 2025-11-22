@@ -1,11 +1,15 @@
+
 #include "FileStorage.hpp"
 #include <iostream>
 #include <iomanip>
 #include <sstream>
 #include <json.hpp>
+#include <filesystem>
+
 
 using json = nlohmann::json;
 using namespace std;
+namespace fs = std::filesystem;
 
 FileStorage::FileStorage() {
 }
@@ -96,6 +100,49 @@ std::vector<std::pair<time_t, std::vector<u_char>>> FileStorage::readPacketsFrom
     return packets;
 }
 
+// 打印上一级目录下Output文件夹中的文件名称和大小
+void printOutputFiles() {
+    try {
+        // 获取当前文件所在目录的上一级目录
+        fs::path currentFile = __FILE__;
+        fs::path parentDir = currentFile.parent_path().parent_path();
+        fs::path outputDir = parentDir / "Output";
+        // 检查路径是否存在
+        if (!fs::exists(outputDir)) {
+            std::cerr << "[Error]Output the folder does not exist: " << outputDir << std::endl;
+            return;
+        }
+        // 检查是否为目录
+        if (!fs::is_directory(outputDir)) {
+            std::cerr << "[Error] the path is not a folder: " << outputDir << std::endl;
+            return;
+        }
+
+        std::cout << "[Info]Output Foder path: " << outputDir << std::endl;
+        std::cout << "----------------------------------------" << std::endl;
+        std::cout << std::left << std::setw(40) << "file" << std::right << std::setw(20) << "size" << std::endl;
+        std::cout << "----------------------------------------" << std::endl;
+
+        int fileCount = 0;
+        //文件遍历与信息输出
+        for (const auto& entry : fs::directory_iterator(outputDir)) {
+            if (entry.is_regular_file()) {
+                std::string filename = entry.path().filename().string();
+                std::uintmax_t fileSize = fs::file_size(entry.path());
+
+                std::cout << std::left << std::setw(40) << filename
+                    << std::right << std::setw(20) << fileSize << std::endl;
+                fileCount++;
+            }
+        }
+
+        std::cout << "----------------------------------------" << std::endl;
+        std::cout << "[Info]Total: " << fileCount << " file" << std::endl;
+    }
+    catch (const std::exception& e) {
+        std::cerr << "[Error]列出Output文件夹文件时发生错误: " << e.what() << std::endl;
+    }
+}
 
 /*#include "FileStorage.hpp"
 #include <iostream>
