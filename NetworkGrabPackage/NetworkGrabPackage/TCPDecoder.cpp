@@ -1,6 +1,7 @@
 #include "TCPDecoder.hpp"
 #include <iostream>
 #include "Types.hpp"
+#include <iomanip>
 
 using namespace std;
 
@@ -29,4 +30,11 @@ void TCPDecoder::packetHandle(const u_char* data_pkt)
 	cout << "[Info]Urgent Pointer: " << ntohs(tH->urgptr) << endl;
 	cout << "[Info]------------------------------" << endl;
 	cout << endl;
+}
+
+void TCPDecoder::TcpPort(const u_char* data_pkt, pcap_pkthdr * header, char * timestr)
+{
+	tH = (tcpHeader*)data_pkt;
+
+	cout <<"Time:"<<timestr <<setw(6)<< header->ts.tv_usec << "Source Port: " << ntohs(tH->sport) << "\tTCP Destination Port: " << ntohs(tH->dport) << "\tSize:" << header->len << endl;
 }

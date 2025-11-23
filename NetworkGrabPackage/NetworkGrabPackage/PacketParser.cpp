@@ -12,7 +12,7 @@ PacketParser::PacketParser(){}
 PacketParser::~PacketParser(){}
 
 void PacketParser::startParse(const char* deviceName) {
-	startCapture(deviceName);
+	startCapture(deviceName,"tcp port 80");
 }
 
 bool PacketParser::saveToFile(const std::string& filename) {

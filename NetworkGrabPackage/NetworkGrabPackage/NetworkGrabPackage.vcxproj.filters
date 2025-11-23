@@ -81,6 +81,9 @@
     <ClCompile Include="FileStorage.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="TrafficStatistics.cpp">
+      <Filter>源文件\Statistics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">

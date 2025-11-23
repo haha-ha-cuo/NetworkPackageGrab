@@ -39,7 +39,7 @@ public:
 	PacketCapture();
 	~PacketCapture();
 
-	void startCapture(const char* deviceName);//开始抓包
+	void startCapture(const char* deviceName, const char* port);//开始抓包
 
 	void closeCapture();//关闭抓包
 

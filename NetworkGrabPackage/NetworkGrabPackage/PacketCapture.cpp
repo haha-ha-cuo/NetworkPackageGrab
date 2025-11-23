@@ -25,7 +25,7 @@ PacketCapture::~PacketCapture() {
 	closeCapture();
 };
 
-void PacketCapture::startCapture(const char* deviceName) {
+void PacketCapture::startCapture(const char* deviceName, const char* port) {
 
 	cout << "[Info]Starting packet capture on device: " << deviceName << endl;
 
@@ -44,7 +44,7 @@ void PacketCapture::startCapture(const char* deviceName) {
 
 	cout << "[Info]Packet capture started on device: " << deviceName << endl;
 
-	packetFilter.setFilter("tcp port 80", handle, deviceName); //设置过滤器，只捕获ip包
+	packetFilter.setFilter(port, handle, deviceName); 
 
 	int capturedPackets = 0;
 	int timeoutCount = 0;
@@ -68,12 +68,12 @@ void PacketCapture::startCapture(const char* deviceName) {
 		errno_t erro = localtime_s(&tmDest, &ts);
 		char timestr[16];
 		strftime(timestr, sizeof(timestr), "%H:%M:%S", &tmDest);
-		printf("[Info]时间: %s.%06ld 长度: %d 字节\n", timestr, header->ts.tv_usec, header->len);
+		protocolDecoderTCP->TcpPort(pktData, header, timestr);
 
 		//调用协议解码器
-		protocolDecoderEthernet->packetHandle(pktData);
+		/*protocolDecoderEthernet->packetHandle(pktData);
 		protocolDecoderIPV4->packetHandle(pktData);
-		protocolDecoderTCP->packetHandle(pktData);
+		protocolDecoderTCP->packetHandle(pktData);*/
 
 		//数据存储
 		packetMap.insert(pair<const time_t, const u_char* >(ts, pktData));
