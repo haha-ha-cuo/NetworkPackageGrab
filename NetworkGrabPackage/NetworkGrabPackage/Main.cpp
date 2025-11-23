@@ -21,13 +21,14 @@
 //    //return 0;
 //}
 
+#include "FileStorage.hpp"
 #include <iostream>
 
-// 声明 printOutputFiles 函数（定义在 FileStorage.cpp 中）,该函数定义的为全局函数
-void printOutputFiles();
 
 int main() {
-    printOutputFiles();
+    //创建对象打印Output文件夹中文件名称及大小
+    FileStorage printOutput;
+    printOutput.printOutputFiles();
     return 0;
 }
 

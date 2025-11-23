@@ -19,6 +19,9 @@ public:
     // 从JSON文件读取数据包
     vector<pair<time_t, vector<u_char>>> readPacketsFromJson(const std::string& filename);
 
+    //从Output文件夹中读取文件名称及大小
+    void printOutputFiles();
+
 private:
     // 将二进制数据转换为十六进制字符串
     string bytesToHexString(const u_char* data, int length);

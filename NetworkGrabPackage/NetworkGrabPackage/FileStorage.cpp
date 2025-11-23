@@ -101,7 +101,7 @@ std::vector<std::pair<time_t, std::vector<u_char>>> FileStorage::readPacketsFrom
 }
 
 // 打印上一级目录下Output文件夹中的文件名称和大小
-void printOutputFiles() {
+void FileStorage::printOutputFiles() {
     try {
         // 获取当前文件所在目录的上一级目录
         fs::path currentFile = __FILE__;
