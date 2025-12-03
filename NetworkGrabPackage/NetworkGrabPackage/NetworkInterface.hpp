@@ -1,7 +1,7 @@
 ﻿#pragma once
 //网络接口管理类
 #include <cstring>
-#include <Map>
+#include <vector>
 #include <pcap.h>
 
 using namespace std;
@@ -12,7 +12,8 @@ private:
 
 	pcap_if_t* alldevs; //所有网络接口(链表)
 
-	map<const char*, pcap_if_t*> deviceMap; //名称到接口的映射
+protected:
+	vector<const char*> devices; //名称到接口的映射
 
 public:
 
@@ -26,7 +27,7 @@ public:
 	void printAllDevices();
 
 	//根据名称查找网络接口
-	pcap_if_t* findDeviceByName(const char* name);
+	vector<const char*> findDevices();
 
 	uint32_t getIPV4SubnetMask(const char* name);
 

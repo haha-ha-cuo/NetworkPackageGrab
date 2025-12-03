@@ -68,6 +68,7 @@ void PacketCapture::startCapture(const char* deviceName, const char* port) {
 		errno_t erro = localtime_s(&tmDest, &ts);
 		char timestr[16];
 		strftime(timestr, sizeof(timestr), "%H:%M:%S", &tmDest);
+
 		protocolDecoderTCP->TcpPort(pktData, header, timestr);
 
 		//调用协议解码器

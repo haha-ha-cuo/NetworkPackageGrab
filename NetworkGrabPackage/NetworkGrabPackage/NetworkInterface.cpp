@@ -16,7 +16,7 @@ NetworkInterface::NetworkInterface()
 	}
 
 	for (pcap_if_t* device = alldevs; device != nullptr; device = device->next) {
-		deviceMap.insert(pair< const char*, pcap_if_t* >(device->name, device));
+		devices.push_back(device->name);
 	}
 }
 
@@ -32,22 +32,18 @@ pcap_if_t* NetworkInterface::getAllDevices()
 	return alldevs;
 }
 
-pcap_if_t* NetworkInterface::findDeviceByName(const char* name)
+vector<const char*> NetworkInterface::findDevices()
 {
-	auto it = deviceMap.find(name);
-	if (it != deviceMap.end()) {
-		return it->second;
-	}
-	return nullptr;
+	return devices;
 }
 
 void NetworkInterface::printAllDevices()
 {
 	for (pcap_if_t* device = alldevs; device != nullptr; device = device->next) {
-		std::cout << device->name;
+		cout << device->name;
 		if (device->description)
-			std::cout << " (" << device->description << ")";
-		std::cout << std::endl;
+			cout << " (" << device->description << ")";
+		cout << std::endl;
 	}
 }
 
@@ -73,7 +69,6 @@ uint32_t NetworkInterface::getIPV4SubnetMask(const char* name)
 		}
 
 		throw runtime_error("Device not found or no IPv4 address available.");
-		return NULL;
 	}
 	catch (const std::runtime_error& e) {
 		std::cerr << "Defualt：" << e.what() << std::endl;
@@ -100,7 +95,6 @@ const char* NetworkInterface::getIPV6SubnetMask(const char* name)
 			}
 		}
 		throw runtime_error("Device not found or no IPv6 address available.");
-		return nullptr;
 	}
 	catch (const std::runtime_error& e) {
 		std::cerr << "Defualt：" << e.what() << std::endl;

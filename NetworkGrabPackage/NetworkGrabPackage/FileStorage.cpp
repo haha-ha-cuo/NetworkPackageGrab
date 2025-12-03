@@ -138,10 +138,12 @@ void FileStorage::printOutputFiles() {
 
         std::cout << "----------------------------------------" << std::endl;
         std::cout << "[Info]Total: " << fileCount << " file" << std::endl;
+        system("sls");
     }
     catch (const std::exception& e) {
         std::cerr << "[Error]列出Output文件夹文件时发生错误: " << e.what() << std::endl;
     }
+
 }
 
 /*#include "FileStorage.hpp"

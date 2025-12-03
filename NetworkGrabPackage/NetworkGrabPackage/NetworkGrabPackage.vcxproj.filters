@@ -49,6 +49,12 @@
     <Filter Include="源文件\NetWork\Decoder">
       <UniqueIdentifier>{af123a21-37f1-4b60-bf70-bd7367df4cdc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Render">
+      <UniqueIdentifier>{ee341796-86ac-40f8-9647-d5eafa5dda3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Render">
+      <UniqueIdentifier>{760d5701-c5f4-43b5-bb3e-14aadab22289}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -78,10 +84,19 @@
     <ClCompile Include="TCPDecoder.cpp">
       <Filter>源文件\NetWork\Decoder</Filter>
     </ClCompile>
-    <ClCompile Include="FileStorage.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="TrafficStatistics.cpp">
+      <Filter>源文件\Statistics</Filter>
+    </ClCompile>
+    <ClCompile Include="FileStorage.cpp">
+      <Filter>源文件\Storage</Filter>
+    </ClCompile>
+    <ClCompile Include="Render.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Statistics.hpp">
+      <Filter>头文件\Statistics</Filter>
+    </ClCompile>
+    <ClCompile Include="Statistics.cpp">
       <Filter>源文件\Statistics</Filter>
     </ClCompile>
   </ItemGroup>
@@ -91,9 +106,6 @@
     </ClInclude>
     <ClInclude Include="ARPDecoder.hpp">
       <Filter>头文件\NetWork\Decoder</Filter>
-    </ClInclude>
-    <ClInclude Include="BufferManager.hpp">
-      <Filter>头文件\Core</Filter>
     </ClInclude>
     <ClInclude Include="EthernetDecoder.hpp">
       <Filter>头文件\NetWork\Decoder</Filter>
@@ -145,6 +157,12 @@
     </ClInclude>
     <ClInclude Include="PacketStorage.hpp">
       <Filter>头文件\Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="Render.h">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceManager.hpp">
+      <Filter>头文件\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
