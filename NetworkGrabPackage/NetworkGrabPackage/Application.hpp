@@ -17,7 +17,7 @@ public:
 
 	void printAllDevices();
 private:
-	char* deviceName;
+	const char* deviceName;
 
 	char* port;
 };

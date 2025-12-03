@@ -2,28 +2,40 @@
 #include "NetworkInterface.hpp"
 #include "PacketCapture.hpp"
 #include "PacketParser.hpp"
+#include <thread>
 #include <iostream>
 #include <zlib.h>
+using namespace std;
 Application::Application() {
 
 }
 
 Application::~Application() {
-
+	
 }
 
 void Application::StartApplication(){
+	thread captureThread;
 	printAllDevices();
 	cout << "Choice:" ;
 	int choice;
 	cin >> choice;
-	deviceName = const_cast<char*>(devices[choice]);
+	deviceName = devices[choice];
 	string portStr;
 	cout << "Port:";
 	getchar();
 	getline(cin,portStr);
 	port = const_cast<char*>(portStr.c_str());
-	startCapture(deviceName,port);
+	try {
+
+		captureThread = thread(&PacketCapture::startCapture, this, deviceName, port);
+		
+	}catch (const std::runtime_error& e) {
+
+		cerr << "线程异常" << endl;
+	}
+	captureThread.join();
+	
 	
 	//PacketParser parser;
 	/*const char* deviceName = "\\Device\\NPF_{A5484AF4-D1D3-4914-A825-DC74FAAEE006}";
@@ -36,7 +48,7 @@ void Application::StartApplication(){
 
 void Application::printAllDevices() {
 	int i = 0;
-	for(const char * deviceName : devices) {
+	for(const char * deviceName : devicesDescription) {
 		std::cout<<i++<<"->" << deviceName << std::endl;
 	}
 }

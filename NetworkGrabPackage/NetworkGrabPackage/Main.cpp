@@ -8,6 +8,7 @@ using namespace std;
 int main() {
     Application application;
     application.StartApplication();
+    return 0;
 }
 
 //#include "FileStorage.hpp"

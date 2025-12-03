@@ -17,6 +17,7 @@ NetworkInterface::NetworkInterface()
 
 	for (pcap_if_t* device = alldevs; device != nullptr; device = device->next) {
 		devices.push_back(device->name);
+		devicesDescription.push_back(device->description ? device->description : "No description available");
 	}
 }
 

@@ -13,7 +13,9 @@ private:
 	pcap_if_t* alldevs; //所有网络接口(链表)
 
 protected:
-	vector<const char*> devices; //名称到接口的映射
+	vector<const char*> devices;
+
+	vector<const char*>devicesDescription;
 
 public:
 
