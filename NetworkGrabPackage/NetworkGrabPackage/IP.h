@@ -1,5 +1,8 @@
 #pragma once
+
 #include "Packet.h"
+
+
 class IP : public Packet
 {
 public:
@@ -10,21 +13,11 @@ public:
 	void display() const override;
 	string getSummary() const override;
 
-	string getSrcIP() const {
-		return src_ip;
-	}
-	string getDestIP() const {
-		return dst_ip;
-	}
-	uint8_t getProtocol() const {
-		return protocol;
-	}
-	uint16_t getTotalLength() const {
-		return total_length;
-	}
-	uint8_t getTTL() const {
-		return ttl;
-	}
+	string getSrcIP() const { return src_ip; }
+	string getDestIP() const { return dst_ip; }
+	uint8_t getProtocol() const { return protocol; }
+	uint16_t getTotalLength() const { return total_length; }
+	uint8_t getTTL() const { return ttl; }
 
 private:
 	string src_ip;
@@ -32,5 +25,6 @@ private:
 	uint8_t protocol;
 	uint16_t total_length;
 	uint8_t ttl;
+
 };
 

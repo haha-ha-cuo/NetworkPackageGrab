@@ -2,14 +2,15 @@
 #include "EthernetDecoder.hpp"
 #include "IPDecoder.hpp"
 #include "TCPDecoder.hpp"
-#include<iostream>
-#include<time.h>
+#include <iostream>
+#include <time.h>
 
 using namespace std;
 
-PacketParser::PacketParser(){}
 
-PacketParser::~PacketParser(){}
+PacketParser::PacketParser() {}
+
+PacketParser::~PacketParser() {}
 
 void PacketParser::startParse(const char* deviceName) {
 	startCapture(deviceName,"tcp port 80");

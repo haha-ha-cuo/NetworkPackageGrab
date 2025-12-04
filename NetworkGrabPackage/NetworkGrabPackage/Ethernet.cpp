@@ -1,4 +1,4 @@
-#include "Ethernet.h"
+﻿#include "Ethernet.h"
 
 
 void Ethernet::Parse(){

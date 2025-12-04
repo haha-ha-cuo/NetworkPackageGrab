@@ -1,5 +1,8 @@
 #pragma once
+
 #include "Packet.h"
+
+
 class PacketManager
 {
 public:
@@ -15,7 +18,9 @@ public:
 	size_t GetPacketCount() const {
 		return packets.size();
 	}
+
 private:
 	vector<unique_ptr<Packet>> packets;
+
 };
 

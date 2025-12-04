@@ -1,11 +1,13 @@
 ﻿#include "Application.hpp"
 #include <iostream>
+#include <Windows.h>
 #include <pcap.h>
 #include <cpr/cpr.h>
 
 using namespace std;
 
 int main() {
+	SetConsoleCP(65001);
     Application application;
     application.StartApplication();
     return 0;

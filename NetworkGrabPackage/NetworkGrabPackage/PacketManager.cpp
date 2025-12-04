@@ -1,4 +1,4 @@
-#include "PacketManager.h"
+﻿#include "PacketManager.h"
 
 void PacketManager::AddPacket(unique_ptr<Packet> packet) {
 	packets.push_back(move(packet));

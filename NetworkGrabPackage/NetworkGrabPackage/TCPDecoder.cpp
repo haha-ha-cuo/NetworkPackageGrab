@@ -1,6 +1,6 @@
 #include "TCPDecoder.hpp"
-#include <iostream>
 #include "Types.hpp"
+#include <iostream>
 #include <iomanip>
 
 using namespace std;

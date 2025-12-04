@@ -1,4 +1,4 @@
-#include "TCP.h"
+ï»¿#include "TCP.h"
 
 void TCP::Parse() {
 	if (raw_data.size() < 20) {
@@ -6,24 +6,24 @@ void TCP::Parse() {
 	}
 
 	src_port = (static_cast<uint16_t>(raw_data[0]) << 8) | static_cast<uint16_t>(raw_data[1]);
-	dst_port = (static_cast<uint16_t>(raw_data[2]) << 8) | static_cast<uint16_t>(raw_data[3]);//Ô´¶Ë¿ÚºÍÄ¿µÄ¶Ë¿Ú
+	dst_port = (static_cast<uint16_t>(raw_data[2]) << 8) | static_cast<uint16_t>(raw_data[3]);//æºç«¯å£å’Œç›®çš„ç«¯å£
 
 	sequence_number = (static_cast<uint32_t>(raw_data[4]) << 24) |
 		(static_cast<uint32_t>(raw_data[5]) << 16) |
 		(static_cast<uint32_t>(raw_data[6]) << 8) |
-		static_cast<uint32_t>(raw_data[7]);//ĞòÁĞºÅ
+		static_cast<uint32_t>(raw_data[7]);//åºåˆ—å·
 
 	acknowledgment_number = (static_cast<uint32_t>(raw_data[8]) << 24) |
 		(static_cast<uint32_t>(raw_data[9]) << 16) |
 		(static_cast<uint32_t>(raw_data[10]) << 8) |
-		static_cast<uint32_t>(raw_data[11]);//È·ÈÏºÅ
+		static_cast<uint32_t>(raw_data[11]);//ç¡®è®¤å·
 
-	data_offset = (raw_data[12] >> 4) & 0x0F;//Êı¾İÆ«ÒÆ
+	data_offset = (raw_data[12] >> 4) & 0x0F;//æ•°æ®åç§»
 
 	size_t header_size = data_offset * 4;
 	if (raw_data.size() > header_size) {
 		payload.insert(payload.end(), raw_data.begin() + header_size, raw_data.end());
-	}//ÓĞĞ§ÔØºÉ
+	}//æœ‰æ•ˆè½½è·
 }
 
 void TCP::display() const{
