@@ -5,7 +5,9 @@
 #include <thread>
 #include <iostream>
 #include <zlib.h>
+
 using namespace std;
+
 Application::Application() {
 
 }
@@ -30,9 +32,10 @@ void Application::StartApplication(){
 
 		captureThread = thread(&PacketCapture::startCapture, this, deviceName, port);
 		
-	}catch (const std::runtime_error& e) {
+	} catch (const std::runtime_error& e) {
 
-		cerr << "线程异常" << endl;
+		cerr << "线程异常" << e.what() << endl;
+
 	}
 	captureThread.join();
 	
@@ -49,7 +52,7 @@ void Application::StartApplication(){
 void Application::printAllDevices() {
 	int i = 0;
 	for(const char * deviceName : devicesDescription) {
-		std::cout<<i++<<"->" << deviceName << std::endl;
+		std::cout << i++ << "->" << deviceName << std::endl;
 	}
 }
 

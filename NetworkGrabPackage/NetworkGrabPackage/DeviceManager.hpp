@@ -1,6 +1,7 @@
+#include "NetworkInterface.hpp"
 #include <vector>
 #include <string>
-#include "NetworkInterface.hpp"
+
 
 class DeviceManager {
 	protected:

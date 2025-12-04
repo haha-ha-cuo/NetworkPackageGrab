@@ -152,7 +152,7 @@
     <ClCompile Include="EtherDecoder.cpp" />
     <ClCompile Include="FileStorage.cpp" />
     <ClCompile Include="IPDecoder.cpp" />
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="NetworkInterface.cpp" />
     <ClCompile Include="PacketCapture.cpp" />
     <ClCompile Include="PacketFilter.cpp" />
@@ -173,7 +173,7 @@
     <ClInclude Include="PacketFactory.h" />
     <ClInclude Include="PacketManager.h" />
     <ClInclude Include="Render.h" />
-    <ClInclude Include="Contants.hpp" />
+    <ClInclude Include="Consts.hpp" />
     <ClInclude Include="EthernetDecoder.hpp" />
     <ClInclude Include="FileStorage.hpp" />
     <ClInclude Include="IPDecoder.hpp" />

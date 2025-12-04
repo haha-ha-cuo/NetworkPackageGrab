@@ -1,7 +1,9 @@
-#pragma once
+﻿#pragma once
+
 #include "Packet.h"
-class TCP : 
-	public Packet
+
+
+class TCP : public Packet
 {
 public:
 	TCP(const vector<uint8_t>& data) :
@@ -38,5 +40,6 @@ private:
 	uint32_t acknowledgment_number;
 	uint8_t data_offset;
 	vector<uint8_t> payload;
+
 };
 

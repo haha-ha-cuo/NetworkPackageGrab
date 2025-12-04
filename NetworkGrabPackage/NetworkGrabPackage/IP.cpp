@@ -1,4 +1,4 @@
-#include "IP.h"
+ï»¿#include "IP.h"
 
 void IP::Parse() {
 	if (raw_data.size() < 20) {
@@ -8,23 +8,23 @@ void IP::Parse() {
 	uint8_t version = (raw_data[0] >> 4) & 0x0F;
 	if (version != 4) {
 		throw::runtime_error("Not an IPv4 packet");
-	}//½âÎöIP°æ±¾ºÍÍ·³¤¶È
+	}//è§£æIPç‰ˆæœ¬å’Œå¤´é•¿åº¦
 
-	total_length = (static_cast<uint16_t>(raw_data[2]) << 8) | static_cast<uint16_t>(raw_data[3]);//×Ü³¤¶È
+	total_length = (static_cast<uint16_t>(raw_data[2]) << 8) | static_cast<uint16_t>(raw_data[3]);//æ€»é•¿åº¦
 
-	ttl = raw_data[8];//Éú´æÊ±¼ä
+	ttl = raw_data[8];//ç”Ÿå­˜æ—¶é—´
 
-	protocol = raw_data[9];//Ğ­ÒéÀàĞÍ
+	protocol = raw_data[9];//åè®®ç±»å‹
 
 	src_ip = to_string(static_cast<int>(raw_data[12])) + "." +
 		to_string(static_cast<int>(raw_data[13])) + "." +
 		to_string(static_cast<int>(raw_data[14])) + "." +
-		to_string(static_cast<int>(raw_data[15]));//Ô´IPµØÖ·
+		to_string(static_cast<int>(raw_data[15]));//æºIPåœ°å€
 
 	dst_ip = to_string(static_cast<int>(raw_data[16])) + "." +
 		to_string(static_cast<int>(raw_data[17])) + "." +
 		to_string(static_cast<int>(raw_data[18])) + "." +
-		to_string(static_cast<int>(raw_data[19]));//Ä¿µÄIPµØÖ·
+		to_string(static_cast<int>(raw_data[19]));//ç›®çš„IPåœ°å€
 }
 
 void IP::display() const {

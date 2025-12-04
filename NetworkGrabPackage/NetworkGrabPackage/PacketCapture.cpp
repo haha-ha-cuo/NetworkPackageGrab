@@ -1,13 +1,13 @@
-﻿#include "Contants.hpp"
+﻿#include "Consts.hpp"
 #include "PacketCapture.hpp"
-#include <iostream>
-#include <pcap.h>
 #include "IPDecoder.hpp"
 #include "EthernetDecoder.hpp"
 #include "TCPDecoder.hpp"
+#include <iostream>
+#include <pcap.h>
 
 using namespace std;
-using namespace Contants;
+using namespace Consts;
 
 PacketCapture::PacketCapture() {
 	handle = nullptr;
@@ -18,6 +18,9 @@ PacketCapture::PacketCapture() {
 	protocolDecoderIPV4 = new IPDecoder(); //暂时只支持IP协议解码
 	protocolDecoderEthernet = new EthernetDecoder();
 	protocolDecoderTCP = new TCPDecoder();
+
+	dumper = nullptr;
+	errorbuf[0] = '\0';
 	
 };
 

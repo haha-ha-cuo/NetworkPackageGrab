@@ -1,12 +1,12 @@
 #pragma once
-#include<Windows.h>
+
+#include <windows.h>
+
 
 class Render
 {
 private:
-
 	HANDLE hOutput = GetStdHandle(STD_OUTPUT_HANDLE);
-
 	HANDLE hOutBuf = CreateConsoleScreenBuffer(
 		GENERIC_READ | GENERIC_WRITE,
 		FILE_SHARE_READ | FILE_SHARE_WRITE,
@@ -16,8 +16,7 @@ private:
 	);
 
 public:
-
-	void SetDoubleBuff();
+	void SetDoubleBuff() const;
 
 };
 

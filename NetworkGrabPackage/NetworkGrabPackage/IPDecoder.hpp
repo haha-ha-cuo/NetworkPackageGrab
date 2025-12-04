@@ -1,8 +1,9 @@
 ﻿#pragma once
-//IP协议解码
 
+//IP协议解码
 #include "ProtocolDecoder.hpp"
 #include "Types.hpp"
+
 
 class IPDecoder : public ProtocolDecoder
 {
@@ -12,4 +13,5 @@ public:
 
 private:
 	ipHeader* ih;
+
 };

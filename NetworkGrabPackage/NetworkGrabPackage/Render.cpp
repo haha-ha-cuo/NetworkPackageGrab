@@ -1,6 +1,6 @@
-#include "Render.h"
+﻿#include "Render.h"
 
 
-void Render::SetDoubleBuff() {
+void Render::SetDoubleBuff() const {
 	SetConsoleActiveScreenBuffer(hOutBuf);
 }
