@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="CapturePage.cpp" />
     <ClCompile Include="Ethernet.cpp" />
     <ClCompile Include="IP.cpp" />
     <ClCompile Include="PacketFactory.cpp" />
@@ -166,12 +167,14 @@
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="ARPDecoder.hpp" />
+    <ClInclude Include="CapturePage.hpp" />
     <ClInclude Include="DeviceManager.hpp" />
     <ClInclude Include="Ethernet.h" />
     <ClInclude Include="IP.h" />
     <ClInclude Include="Packet.h" />
     <ClInclude Include="PacketFactory.h" />
     <ClInclude Include="PacketManager.h" />
+    <ClInclude Include="Pages.hpp" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="Consts.hpp" />
     <ClInclude Include="EthernetDecoder.hpp" />
