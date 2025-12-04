@@ -15,9 +15,7 @@ PacketCapture::PacketCapture() {
 	pktData = nullptr;
 	result = 0;
 	Counter = 200; //循环10次（之后用线程控制）
-	protocolDecoderIPV4 = new IPDecoder(); //暂时只支持IP协议解码
-	protocolDecoderEthernet = new EthernetDecoder();
-	protocolDecoderTCP = new TCPDecoder();
+	
 
 	dumper = nullptr;
 	errorbuf[0] = '\0';
@@ -49,6 +47,8 @@ void PacketCapture::startCapture(const char* deviceName, const char* port) {
 
 	packetFilter.setFilter(port, handle, deviceName); 
 
+	Sleep(2000);
+
 	int capturedPackets = 0;
 	int timeoutCount = 0;
 	const int maxTimeouts = 20; // 最大超时次数
@@ -57,22 +57,30 @@ void PacketCapture::startCapture(const char* deviceName, const char* port) {
 
 	while ((result = pcap_next_ex(handle, &header, &pktData)) >= 0&&capturedPackets<20) {
 		if (result == 0) {
-			cout << "[Warn]Timeout elapsed.\n\n" << endl;
+			//cout << "[Warn]Timeout elapsed.\n\n" << endl;
 			continue;
 		}
-
+		protocolDecoderTCP = new TCPDecoder(pktData);
 		timeoutCount = 0;
 		capturedPackets++;
 
 		// 打印时间戳和长度
-		cout << "[Info]Packet captured." << endl;
+		//cout << "[Info]Packet captured." << endl;
 		const time_t ts = header->ts.tv_sec;
 		struct tm tmDest;
 		errno_t erro = localtime_s(&tmDest, &ts);
 		char timestr[16];
 		strftime(timestr, sizeof(timestr), "%H:%M:%S", &tmDest);
 
-		protocolDecoderTCP->TcpPort(pktData, header, timestr);
+		dataPkg pkg;
+		strcpy_s(pkg.ts,timestr);
+		pkg.size = header->len;
+		pkg.sPort = protocolDecoderTCP->getSourcePort();
+		pkg.dPort = protocolDecoderTCP->getDestinationPort();
+		//std::lock_guard<std::mutex> lock(mtx);
+		dataPkgList.push_back(pkg);
+		
+		//protocolDecoderTCP->TcpPort(pktData, header, timestr);
 
 		//调用协议解码器
 		/*protocolDecoderEthernet->packetHandle(pktData);
@@ -80,8 +88,9 @@ void PacketCapture::startCapture(const char* deviceName, const char* port) {
 		protocolDecoderTCP->packetHandle(pktData);*/
 
 		//数据存储
+
 		packetMap.insert(pair<const time_t, const u_char* >(ts, pktData));
-		cout << "[Info]Packet stored. Total packets stored: " << packetMap.size() << endl;
+		//cout << "[Info]Packet stored. Total packets stored: " << packetMap.size() << endl;
 
 		char timeName[16];
 		strftime(timeName, sizeof(timeName), "%H-%M-%S", &tmDest);
@@ -104,7 +113,7 @@ void PacketCapture::startCapture(const char* deviceName, const char* port) {
 			continue;
 		}
 		cout << "\n" << endl;
-
+		//cout <<"[Info]" << dataPkgList.size() << endl;
 	}
 	if (result == -1) {
 		cerr << "[Error]Error reading the packets: " << pcap_geterr(handle) << endl;
