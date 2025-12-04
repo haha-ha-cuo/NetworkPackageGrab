@@ -55,6 +55,12 @@
     <Filter Include="源文件\Render">
       <UniqueIdentifier>{760d5701-c5f4-43b5-bb3e-14aadab22289}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\后加">
+      <UniqueIdentifier>{c8268e73-e6db-46d3-8fd0-40310bd08f6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\后加">
+      <UniqueIdentifier>{ae501616-29f3-4232-95ad-055ac9ce11b2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -98,6 +104,21 @@
     </ClCompile>
     <ClCompile Include="Statistics.cpp">
       <Filter>源文件\Statistics</Filter>
+    </ClCompile>
+    <ClCompile Include="Ethernet.cpp">
+      <Filter>源文件\后加</Filter>
+    </ClCompile>
+    <ClCompile Include="IP.cpp">
+      <Filter>源文件\后加</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketFactory.cpp">
+      <Filter>源文件\后加</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketManager.cpp">
+      <Filter>源文件\后加</Filter>
+    </ClCompile>
+    <ClCompile Include="TCP.cpp">
+      <Filter>源文件\后加</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +184,24 @@
     </ClInclude>
     <ClInclude Include="DeviceManager.hpp">
       <Filter>头文件\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="IP.h">
+      <Filter>头文件\后加</Filter>
+    </ClInclude>
+    <ClInclude Include="Ethernet.h">
+      <Filter>头文件\后加</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet.h">
+      <Filter>头文件\后加</Filter>
+    </ClInclude>
+    <ClInclude Include="TCP.h">
+      <Filter>头文件\后加</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketFactory.h">
+      <Filter>头文件\后加</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketManager.h">
+      <Filter>头文件\后加</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
