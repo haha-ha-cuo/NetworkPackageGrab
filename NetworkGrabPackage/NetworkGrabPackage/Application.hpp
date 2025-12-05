@@ -15,6 +15,8 @@ public:
 	void StartApplication();
 	void printAllDevices();
 
+
+
 private:
 	const char* deviceName;
 	char* port;
