@@ -6,6 +6,9 @@
 #include <iostream>
 #include <zlib.h>
 #include "CapturePage.hpp"
+#include "HomePage.hpp"
+#include "DevicePage.hpp"
+
 
 using namespace std;
 
@@ -18,9 +21,9 @@ Application::~Application() {
 }
 
 void Application::StartApplication(){
-	thread captureThread;
-	thread displayThread;
-	printAllDevices();
+	//thread captureThread;
+	//thread displayThread;
+	/*printAllDevices();
 	cout << "Choice:" ;
 	int choice;
 	cin >> choice;
@@ -29,22 +32,41 @@ void Application::StartApplication(){
 	cout << "Port:";
 	getchar();
 	getline(cin,portStr);
-	port = const_cast<char*>(portStr.c_str());
-	currentPage = new CapturePage();
+	port = const_cast<char*>(portStr.c_str());*/
+	currentPage = new HomePage();
 	currentPage->setPacketCapture(this);
-	try {
+	currentPage->display();
+	while (1) {
+		int index;
+		cin >> index;
+		pushPage(currentPage);
+		currentPage = currentPage->chiocePage(index);
+		currentPage->display();
+		int choice;
+		cin >> choice;
+		if (choice == 1) {
+			currentPage = currentPage->chiocePage(0);
+		}
+		else {
+			currentPage = popPage();
+		}
 
-		captureThread = thread(&PacketCapture::startCapture, this, deviceName, port);
-
-		displayThread = thread(&Pages::display, currentPage);
-
-	} catch (const std::runtime_error& e) {
-
-		cerr << "线程异常" << e.what() << endl;
-
+		currentPage->display();
 	}
-	captureThread.join();
-	displayThread.join();
+	
+	//try {
+
+		//captureThread = thread(&PacketCapture::startCapture, this, deviceName, port);
+
+		//displayThread = thread(&Pages::display, currentPage);
+
+	//} catch (const std::runtime_error& e) {
+
+		//cerr << "线程异常" << e.what() << endl;
+
+	//}
+	//captureThread.join();
+	//displayThread.join();
 	
 	//PacketParser parser;
 	/*const char* deviceName = "\\Device\\NPF_{A5484AF4-D1D3-4914-A825-DC74FAAEE006}";

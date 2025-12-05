@@ -123,8 +123,16 @@
     <ClCompile Include="CapturePage.cpp">
       <Filter>源文件\Render</Filter>
     </ClCompile>
+<<<<<<< Updated upstream
     <ClCompile Include="HomePage.hpp">
       <Filter>头文件\Render</Filter>
+=======
+    <ClCompile Include="HomePage.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="DevicePage.cpp">
+      <Filter>源文件\Render</Filter>
+>>>>>>> Stashed changes
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -213,6 +221,12 @@
       <Filter>头文件\Render</Filter>
     </ClInclude>
     <ClInclude Include="CapturePage.hpp">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="HomePage.hpp">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="DevicePage.hpp">
       <Filter>头文件\Render</Filter>
     </ClInclude>
   </ItemGroup>

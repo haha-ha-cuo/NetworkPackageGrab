@@ -16,8 +16,26 @@ public:
 	void StartApplication();
 	void printAllDevices();
 
+<<<<<<< Updated upstream
+=======
+	void pushPage(Pages* page) {
+		pageStack.push(page);
+	}
+
+	Pages* popPage() {
+		if (pageStack.empty()) {
+			return nullptr;
+		}
+		Pages* topPage = pageStack.top();
+		pageStack.pop();
+		return topPage;
+	}
+
+
+>>>>>>> Stashed changes
 private:
 	const char* deviceName;
 	char* port;
 	Pages* currentPage;
+	std::stack<Pages*> pageStack;
 };

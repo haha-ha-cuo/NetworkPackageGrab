@@ -2,7 +2,10 @@
 #include <iostream>
 #include <Windows.h>
 #include <pcap.h>
+<<<<<<< Updated upstream
 #include <cpr/cpr.h>
+=======
+>>>>>>> Stashed changes
 
 using namespace std;
 
@@ -12,7 +15,11 @@ int main() {
     application.StartApplication();
     return 0;
 }
+<<<<<<< Updated upstream
 
+=======
+//
+>>>>>>> Stashed changes
 //#include "FileStorage.hpp"
 //#include <iostream>
 //
@@ -24,3 +31,14 @@ int main() {
 //    return 0;
 //}
 
+<<<<<<< Updated upstream
+=======
+//#include "TrafficStatistics.hpp"
+//#include<iostream>
+//
+//int main() {
+//	TrafficStatistics ts;
+//	ts.analyzeTraffic();
+//	ts.generateReport();
+//}
+>>>>>>> Stashed changes
