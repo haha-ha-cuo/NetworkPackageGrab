@@ -120,6 +120,9 @@
     <ClCompile Include="TCP.cpp">
       <Filter>源文件\后加</Filter>
     </ClCompile>
+    <ClCompile Include="CapturePage.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -133,9 +136,6 @@
     </ClInclude>
     <ClInclude Include="NetworkInterface.hpp">
       <Filter>头文件\NetWork</Filter>
-    </ClInclude>
-    <ClInclude Include="Contants.hpp">
-      <Filter>头文件\Common</Filter>
     </ClInclude>
     <ClInclude Include="FileStorage.hpp">
       <Filter>头文件\Storage</Filter>
@@ -202,6 +202,15 @@
     </ClInclude>
     <ClInclude Include="PacketManager.h">
       <Filter>头文件\后加</Filter>
+    </ClInclude>
+    <ClInclude Include="Consts.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Pages.hpp">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="CapturePage.hpp">
+      <Filter>头文件\Render</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -21,7 +21,7 @@ bool PacketParser::saveToFile(const std::string& filename) {
 }
 
 bool PacketParser:: loadAndParseFromJson(const std::string& filename) {
-	auto packets = fileStorage.readPacketsFromJson(filename);
+	/*auto packets = fileStorage.readPacketsFromJson(filename);
 	if(packets.empty()) {
 		cerr << "No packets loaded from JSON file: " << filename << endl;
 		return false;
@@ -42,12 +42,12 @@ bool PacketParser:: loadAndParseFromJson(const std::string& filename) {
 		tcpDecoder.packetHandle(data + sizeof(etherHeader) + sizeof(ipHeader));
 		cout << "\n" << endl;
 	}
-	cout << "[Info]解析完成" << endl;
+	cout << "[Info]解析完成" << endl;*/
 	return true;
 }
 
 void PacketParser:: parsePacket(const u_char* data, time_t timetamp) {
-	EthernetDecoder ethernetDecoder;
+	/*EthernetDecoder ethernetDecoder;
 	IPDecoder ipDecoder;
 	TCPDecoder tcpDecoder;
 
@@ -59,5 +59,5 @@ void PacketParser:: parsePacket(const u_char* data, time_t timetamp) {
 	ethernetDecoder.packetHandle(data);
 	ipDecoder.packetHandle(data + sizeof(etherHeader));
 	tcpDecoder.packetHandle(data + sizeof(etherHeader) + sizeof(ipHeader));
-	cout << "\n" << endl;
+	cout << "\n" << endl;*/
 }

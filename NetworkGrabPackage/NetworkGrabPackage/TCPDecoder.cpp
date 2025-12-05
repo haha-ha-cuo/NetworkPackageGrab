@@ -4,6 +4,9 @@
 #include <iomanip>
 
 using namespace std;
+TCPDecoder::TCPDecoder(const u_char* data_pkt) {
+	tH = (tcpHeader*)data_pkt;
+}
 
 void TCPDecoder::packetHandle(const u_char* data_pkt)
 {
@@ -37,4 +40,14 @@ void TCPDecoder::TcpPort(const u_char* data_pkt, pcap_pkthdr * header, char * ti
 	tH = (tcpHeader*)data_pkt;
 
 	cout <<"Time:"<<timestr <<setw(6)<< header->ts.tv_usec << "Source Port: " << ntohs(tH->sport) << "\tTCP Destination Port: " << ntohs(tH->dport) << "\tSize:" << header->len << endl;
+}
+
+u_short TCPDecoder::getSourcePort()
+{
+	return ntohs(tH->sport);
+}
+
+u_short TCPDecoder::getDestinationPort()
+{
+	return ntohs(tH->dport);
 }

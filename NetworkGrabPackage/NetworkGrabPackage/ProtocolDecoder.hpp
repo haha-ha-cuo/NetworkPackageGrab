@@ -10,5 +10,6 @@ public:
 	virtual void packetHandle(const u_char* data_pkt) = 0;								//纯虚函数，必须由派生类实现
 	virtual ~ProtocolDecoder() {}														//虚析构函数，确保派生类的析构函数被调用
 	virtual void TcpPort(const u_char* data_pkt, pcap_pkthdr* header, char* timestr) {}	//虚函数，派生类可选择性实现
-
+	virtual u_short getSourcePort() = 0;//虚函数，派生类可选择性实现
+	virtual u_short getDestinationPort() = 0;//虚函数，派生类可选择性实现
 };

@@ -4,6 +4,7 @@
 #include "NetworkInterface.hpp"
 #include "PacketCapture.hpp"
 #include <vector>
+#include "Pages.hpp"
 
 
 class Application : public PacketCapture, public NetworkInterface
@@ -20,5 +21,5 @@ public:
 private:
 	const char* deviceName;
 	char* port;
-
+	Pages* currentPage;
 };
