@@ -123,6 +123,9 @@
     <ClCompile Include="CapturePage.cpp">
       <Filter>源文件\Render</Filter>
     </ClCompile>
+    <ClCompile Include="HomePage.hpp">
+      <Filter>头文件\Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">

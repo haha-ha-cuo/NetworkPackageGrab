@@ -146,6 +146,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="CapturePage.cpp" />
     <ClCompile Include="Ethernet.cpp" />
+    <ClCompile Include="HomePage.hpp" />
     <ClCompile Include="IP.cpp" />
     <ClCompile Include="PacketFactory.cpp" />
     <ClCompile Include="PacketManager.cpp" />
