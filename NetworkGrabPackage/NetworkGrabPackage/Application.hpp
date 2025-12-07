@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 // 应用程序主类
 #include "NetworkInterface.hpp"
@@ -16,8 +16,6 @@ public:
 	void StartApplication();
 	void printAllDevices();
 
-<<<<<<< Updated upstream
-=======
 	void pushPage(Pages* page) {
 		pageStack.push(page);
 	}
@@ -31,8 +29,6 @@ public:
 		return topPage;
 	}
 
-
->>>>>>> Stashed changes
 private:
 	const char* deviceName;
 	char* port;

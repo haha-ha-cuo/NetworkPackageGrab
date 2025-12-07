@@ -1,11 +1,9 @@
-﻿#include "Application.hpp"
+#include "Application.hpp"
+#include "TrafficStatistics.hpp"
 #include <iostream>
 #include <Windows.h>
 #include <pcap.h>
-<<<<<<< Updated upstream
 #include <cpr/cpr.h>
-=======
->>>>>>> Stashed changes
 
 using namespace std;
 
@@ -15,11 +13,24 @@ int main() {
     application.StartApplication();
     return 0;
 }
-<<<<<<< Updated upstream
 
-=======
+
+//#include "Application.hpp"
+//#include <iostream>
+//#include <Windows.h>
+//#include <pcap.h>
+//#include <cpr/cpr.h>
 //
->>>>>>> Stashed changes
+//using namespace std;
+//
+//int main() {
+//	SetConsoleCP(65001);
+//    Application application;
+//    application.StartApplication();
+//    return 0;
+//}
+//
+
 //#include "FileStorage.hpp"
 //#include <iostream>
 //
@@ -31,8 +42,6 @@ int main() {
 //    return 0;
 //}
 
-<<<<<<< Updated upstream
-=======
 //#include "TrafficStatistics.hpp"
 //#include<iostream>
 //
@@ -41,4 +50,5 @@ int main() {
 //	ts.analyzeTraffic();
 //	ts.generateReport();
 //}
->>>>>>> Stashed changes
+
+
