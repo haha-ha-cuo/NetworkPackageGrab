@@ -145,7 +145,13 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="CapturePage.cpp" />
+    <ClCompile Include="DevicePage.cpp" />
     <ClCompile Include="Ethernet.cpp" />
+<<<<<<< Updated upstream
+    <ClCompile Include="HomePage.hpp" />
+=======
+    <ClCompile Include="HomePage.cpp" />
+>>>>>>> Stashed changes
     <ClCompile Include="IP.cpp" />
     <ClCompile Include="PacketFactory.cpp" />
     <ClCompile Include="PacketManager.cpp" />
@@ -169,7 +175,9 @@
     <ClInclude Include="ARPDecoder.hpp" />
     <ClInclude Include="CapturePage.hpp" />
     <ClInclude Include="DeviceManager.hpp" />
+    <ClInclude Include="DevicePage.hpp" />
     <ClInclude Include="Ethernet.h" />
+    <ClInclude Include="HomePage.hpp" />
     <ClInclude Include="IP.h" />
     <ClInclude Include="Packet.h" />
     <ClInclude Include="PacketFactory.h" />
