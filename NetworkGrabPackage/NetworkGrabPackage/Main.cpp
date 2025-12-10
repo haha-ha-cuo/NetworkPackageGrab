@@ -1,4 +1,5 @@
-﻿#include "Application.hpp"
+#include "Application.hpp"
+#include "TrafficStatistics.hpp"
 #include <iostream>
 #include <Windows.h>
 #include <pcap.h>
@@ -13,6 +14,23 @@ int main() {
     return 0;
 }
 
+
+//#include "Application.hpp"
+//#include <iostream>
+//#include <Windows.h>
+//#include <pcap.h>
+//#include <cpr/cpr.h>
+//
+//using namespace std;
+//
+//int main() {
+//	SetConsoleCP(65001);
+//    Application application;
+//    application.StartApplication();
+//    return 0;
+//}
+//
+
 //#include "FileStorage.hpp"
 //#include <iostream>
 //
@@ -23,4 +41,14 @@ int main() {
 //    printOutput.printOutputFiles();
 //    return 0;
 //}
+
+//#include "TrafficStatistics.hpp"
+//#include<iostream>
+//
+//int main() {
+//	TrafficStatistics ts;
+//	ts.analyzeTraffic();
+//	ts.generateReport();
+//}
+
 
