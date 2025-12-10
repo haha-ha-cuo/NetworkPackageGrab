@@ -84,6 +84,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)Common;$(ProjectDir)Core;$(ProjectDir)Data;$(ProjectDir)Render;$(ProjectDir)Storage;$(ProjectDir)Statistics;$(ProjectDir)NetWork;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -98,6 +99,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)Common;$(ProjectDir)Core;$(ProjectDir)Data;$(ProjectDir)Render;$(ProjectDir)Storage;$(ProjectDir)Statistics;$(ProjectDir)NetWork;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -113,6 +115,8 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(ProjectDir)Common;$(ProjectDir)Core;$(ProjectDir)Data;$(ProjectDir)Render;$(ProjectDir)Storage;$(ProjectDir)Statistics;$(ProjectDir)NetWork;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -132,6 +136,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc11</LanguageStandard_C>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(ProjectDir)Common;$(ProjectDir)Core;$(ProjectDir)Data;$(ProjectDir)Render;$(ProjectDir)Storage;$(ProjectDir)Statistics;$(ProjectDir)NetWork;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -143,67 +148,49 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Application.cpp" />
-    <ClCompile Include="CapturePage.cpp" />
-    <ClCompile Include="DevicePage.cpp" />
-    <ClCompile Include="Ethernet.cpp" />
-    <ClCompile Include="HomePage.cpp" />
-    <ClCompile Include="IP.cpp" />
-    <ClCompile Include="PacketFactory.cpp" />
-    <ClCompile Include="PacketManager.cpp" />
-    <ClCompile Include="Render.cpp" />
-    <ClCompile Include="EtherDecoder.cpp" />
-    <ClCompile Include="FileStorage.cpp" />
-    <ClCompile Include="IPDecoder.cpp" />
+    <ClCompile Include="Core\Application.cpp" />
+    <ClCompile Include="Render\CapturePage.cpp" />
+    <ClCompile Include="Data\Ethernet.cpp" />
+    <ClCompile Include="Data\IP.cpp" />
+    <ClCompile Include="Data\PacketFactory.cpp" />
+    <ClCompile Include="Data\PacketManager.cpp" />
+    <ClCompile Include="Render\Render.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="NetworkInterface.cpp" />
-    <ClCompile Include="PacketCapture.cpp" />
-    <ClCompile Include="PacketFilter.cpp" />
-    <ClCompile Include="PacketParser.cpp" />
-    <ClCompile Include="Statistics.cpp" />
-    <ClCompile Include="Statistics.hpp" />
-    <ClCompile Include="TCP.cpp" />
-    <ClCompile Include="TCPDecoder.cpp" />
-    <ClCompile Include="TrafficStatistics.cpp" />
+    <ClCompile Include="NetWork\NetworkInterface.cpp" />
+    <ClCompile Include="Core\PacketCapture.cpp" />
+    <ClCompile Include="Core\PacketFilter.cpp" />
+    <ClCompile Include="Statistics\Statistics.cpp" />
+    <ClCompile Include="Data\TCP.cpp" />
+    <ClCompile Include="Statistics\TrafficStatistics.cpp" />
+    <ClCompile Include="Data\UDP.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Application.hpp" />
-    <ClInclude Include="ARPDecoder.hpp" />
-    <ClInclude Include="CapturePage.hpp" />
-    <ClInclude Include="DeviceManager.hpp" />
-    <ClInclude Include="DevicePage.hpp" />
-    <ClInclude Include="Ethernet.h" />
-    <ClInclude Include="HomePage.hpp" />
-    <ClInclude Include="IP.h" />
-    <ClInclude Include="Packet.h" />
-    <ClInclude Include="PacketFactory.h" />
-    <ClInclude Include="PacketManager.h" />
-    <ClInclude Include="Pages.hpp" />
-    <ClInclude Include="Render.h" />
-    <ClInclude Include="Consts.hpp" />
-    <ClInclude Include="EthernetDecoder.hpp" />
-    <ClInclude Include="FileStorage.hpp" />
-    <ClInclude Include="IPDecoder.hpp" />
-    <ClInclude Include="MemoryStorage.hpp" />
-    <ClInclude Include="NetworkInterface.hpp" />
-    <ClInclude Include="PacketCapture.hpp" />
-    <ClInclude Include="PacketFilter.hpp" />
-    <ClInclude Include="PacketParser.hpp" />
-    <ClInclude Include="PacketStorage.hpp" />
-    <ClInclude Include="ProtocolDecoder.hpp" />
-    <ClInclude Include="SessionTracker.hpp" />
-    <ClInclude Include="TCP.h" />
-    <ClInclude Include="TCPDecoder.hpp" />
-    <ClInclude Include="TrafficStatistics.hpp" />
-    <ClInclude Include="Types.hpp" />
-    <ClInclude Include="UDPDecoder.hpp" />
-    <ClInclude Include="Utilities.hpp" />
+    <ClInclude Include="Core\Application.hpp" />
+    <ClInclude Include="Render\CapturePage.hpp" />
+    <ClInclude Include="Core\DeviceManager.hpp" />
+    <ClInclude Include="Data\Ethernet.hpp" />
+    <ClInclude Include="Data\IP.hpp" />
+    <ClInclude Include="Data\Packet.hpp" />
+    <ClInclude Include="Data\PacketFactory.hpp" />
+    <ClInclude Include="Data\PacketManager.hpp" />
+    <ClInclude Include="Render\Pages.hpp" />
+    <ClInclude Include="Render\Render.h" />
+    <ClInclude Include="Common\Consts.hpp" />
+    <ClInclude Include="Storage\MemoryStorage.hpp" />
+    <ClInclude Include="NetWork\NetworkInterface.hpp" />
+    <ClInclude Include="Core\PacketCapture.hpp" />
+    <ClInclude Include="Core\PacketFilter.hpp" />
+    <ClInclude Include="Storage\PacketStorage.hpp" />
+    <ClInclude Include="Statistics\SessionTracker.hpp" />
+    <ClInclude Include="Data\TCP.hpp" />
+    <ClInclude Include="Statistics\TrafficStatistics.hpp" />
+    <ClInclude Include="Common\Types.hpp" />
+    <ClInclude Include="Data\UDP.hpp" />
+    <ClInclude Include="Common\Utilities.hpp" />
+    <ClInclude Include="Statistics\Statistics.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="NetworkGrabPackage.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="captured_packets.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
