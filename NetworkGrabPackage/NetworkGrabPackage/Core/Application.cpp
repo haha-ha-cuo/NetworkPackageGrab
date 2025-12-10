@@ -5,6 +5,7 @@
 #include <iostream>
 #include <zlib.h>
 #include "CapturePage.hpp"
+#include <Windows.h>
 
 using namespace std;
 
@@ -19,6 +20,8 @@ Application::~Application() {
 void Application::StartApplication(){
     thread captureThread;
     thread displayThread;
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
     printAllDevices();
     cout << "Choice:" ;
     int choice;

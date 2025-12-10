@@ -1,6 +1,7 @@
 #pragma once
 
 #include <pcap.h>
+#include <string>
 
 enum class PacketDirection
 {

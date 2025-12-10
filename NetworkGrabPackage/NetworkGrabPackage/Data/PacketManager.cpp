@@ -1,6 +1,6 @@
 #include "PacketManager.hpp"
 
-using namespace NetworkGrabPackage;
+using namespace std;
 void PacketManager::AddPacket(unique_ptr<Packet> packet)
 {
     packets.push_back(move(packet));

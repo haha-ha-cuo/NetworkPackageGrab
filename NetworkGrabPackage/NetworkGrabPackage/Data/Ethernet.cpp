@@ -6,7 +6,7 @@ void Ethernet::Parse()
 {
     if (raw_data.size() < 14)
     {
-        throw std::runtime_error("Data too short to be an Ethernet frame");
+        throw runtime_error("Data too short to be an Ethernet frame");
     }
     dst_mac = "";
     for (int i = 0; i < 6; ++i)
