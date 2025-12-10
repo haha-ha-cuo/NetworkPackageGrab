@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="源文件">
@@ -25,9 +25,6 @@
     <Filter Include="头文件\Storage">
       <UniqueIdentifier>{77c62f3c-779c-4546-9360-eebb0f37fe3c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\NetWork\Decoder">
-      <UniqueIdentifier>{ebe8d1c1-61b1-4590-a34c-d6674183bdda}</UniqueIdentifier>
-    </Filter>
     <Filter Include="头文件\Statistics">
       <UniqueIdentifier>{23729393-7ec9-4195-b084-169de6ebe946}</UniqueIdentifier>
     </Filter>
@@ -46,19 +43,16 @@
     <Filter Include="源文件\Storage">
       <UniqueIdentifier>{67627110-2018-407c-9a8c-5651b778c46a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\NetWork\Decoder">
-      <UniqueIdentifier>{af123a21-37f1-4b60-bf70-bd7367df4cdc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="头文件\Render">
       <UniqueIdentifier>{ee341796-86ac-40f8-9647-d5eafa5dda3d}</UniqueIdentifier>
     </Filter>
     <Filter Include="源文件\Render">
       <UniqueIdentifier>{760d5701-c5f4-43b5-bb3e-14aadab22289}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\后加">
+    <Filter Include="头文件\data">
       <UniqueIdentifier>{c8268e73-e6db-46d3-8fd0-40310bd08f6f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\后加">
+    <Filter Include="源文件\data">
       <UniqueIdentifier>{ae501616-29f3-4232-95ad-055ac9ce11b2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -66,159 +60,123 @@
     <ClCompile Include="Main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="NetworkInterface.cpp">
+    <ClCompile Include="NetWork\NetworkInterface.cpp">
       <Filter>源文件\NetWork</Filter>
     </ClCompile>
-    <ClCompile Include="Application.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="PacketCapture.cpp">
+    <ClCompile Include="Core\Application.cpp">
       <Filter>源文件\Core</Filter>
     </ClCompile>
-    <ClCompile Include="PacketParser.cpp">
+    <ClCompile Include="Core\PacketCapture.cpp">
       <Filter>源文件\Core</Filter>
     </ClCompile>
-    <ClCompile Include="PacketFilter.cpp">
+    <ClCompile Include="Core\PacketFilter.cpp">
       <Filter>源文件\Core</Filter>
     </ClCompile>
-    <ClCompile Include="IPDecoder.cpp">
-      <Filter>源文件\NetWork\Decoder</Filter>
-    </ClCompile>
-    <ClCompile Include="EtherDecoder.cpp">
-      <Filter>源文件\NetWork\Decoder</Filter>
-    </ClCompile>
-    <ClCompile Include="TCPDecoder.cpp">
-      <Filter>源文件\NetWork\Decoder</Filter>
-    </ClCompile>
-    <ClCompile Include="TrafficStatistics.cpp">
+    <ClCompile Include="Statistics\TrafficStatistics.cpp">
       <Filter>源文件\Statistics</Filter>
     </ClCompile>
-    <ClCompile Include="FileStorage.cpp">
-      <Filter>源文件\Storage</Filter>
-    </ClCompile>
-    <ClCompile Include="Render.cpp">
+    <ClCompile Include="Render\Render.cpp">
       <Filter>源文件\Render</Filter>
     </ClCompile>
-    <ClCompile Include="Statistics.hpp">
-      <Filter>头文件\Statistics</Filter>
-    </ClCompile>
-    <ClCompile Include="Statistics.cpp">
+    <ClCompile Include="Statistics\Statistics.cpp">
       <Filter>源文件\Statistics</Filter>
     </ClCompile>
-    <ClCompile Include="Ethernet.cpp">
-      <Filter>源文件\后加</Filter>
+    <ClCompile Include="Data\Ethernet.cpp">
+      <Filter>源文件\data</Filter>
     </ClCompile>
-    <ClCompile Include="IP.cpp">
-      <Filter>源文件\后加</Filter>
+    <ClCompile Include="Data\IP.cpp">
+      <Filter>源文件\data</Filter>
     </ClCompile>
-    <ClCompile Include="PacketFactory.cpp">
-      <Filter>源文件\后加</Filter>
+    <ClCompile Include="Data\PacketFactory.cpp">
+      <Filter>源文件\data</Filter>
     </ClCompile>
-    <ClCompile Include="PacketManager.cpp">
-      <Filter>源文件\后加</Filter>
+    <ClCompile Include="Data\PacketManager.cpp">
+      <Filter>源文件\data</Filter>
     </ClCompile>
-    <ClCompile Include="TCP.cpp">
-      <Filter>源文件\后加</Filter>
+    <ClCompile Include="Data\TCP.cpp">
+      <Filter>源文件\data</Filter>
     </ClCompile>
-    <ClCompile Include="CapturePage.cpp">
+    <ClCompile Include="Render\CapturePage.cpp">
       <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\UDP.cpp">
+      <Filter>源文件\data</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Application.hpp">
-      <Filter>头文件</Filter>
+    <ClInclude Include="Core\Application.hpp">
+      <Filter>头文件\Core</Filter>
     </ClInclude>
-    <ClInclude Include="ARPDecoder.hpp">
-      <Filter>头文件\NetWork\Decoder</Filter>
-    </ClInclude>
-    <ClInclude Include="EthernetDecoder.hpp">
-      <Filter>头文件\NetWork\Decoder</Filter>
-    </ClInclude>
-    <ClInclude Include="NetworkInterface.hpp">
+    <ClInclude Include="NetWork\NetworkInterface.hpp">
       <Filter>头文件\NetWork</Filter>
     </ClInclude>
-    <ClInclude Include="FileStorage.hpp">
+    <ClInclude Include="Storage\MemoryStorage.hpp">
       <Filter>头文件\Storage</Filter>
     </ClInclude>
-    <ClInclude Include="IPDecoder.hpp">
-      <Filter>头文件\NetWork\Decoder</Filter>
-    </ClInclude>
-    <ClInclude Include="MemoryStorage.hpp">
-      <Filter>头文件\Storage</Filter>
-    </ClInclude>
-    <ClInclude Include="TCPDecoder.hpp">
-      <Filter>头文件\NetWork\Decoder</Filter>
-    </ClInclude>
-    <ClInclude Include="UDPDecoder.hpp">
-      <Filter>头文件\NetWork\Decoder</Filter>
-    </ClInclude>
-    <ClInclude Include="Types.hpp">
+    <ClInclude Include="Common\Types.hpp">
       <Filter>头文件\Common</Filter>
     </ClInclude>
-    <ClInclude Include="Utilities.hpp">
+    <ClInclude Include="Common\Utilities.hpp">
       <Filter>头文件\Common</Filter>
     </ClInclude>
-    <ClInclude Include="TrafficStatistics.hpp">
+    <ClInclude Include="Statistics\TrafficStatistics.hpp">
       <Filter>头文件\Statistics</Filter>
     </ClInclude>
-    <ClInclude Include="SessionTracker.hpp">
+    <ClInclude Include="Statistics\SessionTracker.hpp">
       <Filter>头文件\Statistics</Filter>
     </ClInclude>
-    <ClInclude Include="ProtocolDecoder.hpp">
-      <Filter>头文件\NetWork</Filter>
-    </ClInclude>
-    <ClInclude Include="PacketCapture.hpp">
+    <ClInclude Include="Core\PacketCapture.hpp">
       <Filter>头文件\Core</Filter>
     </ClInclude>
-    <ClInclude Include="PacketFilter.hpp">
+    <ClInclude Include="Core\PacketFilter.hpp">
       <Filter>头文件\Core</Filter>
     </ClInclude>
-    <ClInclude Include="PacketParser.hpp">
-      <Filter>头文件\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="PacketStorage.hpp">
+    <ClInclude Include="Storage\PacketStorage.hpp">
       <Filter>头文件\Storage</Filter>
     </ClInclude>
-    <ClInclude Include="Render.h">
+    <ClInclude Include="Render\Render.h">
       <Filter>头文件\Render</Filter>
     </ClInclude>
-    <ClInclude Include="DeviceManager.hpp">
+    <ClInclude Include="Core\DeviceManager.hpp">
       <Filter>头文件\Core</Filter>
     </ClInclude>
-    <ClInclude Include="IP.h">
-      <Filter>头文件\后加</Filter>
-    </ClInclude>
-    <ClInclude Include="Ethernet.h">
-      <Filter>头文件\后加</Filter>
-    </ClInclude>
-    <ClInclude Include="Packet.h">
-      <Filter>头文件\后加</Filter>
-    </ClInclude>
-    <ClInclude Include="TCP.h">
-      <Filter>头文件\后加</Filter>
-    </ClInclude>
-    <ClInclude Include="PacketFactory.h">
-      <Filter>头文件\后加</Filter>
-    </ClInclude>
-    <ClInclude Include="PacketManager.h">
-      <Filter>头文件\后加</Filter>
-    </ClInclude>
-    <ClInclude Include="Consts.hpp">
+    <ClInclude Include="Common\Consts.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Pages.hpp">
+    <ClInclude Include="Render\Pages.hpp">
       <Filter>头文件\Render</Filter>
     </ClInclude>
-    <ClInclude Include="CapturePage.hpp">
+    <ClInclude Include="Render\CapturePage.hpp">
       <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\IP.hpp">
+      <Filter>头文件\data</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Ethernet.hpp">
+      <Filter>头文件\data</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Packet.hpp">
+      <Filter>头文件\data</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\TCP.hpp">
+      <Filter>头文件\data</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\UDP.hpp">
+      <Filter>头文件\data</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\PacketManager.hpp">
+      <Filter>头文件\data</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\PacketFactory.hpp">
+      <Filter>头文件\data</Filter>
+    </ClInclude>
+    <ClInclude Include="Statistics\Statistics.hpp">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="NetworkGrabPackage.rc">
       <Filter>资源文件</Filter>
     </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="captured_packets.json" />
   </ItemGroup>
 </Project>
