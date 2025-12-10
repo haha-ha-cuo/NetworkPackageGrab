@@ -99,6 +99,12 @@
     <ClCompile Include="Render\CapturePage.cpp">
       <Filter>源文件\Render</Filter>
     </ClCompile>
+    <ClCompile Include="Render\DevicePage.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\HomePage.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
     <ClCompile Include="Data\UDP.cpp">
       <Filter>源文件\data</Filter>
     </ClCompile>
@@ -147,6 +153,12 @@
       <Filter>头文件\Render</Filter>
     </ClInclude>
     <ClInclude Include="Render\CapturePage.hpp">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\DevicePage.hpp">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\HomePage.hpp">
       <Filter>头文件\Render</Filter>
     </ClInclude>
     <ClInclude Include="Data\IP.hpp">

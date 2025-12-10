@@ -150,6 +150,8 @@
   <ItemGroup>
     <ClCompile Include="Core\Application.cpp" />
     <ClCompile Include="Render\CapturePage.cpp" />
+    <ClCompile Include="Render\DevicePage.cpp" />
+    <ClCompile Include="Render\HomePage.cpp" />
     <ClCompile Include="Data\Ethernet.cpp" />
     <ClCompile Include="Data\IP.cpp" />
     <ClCompile Include="Data\PacketFactory.cpp" />
@@ -167,6 +169,8 @@
   <ItemGroup>
     <ClInclude Include="Core\Application.hpp" />
     <ClInclude Include="Render\CapturePage.hpp" />
+    <ClInclude Include="Render\DevicePage.hpp" />
+    <ClInclude Include="Render\HomePage.hpp" />
     <ClInclude Include="Core\DeviceManager.hpp" />
     <ClInclude Include="Data\Ethernet.hpp" />
     <ClInclude Include="Data\IP.hpp" />
