@@ -1,4 +1,4 @@
-#include "CapturePage.hpp"
+﻿#include "CapturePage.hpp"
 #include <iostream>
 #include <vector>
 #include <thread>

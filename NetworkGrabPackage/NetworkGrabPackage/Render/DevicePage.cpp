@@ -1,4 +1,4 @@
-#include "DevicePage.hpp"
+﻿#include "DevicePage.hpp"
 #include "CapturePage.hpp"
 #include <iostream>
 
