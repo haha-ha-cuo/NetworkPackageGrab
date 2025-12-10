@@ -22,6 +22,14 @@ Pages* DevicePage::display()
     cin >> n;
 	
     if (chiocePage(n - 1)) {
+        int i;
+		cout << ">>Select Device Index: ";
+        cin >> i;
+		deviceName = const_cast<char*>(getDeviceName(i));
+       
+		cout << ">>Input Port Number: ";
+        getchar();
+		getline(cin, port);
         Pages::pageStack.push(this);
 		return chiocePage(n - 1);
     }

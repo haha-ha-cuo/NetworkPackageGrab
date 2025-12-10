@@ -27,6 +27,8 @@ private:
         u_short dPort;
         bpf_u_int32 size;
     };
+protected:
+	vector<dataPkg> dataVector;
 
 public:
     PacketCapture();

@@ -76,9 +76,15 @@ void PacketCapture::startCapture(const char *deviceName, const char *port)
             packetManager.AddPacket(std::move(packet));
         }
 
-        char timeName[16];
+        const time_t ts = header->ts.tv_sec;
+        struct tm tmDest;
+        errno_t erro = localtime_s(&tmDest, &ts);
+        char timestr[16];
+        strftime(timestr, sizeof(timestr), "%H-%M-%S", &tmDest);
+
         char name[100];
-        snprintf(name, sizeof(name), "../Output/%s.pcap", timeName);
+
+        snprintf(name, sizeof(name), "../Output/%s.pcap", timestr);
 
         try
         {
