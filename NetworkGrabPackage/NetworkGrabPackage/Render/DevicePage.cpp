@@ -6,7 +6,7 @@ DevicePage::DevicePage() {}
 
 DevicePage::~DevicePage() {}
 
-void DevicePage::display()
+Pages* DevicePage::display()
 {
     system("cls");
     std::cout << "Device Page Display" << std::endl;
@@ -17,11 +17,25 @@ void DevicePage::display()
     std::cout << ">>1. next" << std::endl;
     std::cout << ">>2. Back to Home Page" << std::endl;
     std::cout << ">>";
+
+    int n;
+    cin >> n;
+	
+    if (chiocePage(n - 1)) {
+        Pages::pageStack.push(this);
+		return chiocePage(n - 1);
+    }
+    else {
+		return Pages::Back();
+    }
 }
 
 Pages* DevicePage::chiocePage(int index)
 {
-    return new CapturePage();
+    if (!index)
+        return new CapturePage();
+    else
+        return nullptr;
 }
 
 const char* DevicePage::getDeviceName(int i) const

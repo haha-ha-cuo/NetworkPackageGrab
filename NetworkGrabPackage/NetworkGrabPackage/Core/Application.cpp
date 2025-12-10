@@ -5,7 +5,7 @@
 #include <iostream>
 #include <zlib.h>
 #include "CapturePage.hpp"
-#include <Windows.h>
+#include "HomePage.hpp"
 
 using namespace std;
 
@@ -18,41 +18,10 @@ Application::~Application() {
 }
 
 void Application::StartApplication(){
-    thread captureThread;
-    thread displayThread;
-    SetConsoleOutputCP(CP_UTF8);
-    SetConsoleCP(CP_UTF8);
-    printAllDevices();
-    cout << "Choice:" ;
-    int choice;
-    cin >> choice;
-    deviceName = devices[choice];
-    string portStr;
-    cout << "Port:";
-    getchar();
-    getline(cin,portStr);
-    port = const_cast<char*>(portStr.c_str());
-    currentPage = new CapturePage();
-    currentPage->setPacketCapture(this);
-    try {
-
-        captureThread = thread(&PacketCapture::startCapture, this, deviceName, port);
-
-        displayThread = thread(&Pages::display, currentPage);
-
-    } catch (const std::runtime_error& e) {
-
-        cerr << "线程异常" << e.what() << endl;
-
-    }
-    captureThread.join();
-    displayThread.join();
-    
-}
-
-void Application::printAllDevices() {
-    int i = 0;
-    for(const char * deviceName : devicesDescription) {
-        std::cout << i++ << " : " << deviceName << std::endl;
-    }
+	currentPage = new HomePage();
+    while (true)
+    {
+		Pages* nextPage = currentPage->display();
+		currentPage = nextPage;
+	}
 }

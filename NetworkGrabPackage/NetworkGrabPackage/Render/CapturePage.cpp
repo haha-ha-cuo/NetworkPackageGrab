@@ -7,21 +7,21 @@
 #include "TCP.hpp"
 #include "UDP.hpp"
 
-void CapturePage::display()
+Pages* CapturePage::display()
 {
     while (1)
     {
         system("cls");
         std::clog << "Time\t\t" << "Source Port\t\t" << "Destination Port\t" << "Size" << std::endl;
 
-        if (!capturePtr)
+        if (capturePtr.getPacketManager().GetPackets().empty())
         {
             std::clog << "[Warn] PacketCapture instance not set. Use setPacketCapture()." << std::endl;
             std::this_thread::sleep_for(std::chrono::milliseconds(2000));
             continue;
         }
 
-        const auto &pkts = capturePtr->getPacketManager().GetPackets();
+        const auto &pkts = capturePtr.getPacketManager().GetPackets();
         size_t start = pkts.size() > 200 ? pkts.size() - 200 : 0;
         for (size_t i = start; i < pkts.size(); ++i)
         {

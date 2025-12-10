@@ -3,9 +3,18 @@
 #include "PacketCapture.hpp"
 
 class Pages {
-private:
-    std::stack<Pages*> pageStack;
+protected:
+	PacketCapture capturePtr;
+	inline static stack<Pages*> pageStack;
 public:
-    virtual void display() = 0;
-    virtual void setPacketCapture(PacketCapture* cap) {}
+    virtual Pages* display() = 0;
+
+	Pages* Back() {
+		if (pageStack.empty()) {
+			return nullptr;
+		}
+		Pages* prevPage = pageStack.top();
+		pageStack.pop();
+		return prevPage;
+	};
 };

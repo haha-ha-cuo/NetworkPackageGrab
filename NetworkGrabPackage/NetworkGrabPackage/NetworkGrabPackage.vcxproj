@@ -151,6 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Core\Application.cpp" />
+    <ClCompile Include="Pages..cpp" />
     <ClCompile Include="Render\CapturePage.cpp" />
     <ClCompile Include="Render\DevicePage.cpp" />
     <ClCompile Include="Render\HomePage.cpp" />

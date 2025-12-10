@@ -10,6 +10,6 @@ private:
 public:
     HomePage();
     ~HomePage();
-    void display() override;
+    Pages* display() override;
     Pages* chiocePage(int i);
 };

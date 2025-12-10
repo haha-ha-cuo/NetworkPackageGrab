@@ -6,9 +6,8 @@ class CapturePage : public Pages
 {
 private:
     mutable std::mutex mtx;
-    PacketCapture* capturePtr = nullptr;
 public:
-    explicit CapturePage(PacketCapture* cap = nullptr) : capturePtr(cap) {}
-    void setPacketCapture(PacketCapture* cap) override{ capturePtr = cap; }
-    void display() override;
+    explicit CapturePage(){}
+
+    Pages* display() override;
 };

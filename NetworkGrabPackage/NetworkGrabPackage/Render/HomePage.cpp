@@ -3,6 +3,7 @@
 
 HomePage::HomePage()
 {
+	
     subPages.push_back(new DevicePage());
 }
 
@@ -14,7 +15,7 @@ HomePage::~HomePage()
     }
 }
 
-void HomePage::display()
+Pages* HomePage::display()
 {
     system("cls");
     std::cout << "1: 抓包测试" << std::endl;
@@ -22,6 +23,12 @@ void HomePage::display()
     std::cout << "3: http解析" << std::endl;
     std::cout << "4: 文件转存" << std::endl;
     std::cout << ">>";
+    int n;
+    cin >> n;
+
+    Pages::pageStack.push(this);
+
+	return chiocePage(n);
 }
 
 Pages *HomePage::chiocePage(int index)

@@ -64,6 +64,7 @@ void PacketCapture::startCapture(const char *deviceName, const char *port)
         capturedPackets++;
 
         std::vector<uint8_t> dataVec(pktData, pktData + header->caplen);
+
         auto packet = PacketFactory::createPacket(dataVec);
         if (packet)
         {

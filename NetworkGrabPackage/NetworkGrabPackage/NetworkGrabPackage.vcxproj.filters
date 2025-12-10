@@ -108,6 +108,9 @@
     <ClCompile Include="Data\UDP.cpp">
       <Filter>源文件\data</Filter>
     </ClCompile>
+    <ClCompile Include="Pages..cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Application.hpp">

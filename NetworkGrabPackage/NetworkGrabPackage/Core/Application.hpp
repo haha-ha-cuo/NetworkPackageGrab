@@ -6,7 +6,7 @@
 #include <vector>
 #include "Pages.hpp"
 
-class Application : public PacketCapture, public NetworkInterface
+class Application
 {
 public:
 	Application();
