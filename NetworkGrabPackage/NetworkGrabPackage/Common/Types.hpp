@@ -33,25 +33,19 @@ enum class PacketType
     UNKNOWN
 };
 
-typedef struct ip_address
+inline std::string PacketTypeToString(PacketType type)
 {
-    u_char byte1;
-    u_char byte2;
-    u_char byte3;
-    u_char byte4;
-} ip_address;
-
-typedef struct ipHeader
-{
-    u_char ver_ihl;
-    u_char tos;
-    u_short tlen;
-    u_short identification;
-    u_short flags_fo;
-    u_char ttl;
-    u_char proto;
-    u_short crc;
-    ip_address saddr;
-    ip_address daddr;
-    u_int op_pad;
-} ipHeader;
+    switch (type)
+    {
+    case PacketType::ETHERNET:
+        return "Ethernet";
+    case PacketType::IP:
+        return "IP";
+    case PacketType::TCP:
+        return "TCP";
+    case PacketType::UDP:
+        return "UDP";
+    default:
+        return "Unknown";
+    }
+}

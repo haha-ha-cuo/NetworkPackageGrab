@@ -4,7 +4,7 @@
 class Ethernet : public Packet
 {
 public:
-    Ethernet(const std::vector<uint8_t>& data)
+    Ethernet(const std::vector<uint8_t> &data)
         : Packet(data, PacketType::ETHERNET), ether_type(0) {}
 
     void Parse() override;

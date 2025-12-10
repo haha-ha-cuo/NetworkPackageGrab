@@ -140,7 +140,7 @@
     <ClInclude Include="Storage\PacketStorage.hpp">
       <Filter>头文件\Storage</Filter>
     </ClInclude>
-    <ClInclude Include="Render\Render.h">
+    <ClInclude Include="Render\Render.hpp">
       <Filter>头文件\Render</Filter>
     </ClInclude>
     <ClInclude Include="Core\DeviceManager.hpp">

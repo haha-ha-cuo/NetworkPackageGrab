@@ -10,10 +10,10 @@
 class Packet
 {
 protected:
-    std::vector<uint8_t> raw_data;
-    std::chrono::system_clock::time_point timestamp;
-    PacketType packet_type;
-    size_t packet_size;
+    std::vector<uint8_t> raw_data;                   // 原始数据
+    std::chrono::system_clock::time_point timestamp; // 时间戳
+    PacketType packet_type;                          // 类型
+    size_t packet_size;                              // 大小
 
 public:
     Packet(const std::vector<uint8_t> &data, PacketType type) : raw_data(data), packet_type(type), packet_size(data.size())
@@ -26,37 +26,8 @@ public:
     virtual void display() const = 0;
     virtual std::string getSummary() const = 0;
 
-    std::vector<uint8_t> GetRawData() const
-    {
-        return raw_data;
-    }
-    PacketType GetPacketType() const
-    {
-        return packet_type;
-    }
-    size_t GetPacketSize() const
-    {
-        return packet_size;
-    }
-    std::chrono::system_clock::time_point GetTimestamp() const
-    {
-        return timestamp;
-    }
-
-    static std::string typeToString(PacketType type)
-    {
-        switch (type)
-        {
-        case PacketType::ETHERNET:
-            return "Ethernet";
-        case PacketType::IP:
-            return "IP";
-        case PacketType::TCP:
-            return "TCP";
-        case PacketType::UDP:
-            return "UDP";
-        default:
-            return "Unknown";
-        }
-    }
+    std::vector<uint8_t> GetRawData() const { return raw_data; }
+    PacketType GetPacketType() const { return packet_type; }
+    size_t GetPacketSize() const { return packet_size; }
+    std::chrono::system_clock::time_point GetTimestamp() const { return timestamp; }
 };

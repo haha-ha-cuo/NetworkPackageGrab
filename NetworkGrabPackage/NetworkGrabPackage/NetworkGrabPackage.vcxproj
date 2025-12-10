@@ -178,7 +178,7 @@
     <ClInclude Include="Data\PacketFactory.hpp" />
     <ClInclude Include="Data\PacketManager.hpp" />
     <ClInclude Include="Render\Pages.hpp" />
-    <ClInclude Include="Render\Render.h" />
+    <ClInclude Include="Render\Render.hpp" />
     <ClInclude Include="Common\Consts.hpp" />
     <ClInclude Include="Storage\MemoryStorage.hpp" />
     <ClInclude Include="NetWork\NetworkInterface.hpp" />
