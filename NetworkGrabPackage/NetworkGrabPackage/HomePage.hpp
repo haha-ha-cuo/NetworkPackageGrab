@@ -1,14 +1,4 @@
-<<<<<<< Updated upstream
-#include ""
-
-class HomePage : public
-{
-private:
-
-public:
-
-
-=======
+#pragma once
 #include "Pages.hpp"
 #include "DevicePage.hpp"
 #include <vector>
@@ -29,5 +19,5 @@ public:
 	void display() override;
 
 	Pages* chiocePage(int index) override;
->>>>>>> Stashed changes
+
 };

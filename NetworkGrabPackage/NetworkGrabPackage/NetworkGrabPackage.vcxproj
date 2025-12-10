@@ -147,11 +147,7 @@
     <ClCompile Include="CapturePage.cpp" />
     <ClCompile Include="DevicePage.cpp" />
     <ClCompile Include="Ethernet.cpp" />
-<<<<<<< Updated upstream
-    <ClCompile Include="HomePage.hpp" />
-=======
     <ClCompile Include="HomePage.cpp" />
->>>>>>> Stashed changes
     <ClCompile Include="IP.cpp" />
     <ClCompile Include="PacketFactory.cpp" />
     <ClCompile Include="PacketManager.cpp" />

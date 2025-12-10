@@ -39,7 +39,7 @@ void Application::StartApplication(){
 	while (1) {
 		int index;
 		cin >> index;
-		pushPage(currentPage);
+		pageStack.push(currentPage);
 		currentPage = currentPage->chiocePage(index);
 		currentPage->display();
 		int choice;
@@ -48,7 +48,8 @@ void Application::StartApplication(){
 			currentPage = currentPage->chiocePage(0);
 		}
 		else {
-			currentPage = popPage();
+			currentPage = pageStack.top();
+			pageStack.pop();
 		}
 
 		currentPage->display();
