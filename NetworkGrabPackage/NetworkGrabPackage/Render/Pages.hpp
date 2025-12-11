@@ -9,6 +9,8 @@ protected:
 public:
     virtual Pages* display() = 0;
 
+	int Select(const std::vector<std::string>& items);
+
 	Pages* Back() {
 		if (pageStack.empty()) {
 			return nullptr;

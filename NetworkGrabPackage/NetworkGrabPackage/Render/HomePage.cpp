@@ -18,20 +18,16 @@ HomePage::~HomePage()
 Pages* HomePage::display()
 {
     system("cls");
-    std::cout << "1: 抓包测试" << std::endl;
-    std::cout << "2: 流量分析" << std::endl;
-    std::cout << "3: http解析" << std::endl;
-    std::cout << "4: 文件转存" << std::endl;
-    std::cout << ">>";
-    int n;
-    cin >> n;
+    std::vector<std::string> m{ "  1.抓包测试  ","  2.流量分析  ","  3.http解析  ","  4.文件转存  " };
+    int s = Select(m);
+    if (s >= 0) std::cout << "你选择了：" << s + 1 <<endl;
 
     Pages::pageStack.push(this);
 
-	return chiocePage(n);
+    return choicePage(s);
 }
 
-Pages *HomePage::chiocePage(int index)
+Pages* HomePage::choicePage(int index)
 {
     if (index < 1 || index > static_cast<int>(subPages.size()))
     {

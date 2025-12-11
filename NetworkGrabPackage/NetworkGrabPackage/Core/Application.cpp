@@ -21,7 +21,13 @@ void Application::StartApplication(){
 	currentPage = new HomePage();
     while (true)
     {
-		Pages* nextPage = currentPage->display();
-		currentPage = nextPage;
+        if (!currentPage) {
+            break;
+        }
+        Pages* nextPage = currentPage->display();
+        if (!nextPage) {
+           break;
+        }
+        currentPage = nextPage;
 	}
 }

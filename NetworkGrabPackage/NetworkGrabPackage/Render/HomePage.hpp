@@ -11,5 +11,5 @@ public:
     HomePage();
     ~HomePage();
     Pages* display() override;
-    Pages* chiocePage(int i);
+    Pages* choicePage(int i);
 };
