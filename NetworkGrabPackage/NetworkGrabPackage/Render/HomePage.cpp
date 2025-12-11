@@ -18,7 +18,10 @@ HomePage::~HomePage()
 Pages* HomePage::display()
 {
     system("cls");
-    std::vector<std::string> m{ "  1.抓包测试  ","  2.流量分析  ","  3.http解析  ","  4.文件转存  " };
+    std::vector<std::string> m{ "  1.抓包测试  ",
+                                "  2.流量分析  ",
+                                "  3.http解析  ",
+                                "  4.文件转存  " };
     int s = Select(m);
     if (s >= 0) std::cout << "你选择了：" << s + 1 <<endl;
 

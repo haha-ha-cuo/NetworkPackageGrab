@@ -14,26 +14,27 @@ Pages* DevicePage::display()
     for (const char* deviceName : devicesDescription) {
         std::cout << i++ << " : " << deviceName << std::endl;
     }
-    std::cout << ">>1. next" << std::endl;
-    std::cout << ">>2. Back to Home Page" << std::endl;
-    std::cout << ">>";
+    std::vector<std::string> m{ "  1.next  ",
+                                "  2.Back to Home Page  "};
+    int s = Select(m);
+    if (s >= 0) std::cout << "你选择了：" << s + 1 << endl;
 
-    int n;
-    cin >> n;
-	
-    if (chiocePage(n - 1)) {
+    Pages* next = choicePage(s - 1);
+    if (next) {
         Pages::pageStack.push(this);
-		return chiocePage(n - 1);
+        return next;
     }
     else {
-		return Pages::Back();
+        return Pages::Back();
     }
 }
 
-Pages* DevicePage::chiocePage(int index)
+Pages* DevicePage::choicePage(int index)
 {
-    if (!index)
-        return new CapturePage();
+    if (!index) {
+        static CapturePage capture;
+        return &capture;
+    }
     else
         return nullptr;
 }
