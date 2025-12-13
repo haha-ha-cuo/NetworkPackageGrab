@@ -111,6 +111,9 @@
     <ClCompile Include="Pages..cpp">
       <Filter>源文件\Render</Filter>
     </ClCompile>
+    <ClCompile Include="Render\StatisticsPage.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Application.hpp">
@@ -188,7 +191,7 @@
     <ClInclude Include="Statistics\Statistics.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="StatisticsPage.hpp">
+    <ClInclude Include="Render\StatisticsPage.hpp">
       <Filter>头文件\Render</Filter>
     </ClInclude>
   </ItemGroup>

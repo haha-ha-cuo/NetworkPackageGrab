@@ -5,6 +5,7 @@ HomePage::HomePage()
 {
 	
     subPages.push_back(new DevicePage());
+    subPages.push_back(new StatisticsPage());
 }
 
 HomePage::~HomePage()

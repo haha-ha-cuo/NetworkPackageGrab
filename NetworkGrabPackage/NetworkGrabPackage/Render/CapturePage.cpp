@@ -25,9 +25,8 @@ Pages* CapturePage::display()
     threadShow.join();
 	
 	cout << "[Info]Stopping packet capture..." << endl;
-	cout << ">>";
-    int n;
-    cin >> n;
+	cout << "[Info]Press [Enter] to continue >>";
+    getchar();
 	return Pages::Back();
 }
 
@@ -59,10 +58,10 @@ void CapturePage::show() {
 
         std::lock_guard<std::mutex> lk(mtx);
         const auto& pkts = capturePtr.getPacketManager().GetPackets();
-        size_t start = pkts.size() > 200 ? pkts.size() - 200 : 0;
-        for (size_t i = start; i < pkts.size(); ++i)
+        
+        for (const auto& p : pkts)
         {
-            const auto& p = pkts[i];
+            
             switch (p->GetPacketType())
             {
             case PacketType::TCP:

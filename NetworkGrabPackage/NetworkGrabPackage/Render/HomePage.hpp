@@ -1,6 +1,7 @@
 #pragma once
 #include "Pages.hpp"
 #include "DevicePage.hpp"
+#include "StatisticsPage.hpp"
 #include <vector>
 
 class HomePage : public Pages
