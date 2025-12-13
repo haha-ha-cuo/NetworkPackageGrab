@@ -183,6 +183,7 @@
     <ClInclude Include="Render\Pages.hpp" />
     <ClInclude Include="Render\Render.hpp" />
     <ClInclude Include="Common\Consts.hpp" />
+    <ClInclude Include="StatisticsPage.hpp" />
     <ClInclude Include="Storage\MemoryStorage.hpp" />
     <ClInclude Include="NetWork\NetworkInterface.hpp" />
     <ClInclude Include="Core\PacketCapture.hpp" />

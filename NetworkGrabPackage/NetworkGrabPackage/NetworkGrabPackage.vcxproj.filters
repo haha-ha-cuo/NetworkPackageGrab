@@ -188,6 +188,9 @@
     <ClInclude Include="Statistics\Statistics.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="StatisticsPage.hpp">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="NetworkGrabPackage.rc">

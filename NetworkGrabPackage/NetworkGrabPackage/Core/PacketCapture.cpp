@@ -54,14 +54,22 @@ void PacketCapture::startCapture(const char *deviceName, const char *port)
     int timeoutCount = 0;
     const int maxTimeouts = 20;
 
-    while ((result = pcap_next_ex(handle, &header, &pktData)) >= 0 && capturedPackets < 20)
+    pcap_t* localHandle = nullptr;
+
+    
+    while (!stopRequested)
     {
+        std::lock_guard<std::mutex> lk(handleMutex);
+        if (!handle) break;
+        localHandle = handle;
+
+        result = pcap_next_ex(localHandle, &header, &pktData);
+
         if (result == 0)
         {
             continue;
         }
         timeoutCount = 0;
-        capturedPackets++;
 
         std::vector<uint8_t> dataVec(pktData, pktData + header->caplen);
 
@@ -117,9 +125,15 @@ void PacketCapture::startCapture(const char *deviceName, const char *port)
 
 void PacketCapture::closeCapture()
 {
+    
+    requestStop();
+
+    std::lock_guard<std::mutex> lk(handleMutex);
     if (handle)
     {
+        // 可以安全地关闭 handle（因为 startCapture 检查 stopRequested 并会在超时后退出）
         pcap_close(handle);
+        handle = nullptr;
         cout << "[Info]Packet capture closed." << endl;
     }
 }

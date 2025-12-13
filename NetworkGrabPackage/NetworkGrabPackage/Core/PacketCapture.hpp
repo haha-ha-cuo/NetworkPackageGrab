@@ -7,6 +7,7 @@
 #include "PacketFactory.hpp"
 #include <pcap.h>
 #include <vector>
+#include <mutex>
 
 class PacketCapture
 {
@@ -27,9 +28,14 @@ private:
         u_short dPort;
         bpf_u_int32 size;
     };
-protected:
-	vector<dataPkg> dataVector;
 
+ 
+protected:
+	std::vector<dataPkg> dataVector;
+
+    std::atomic<bool> stopRequested{ false };
+
+    mutable std::mutex handleMutex;
 public:
     PacketCapture();
     ~PacketCapture();
@@ -37,4 +43,7 @@ public:
     void startCapture(const char *deviceName, const char *port);
     void closeCapture();
     const PacketManager &getPacketManager() const;
+
+    void requestStop() { stopRequested.store(true, std::memory_order_relaxed); }
+
 };

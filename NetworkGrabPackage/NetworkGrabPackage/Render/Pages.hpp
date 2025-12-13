@@ -9,6 +9,9 @@ protected:
 	inline static stack<Pages*> pageStack;
 	inline static char* deviceName;
 	inline static string port;
+
+	inline static std::atomic<bool> captureRunning{ false };
+
 public:
     virtual Pages* display() = 0;
 

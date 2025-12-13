@@ -10,7 +10,6 @@ private:
     char* port;
 
 public:
-    explicit CapturePage(){}
 
     Pages* display() override;
 

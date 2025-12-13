@@ -3,6 +3,7 @@
 #include <vector>
 #include <thread>
 #include <chrono>
+#include <conio.h>
 #include <iomanip>
 #include "TCP.hpp"
 #include "UDP.hpp"
@@ -12,20 +13,17 @@ Pages* CapturePage::display()
 	system("cls"); 
     cout << "[Info]Starting packet capture..." << endl;
     thread threadCapture([this]() {
-        std::lock_guard<std::mutex> lock(mtx);
         capturePtr.startCapture(Pages::deviceName, const_cast<char*>(Pages::port.c_str()));
-        int n;
-        cin >> n;
 		});
 
 	thread threadShow([this]() {
-        std::lock_guard<std::mutex> lock(mtx);
         this->show();
 		});
+
     
     threadCapture.join();
     threadShow.join();
-    std::lock_guard<std::mutex> lock(mtx);
+	
 	cout << "[Info]Stopping packet capture..." << endl;
 	cout << ">>";
     int n;
@@ -35,7 +33,8 @@ Pages* CapturePage::display()
 
 
 void CapturePage::show() {
-    while (1)
+	
+    while (!Pages::captureRunning)
     {
         system("cls");
         std::clog << "Time\t\t" << "Source Port\t\t" << "Destination Port\t" << "Size" << std::endl;
@@ -44,9 +43,21 @@ void CapturePage::show() {
         {
             std::clog << "[Warn] PacketCapture instance not set. Use setPacketCapture()." << std::endl;
             std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+
+            if (_kbhit()) {
+                int ch = _getch();
+                if (ch == 'q' || ch == 'Q' || ch == 27) {
+                    Pages::capturePtr.closeCapture(); // 安全地请求并关闭
+                    Pages::captureRunning.store(true);
+                    break;
+                }
+            }
+            cout << ">> Press 'q' or 'Esc' to stop capturing..." << endl;
+
             continue;
         }
 
+        std::lock_guard<std::mutex> lk(mtx);
         const auto& pkts = capturePtr.getPacketManager().GetPackets();
         size_t start = pkts.size() > 200 ? pkts.size() - 200 : 0;
         for (size_t i = start; i < pkts.size(); ++i)
@@ -77,6 +88,15 @@ void CapturePage::show() {
             }
         }
 
+        if (_kbhit()) {
+            int ch = _getch();
+            if (ch == 'q' || ch == 'Q' || ch == 27) {
+                Pages::capturePtr.closeCapture(); // 安全地请求并关闭
+                Pages::captureRunning.store(true);
+                break;
+            }
+        }
+		cout << ">> Press 'q' or 'Esc' to stop capturing..." << endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     }
 }
