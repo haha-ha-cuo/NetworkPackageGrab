@@ -2,6 +2,8 @@
 #include "Consts.hpp"
 #include <iostream>
 #include <pcap.h>
+#include <chrono>
+#include <conio.h>
 #include <Windows.h>
 
 using namespace std;
@@ -48,7 +50,7 @@ void PacketCapture::startCapture(const char *deviceName, const char *port)
 
     packetFilter.setFilter(port, handle, deviceName);
 
-    Sleep(2000);
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     int capturedPackets = 0;
     int timeoutCount = 0;
@@ -59,7 +61,7 @@ void PacketCapture::startCapture(const char *deviceName, const char *port)
     
     while (!stopRequested)
     {
-        std::lock_guard<std::mutex> lk(handleMutex);
+        
         if (!handle) break;
         localHandle = handle;
 
@@ -72,7 +74,8 @@ void PacketCapture::startCapture(const char *deviceName, const char *port)
         timeoutCount = 0;
 
         std::vector<uint8_t> dataVec(pktData, pktData + header->caplen);
-
+        
+        std::unique_lock<std::mutex> lk(handleMutex);
         auto packet = PacketFactory::createPacket(dataVec);
         if (packet)
         {
@@ -84,6 +87,7 @@ void PacketCapture::startCapture(const char *deviceName, const char *port)
             packetManager.AddPacket(std::move(packet));
         }
 
+		lk.unlock();
         const time_t ts = header->ts.tv_sec;
         struct tm tmDest;
         errno_t erro = localtime_s(&tmDest, &ts);
@@ -96,22 +100,15 @@ void PacketCapture::startCapture(const char *deviceName, const char *port)
 
         try
         {
-            dumper = pcap_dump_open(handle, name);
-            if (!dumper)
-            {
-                cerr << "[Error] Failed to open dump file: " << name << endl;
-                continue;
-            }
-            pcap_dump((u_char *)dumper, header, pktData);
-            pcap_dump_close(dumper);
+            dumpPacket(name);
         }
         catch (...)
         {
             cerr << "[Error]Failed to save dump file: " << name << endl;
             continue;
         }
-        cout << "\n"
-             << endl;
+        cout << "\n"<< endl;
+        stopRequested = displayData();
     }
     if (result == -1)
     {
@@ -121,6 +118,7 @@ void PacketCapture::startCapture(const char *deviceName, const char *port)
     {
         cout << "[Warn]No packets captured after " << maxTimeouts << " timeouts." << endl;
     }
+	
 }
 
 void PacketCapture::closeCapture()
@@ -128,7 +126,6 @@ void PacketCapture::closeCapture()
     
     requestStop();
 
-    std::lock_guard<std::mutex> lk(handleMutex);
     if (handle)
     {
         // 可以安全地关闭 handle（因为 startCapture 检查 stopRequested 并会在超时后退出）
@@ -141,4 +138,87 @@ void PacketCapture::closeCapture()
 const PacketManager &PacketCapture::getPacketManager() const
 {
     return packetManager;
+}
+
+void PacketCapture::dumpPacket(const char* name)
+{
+    
+    pcap_t* h = handle;
+    if (!h) {
+        // handle 已被关闭，跳过本次保存
+        return;
+    }
+    dumper = pcap_dump_open(h, name);
+    if (!dumper)
+    {
+        return;
+    }
+    pcap_dump((u_char*)dumper, header, pktData);
+    pcap_dump_close(dumper);
+    dumper = nullptr;
+    
+}
+
+
+bool PacketCapture::displayData() const
+{
+    system("cls");
+    std::clog << "Time\t\t" << "Source Port\t\t" << "Destination Port\t" << "Size" << std::endl;
+
+    if (getPacketManager().GetPackets().empty())
+    {
+        std::clog << "[Warn] PacketCapture instance not set. Use setPacketCapture()." << std::endl;
+        std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+
+        if (_kbhit()) {
+            int ch = _getch();
+            if (ch == 'q' || ch == 'Q' || ch == 27) {
+                return true;
+            }
+        }
+        cout << ">> Press 'q' or 'Esc' to stop capturing..." << endl;
+
+    
+    }
+
+
+    const auto& pkts = getPacketManager().GetPackets();
+
+    for (const auto& p : pkts)
+    {
+
+        switch (p->GetPacketType())
+        {
+        case PacketType::TCP:
+        {
+            const TCP* t = static_cast<const TCP*>(p.get());
+            std::time_t tt = std::chrono::system_clock::to_time_t(p->GetTimestamp());
+            tm localTm{};
+            localtime_s(&localTm, &tt);
+            std::clog << std::put_time(&localTm, "%H:%M:%S") << "\t" << t->getSrcPort() << "\t\t\t" << t->getDstPort() << "\t\t\t" << p->GetPacketSize() << std::endl;
+            break;
+        }
+        case PacketType::UDP:
+        {
+            const UDP* u = static_cast<const UDP*>(p.get());
+            std::time_t tt = std::chrono::system_clock::to_time_t(p->GetTimestamp());
+            tm localTm{};
+            localtime_s(&localTm, &tt);
+            std::clog << std::put_time(&localTm, "%H:%M:%S") << "\t" << u->getSrcPort() << "\t\t\t" << u->getDstPort() << "\t\t\t" << p->GetPacketSize() << std::endl;
+            break;
+        }
+        default:
+            break;
+        }
+    }
+
+    if (_kbhit()) {
+        int ch = _getch();
+        if (ch == 'q' || ch == 'Q' || ch == 27) {
+			return true;
+        }
+    }
+    cout << ">> Press 'q' or 'Esc' to stop capturing..." << endl;
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    return false;
 }

@@ -1,11 +1,13 @@
 #pragma once
 
 #include "Packet.hpp"
+#include <mutex>
 
 class PacketManager
 {
 private:
     std::vector<std::unique_ptr<Packet>> packets;
+    mutable std::mutex packets_mutex; // 新增：保护 packets
 
 public:
     PacketManager() = default;
@@ -20,8 +22,10 @@ public:
     void displaySummaries() const;
     const std::vector<std::unique_ptr<Packet>> &GetPackets() const
     {
+        std::lock_guard<std::mutex> lg(packets_mutex);
         return packets;
     }
+   
     size_t GetPacketCount() const
     {
         return packets.size();

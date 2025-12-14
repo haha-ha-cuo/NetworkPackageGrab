@@ -16,21 +16,14 @@ Pages* CapturePage::display()
         capturePtr.startCapture(Pages::deviceName, const_cast<char*>(Pages::port.c_str()));
 		});
 
-	thread threadShow([this]() {
-        this->show();
-		});
-
-    
     threadCapture.join();
-    threadShow.join();
-	
 	cout << "[Info]Stopping packet capture..." << endl;
 	cout << "[Info]Press [Enter] to continue >>";
     getchar();
 	return Pages::Back();
 }
 
-
+//道行太浅以后再用吧
 void CapturePage::show() {
 	
     while (!Pages::captureRunning)
@@ -56,7 +49,7 @@ void CapturePage::show() {
             continue;
         }
 
-        std::lock_guard<std::mutex> lk(mtx);
+        
         const auto& pkts = capturePtr.getPacketManager().GetPackets();
         
         for (const auto& p : pkts)

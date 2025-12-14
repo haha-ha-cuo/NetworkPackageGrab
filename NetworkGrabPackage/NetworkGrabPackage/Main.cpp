@@ -1,18 +1,18 @@
-#include "Application.hpp"
-#include "TrafficStatistics.hpp"
-#include <iostream>
-#include <Windows.h>
-#include <pcap.h>
-
-using namespace std;
-
-int main() {
-	SetConsoleCP(65001);
-	SetConsoleOutputCP(65001);
-    Application application;
-    application.StartApplication();
-    return 0;
-}
+//#include "Application.hpp"
+//#include "TrafficStatistics.hpp"
+//#include <iostream>
+//#include <Windows.h>
+//#include <pcap.h>
+//
+//using namespace std;
+//
+//int main() {
+//	SetConsoleCP(65001);
+//	SetConsoleOutputCP(65001);
+//    Application application;
+//    application.StartApplication();
+//    return 0;
+//}
 
 
 //#include "Application.hpp"
@@ -42,13 +42,13 @@ int main() {
 //    return 0;
 //}
 
-//#include "TrafficStatistics.hpp"
-//#include<iostream>
-//
-//int main() {
-//	TrafficStatistics ts;
-//	ts.analyzeTraffic();
-//	ts.generateReport();
-//}
+#include "TrafficStatistics.hpp"
+#include<iostream>
+
+int main() {
+	TrafficStatistics ts;
+	ts.analyzeTraffic();
+	ts.generateReport();
+}
 
 
