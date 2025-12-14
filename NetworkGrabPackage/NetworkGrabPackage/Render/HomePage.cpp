@@ -1,5 +1,7 @@
 ﻿#include "HomePage.hpp"
 #include "HttpPage.hpp"
+#include <vector>
+#include "Render.hpp"
 #include <iostream>
 
 HomePage::HomePage()
@@ -24,13 +26,13 @@ HomePage::~HomePage()
 Pages *HomePage::display()
 {
     system("cls");
-    std::cout << "1: 抓包测试" << std::endl;
-    std::cout << "2: 流量分析" << std::endl;
-    std::cout << "3: http解析" << std::endl;
-    std::cout << "4: 文件转存" << std::endl;
-    std::cout << ">>";
-    int n;
-    cin >> n;
+	vector<string> v1;
+	v1.push_back("抓包测试");
+    v1.push_back("流量分析");
+    v1.push_back("http解析");
+    Render render;
+
+    int n = render.Select(v1);
 
     Pages::pageStack.push(this);
 
