@@ -7,10 +7,11 @@
 class HomePage : public Pages
 {
 private:
-    std::vector<Pages*> subPages;
+    std::vector<Pages *> subPages;
+
 public:
     HomePage();
     ~HomePage();
-    Pages* display() override;
-    Pages* chiocePage(int i);
+    Pages *display() override;
+    Pages *chiocePage(int i);
 };

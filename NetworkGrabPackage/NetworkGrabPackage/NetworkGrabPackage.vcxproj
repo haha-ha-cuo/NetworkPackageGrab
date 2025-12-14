@@ -155,7 +155,9 @@
     <ClCompile Include="Render\CapturePage.cpp" />
     <ClCompile Include="Render\DevicePage.cpp" />
     <ClCompile Include="Render\HomePage.cpp" />
+    <ClCompile Include="Render\HttpPage.cpp" />
     <ClCompile Include="Data\Ethernet.cpp" />
+    <ClCompile Include="Data\HTTP.cpp" />
     <ClCompile Include="Data\IP.cpp" />
     <ClCompile Include="Data\PacketFactory.cpp" />
     <ClCompile Include="Data\PacketManager.cpp" />
@@ -175,8 +177,10 @@
     <ClInclude Include="Render\CapturePage.hpp" />
     <ClInclude Include="Render\DevicePage.hpp" />
     <ClInclude Include="Render\HomePage.hpp" />
+    <ClInclude Include="Render\HttpPage.hpp" />
     <ClInclude Include="Core\DeviceManager.hpp" />
     <ClInclude Include="Data\Ethernet.hpp" />
+    <ClInclude Include="Data\HTTP.hpp" />
     <ClInclude Include="Data\IP.hpp" />
     <ClInclude Include="Data\Packet.hpp" />
     <ClInclude Include="Data\PacketFactory.hpp" />

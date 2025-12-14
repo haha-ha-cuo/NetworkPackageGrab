@@ -84,6 +84,9 @@
     <ClCompile Include="Data\Ethernet.cpp">
       <Filter>源文件\data</Filter>
     </ClCompile>
+    <ClCompile Include="Data\HTTP.cpp">
+      <Filter>源文件\data</Filter>
+    </ClCompile>
     <ClCompile Include="Data\IP.cpp">
       <Filter>源文件\data</Filter>
     </ClCompile>
@@ -103,6 +106,9 @@
       <Filter>源文件\Render</Filter>
     </ClCompile>
     <ClCompile Include="Render\HomePage.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\HttpPage.cpp">
       <Filter>源文件\Render</Filter>
     </ClCompile>
     <ClCompile Include="Data\UDP.cpp">
@@ -167,10 +173,16 @@
     <ClInclude Include="Render\HomePage.hpp">
       <Filter>头文件\Render</Filter>
     </ClInclude>
+    <ClInclude Include="Render\HttpPage.hpp">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
     <ClInclude Include="Data\IP.hpp">
       <Filter>头文件\data</Filter>
     </ClInclude>
     <ClInclude Include="Data\Ethernet.hpp">
+      <Filter>头文件\data</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\HTTP.hpp">
       <Filter>头文件\data</Filter>
     </ClInclude>
     <ClInclude Include="Data\Packet.hpp">

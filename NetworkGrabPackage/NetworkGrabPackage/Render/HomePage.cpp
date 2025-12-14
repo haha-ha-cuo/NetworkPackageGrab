@@ -1,10 +1,13 @@
 ﻿#include "HomePage.hpp"
+#include "HttpPage.hpp"
 #include <iostream>
 
 HomePage::HomePage()
 {
-	
+
     subPages.push_back(new DevicePage());
+    subPages.push_back(nullptr);
+    subPages.push_back(new HttpPage()); // HTTP解析页面
     subPages.push_back(new StatisticsPage());
 }
 
@@ -16,7 +19,7 @@ HomePage::~HomePage()
     }
 }
 
-Pages* HomePage::display()
+Pages *HomePage::display()
 {
     system("cls");
     std::cout << "1: 抓包测试" << std::endl;
@@ -29,7 +32,7 @@ Pages* HomePage::display()
 
     Pages::pageStack.push(this);
 
-	return chiocePage(n);
+    return chiocePage(n);
 }
 
 Pages *HomePage::chiocePage(int index)

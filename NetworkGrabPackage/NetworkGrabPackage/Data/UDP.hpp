@@ -3,13 +3,18 @@
 #include "Packet.hpp"
 class UDP : public Packet
 {
+private:
+    uint16_t src_port;
+    uint16_t dst_port;
+    uint16_t length;
+
 public:
     UDP(const std::vector<uint8_t> &data)
         : Packet(data, PacketType::UDP), src_port(0), dst_port(0),
           length(0) {}
     void Parse() override;
     void display() const override;
-    std::string getSummary() const override;   
+    std::string getSummary() const override;
     uint16_t getSrcPort() const
     {
         return src_port;
@@ -22,9 +27,4 @@ public:
     {
         return length;
     }
-
-private:
-    uint16_t src_port;
-    uint16_t dst_port;
-    uint16_t length;
 };
