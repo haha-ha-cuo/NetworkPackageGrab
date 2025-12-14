@@ -6,9 +6,11 @@ HomePage::HomePage()
 {
 
     subPages.push_back(new DevicePage());
-    subPages.push_back(nullptr);
-    subPages.push_back(new HttpPage()); // HTTP解析页面
     subPages.push_back(new StatisticsPage());
+    subPages.push_back(new HttpPage()); // HTTP解析页面
+    subPages.push_back(nullptr);
+    
+    
 }
 
 HomePage::~HomePage()

@@ -36,6 +36,7 @@ protected:
     std::atomic<bool> stopRequested{ false };
 
     mutable std::mutex handleMutex;
+
 public:
     PacketCapture();
     ~PacketCapture();
@@ -46,4 +47,7 @@ public:
 
     void requestStop() { stopRequested.store(true, std::memory_order_relaxed); }
 
+    void dumpPacket(const char* name);
+
+	bool displayData() const;
 };
