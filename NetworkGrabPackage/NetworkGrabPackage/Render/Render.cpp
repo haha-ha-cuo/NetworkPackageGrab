@@ -1,4 +1,4 @@
-#include "Render.hpp"
+ï»¿#include "Render.hpp"
 #include <iostream>
 #include <iomanip>
 #include <vector>
@@ -19,22 +19,22 @@ Render::Render()
 
     SetConsoleScreenBufferSize(hOutBuf, csbi.dwSize);
 }
-//´´½¨Ò»¿éÓëµ±Ç°´°¿Ú´óĞ¡ÏàÍ¬µÄ±¸ÓÃÆÁÄ»»º³åÇø£¨Ë«»º³å£©
+//åˆ›å»ºä¸€å—ä¸å½“å‰çª—å£å¤§å°ç›¸åŒçš„å¤‡ç”¨å±å¹•ç¼“å†²åŒºï¼ˆåŒç¼“å†²ï¼‰
 
 Render::~Render()
 {
     CloseHandle(hOutBuf);
 }
-//³ÌĞòÍË³öÊ±°Ñ»º³åÇøÊÍ·Åµô£¬·ÀÖ¹¾ä±úĞ¹Â©
+//ç¨‹åºé€€å‡ºæ—¶æŠŠç¼“å†²åŒºé‡Šæ”¾æ‰ï¼Œé˜²æ­¢å¥æŸ„æ³„æ¼
 
 
 void Render::SetDoubleBuff() const
 {
     SetConsoleActiveScreenBuffer(hOutBuf);
 }
-//°Ñ¸Õ¸Õ»­ºÃµÄ±¸ÓÃ»º³åÇøÒ»ÏÂ×ÓÇĞµ½Ç°Ì¨£¬ÓÃ»§Ë²¼ä¿´µ½×îĞÂ»­Ãæ
+//æŠŠåˆšåˆšç”»å¥½çš„å¤‡ç”¨ç¼“å†²åŒºä¸€ä¸‹å­åˆ‡åˆ°å‰å°ï¼Œç”¨æˆ·ç¬é—´çœ‹åˆ°æœ€æ–°ç”»é¢
 
-int Render::Select(const std::vector<std::string>& items)
+int Render::Select(const std::vector<std::string>& items) const
 {
     if (items.empty())
     {
@@ -46,9 +46,9 @@ int Render::Select(const std::vector<std::string>& items)
     SHORT bufH = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
 
     const WORD normalAttr = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;                   
-    // »Ò×ÖºÚµ×
+    // ç°å­—é»‘åº•
     const WORD highAttr = BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE;                  
-    // ºÚ×Ö°×µ×
+    // é»‘å­—ç™½åº•
 
     int  idx = 0;
     std::ios::sync_with_stdio(false);
@@ -90,11 +90,11 @@ int Render::Select(const std::vector<std::string>& items)
 
         switch (key)
         {
-        case 72: // ¡ü
+        case 72: // â†‘
             idx = (idx - 1 + static_cast<int>(items.size())) %
                 static_cast<int>(items.size());
             break;
-        case 80: // ¡ı
+        case 80: // â†“
             idx = (idx + 1) % static_cast<int>(items.size());
             break;
         case 13: // Enter
@@ -102,11 +102,11 @@ int Render::Select(const std::vector<std::string>& items)
         }
     }
 }
-//ÔÚ¿ØÖÆÌ¨Àï×öÒ»¸ö¡°ÉÏÏÂÑ¡Ôñ²Ëµ¥¡±£¬¸ßÁÁµ±Ç°Ïî£¬°´ ¡ü ¡ı ¸Ä±ä¹â±ê£¬°´ Enter ·µ»ØÑ¡ÖĞĞòºÅ
+//åœ¨æ§åˆ¶å°é‡Œåšä¸€ä¸ªâ€œä¸Šä¸‹é€‰æ‹©èœå•â€ï¼Œé«˜äº®å½“å‰é¡¹ï¼ŒæŒ‰ â†‘ â†“ æ”¹å˜å…‰æ ‡ï¼ŒæŒ‰ Enter è¿”å›é€‰ä¸­åºå·
 
 void Render::PauseEnter()
 {
-    std::cout <<">>°´ÏÂEnter¼ÌĞø";
+    std::cout <<">>æŒ‰ä¸‹Enterç»§ç»­";
     while (std::cin.get() != '\n') {}
 }
-//ÔÚ¿ØÖÆÌ¨ÀïÏÔÊ¾¡°°´ÏÂEnter¼ÌĞø¡±£¬µÈ´ıÓÃ»§°´ÏÂ»Ø³µ¼ü
+//åœ¨æ§åˆ¶å°é‡Œæ˜¾ç¤ºâ€œæŒ‰ä¸‹Enterç»§ç»­â€ï¼Œç­‰å¾…ç”¨æˆ·æŒ‰ä¸‹å›è½¦é”®
