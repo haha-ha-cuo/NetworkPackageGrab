@@ -57,7 +57,7 @@ void PacketCapture::startCapture(const char *deviceName, const char *port)
     const int maxTimeouts = 20;
 
     pcap_t* localHandle = nullptr;
-
+	stopRequested.store(false, std::memory_order_relaxed);
     
     while (!stopRequested)
     {
@@ -143,19 +143,38 @@ const PacketManager &PacketCapture::getPacketManager() const
 void PacketCapture::dumpPacket(const char* name)
 {
     
-    pcap_t* h = handle;
-    if (!h) {
-        // handle 已被关闭，跳过本次保存
+    if (!handle) {
+        // handle 已被关闭或不可用
         return;
     }
-    dumper = pcap_dump_open(h, name);
-    if (!dumper)
+    if (!header || !pktData) {
+        return;
+    }
+
+    // 从 pcap header 获取秒与微秒，构造带毫秒的文件名
+    time_t sec = header->ts.tv_sec;
+    long usec = header->ts.tv_usec; // microseconds
+    struct tm tmDest {};
+    if (localtime_s(&tmDest, &sec) != 0) {
+        // fallback: 仅使用秒数
+        tmDest.tm_year = 70; tmDest.tm_mon = 0; tmDest.tm_mday = 1;
+    }
+    int ms = static_cast<int>(usec / 1000); // 毫秒部分
+
+    char fname[128];
+    // 格式: ../Output/YYYY-MM-DD_HH-MM-SS-ms.pcap
+    snprintf(fname, sizeof(fname), "../Output/%04d-%02d-%02d_%02d-%02d-%02d-%03d.pcap",
+        tmDest.tm_year + 1900, tmDest.tm_mon + 1, tmDest.tm_mday,
+        tmDest.tm_hour, tmDest.tm_min, tmDest.tm_sec, ms);
+
+    pcap_dumper_t* localDumper = pcap_dump_open(handle, fname);
+    if (!localDumper)
     {
+        cerr << "[Error] Failed to open dump file: " << fname << " : " << pcap_geterr(handle) << endl;
         return;
     }
-    pcap_dump((u_char*)dumper, header, pktData);
-    pcap_dump_close(dumper);
-    dumper = nullptr;
+    pcap_dump((u_char*)localDumper, header, pktData);
+    pcap_dump_close(localDumper);
     
 }
 
@@ -168,7 +187,7 @@ bool PacketCapture::displayData() const
     if (getPacketManager().GetPackets().empty())
     {
         std::clog << "[Warn] PacketCapture instance not set. Use setPacketCapture()." << std::endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
         if (_kbhit()) {
             int ch = _getch();
@@ -219,6 +238,6 @@ bool PacketCapture::displayData() const
         }
     }
     cout << ">> Press 'q' or 'Esc' to stop capturing..." << endl;
-    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     return false;
 }

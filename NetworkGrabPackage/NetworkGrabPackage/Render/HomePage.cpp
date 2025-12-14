@@ -32,7 +32,9 @@ Pages *HomePage::display()
     v1.push_back("http解析");
     Render render;
 
-    int n = render.Select(v1);
+    int n= render.Select(v1);
+    /*int n;
+    cin >> n;*/
 
     Pages::pageStack.push(this);
 
@@ -45,5 +47,5 @@ Pages *HomePage::chiocePage(int index)
     {
         return nullptr;
     }
-    return subPages[index - 1];
+    return subPages[index-1];
 }
