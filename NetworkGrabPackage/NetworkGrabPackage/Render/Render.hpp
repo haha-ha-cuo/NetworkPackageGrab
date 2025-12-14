@@ -1,6 +1,8 @@
 #pragma once
 
 #include <windows.h>
+#include <string>
+#include <vector>
 
 
 class Render
@@ -16,7 +18,10 @@ private:
 	);
 
 public:
+	Render();
+	~Render();
 	void SetDoubleBuff() const;
-
+	int Select(const std::vector<std::string>& items);
+	void PauseEnter();
 };
 
