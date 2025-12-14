@@ -21,7 +21,7 @@ public:
 	Render();
 	~Render();
 	void SetDoubleBuff() const;
-	int Select(const std::vector<std::string>& items);
+	int Select(const std::vector<std::string>& items) const;
 	void PauseEnter();
 };
 

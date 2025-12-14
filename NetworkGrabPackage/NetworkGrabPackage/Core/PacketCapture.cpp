@@ -1,4 +1,4 @@
-#include "PacketCapture.hpp"
+ï»¿#include "PacketCapture.hpp"
 #include "Consts.hpp"
 #include <iostream>
 #include <pcap.h>
@@ -128,7 +128,7 @@ void PacketCapture::closeCapture()
 
     if (handle)
     {
-        // ¿ÉÒÔ°²È«µØ¹Ø±Õ handle£¨ÒòÎª startCapture ¼ì²é stopRequested ²¢»áÔÚ³¬Ê±ºóÍË³ö£©
+        // å¯ä»¥å®‰å…¨åœ°å…³é—­ handleï¼ˆå› ä¸º startCapture æ£€æŸ¥ stopRequested å¹¶ä¼šåœ¨è¶…æ—¶åé€€å‡ºï¼‰
         pcap_close(handle);
         handle = nullptr;
         cout << "[Info]Packet capture closed." << endl;
@@ -144,25 +144,25 @@ void PacketCapture::dumpPacket(const char* name)
 {
     
     if (!handle) {
-        // handle ÒÑ±»¹Ø±Õ»ò²»¿ÉÓÃ
+        // handle å·²è¢«å…³é—­æˆ–ä¸å¯ç”¨
         return;
     }
     if (!header || !pktData) {
         return;
     }
 
-    // ´Ó pcap header »ñÈ¡ÃëÓëÎ¢Ãë£¬¹¹Ôì´øºÁÃëµÄÎÄ¼şÃû
+    // ä» pcap header è·å–ç§’ä¸å¾®ç§’ï¼Œæ„é€ å¸¦æ¯«ç§’çš„æ–‡ä»¶å
     time_t sec = header->ts.tv_sec;
     long usec = header->ts.tv_usec; // microseconds
     struct tm tmDest {};
     if (localtime_s(&tmDest, &sec) != 0) {
-        // fallback: ½öÊ¹ÓÃÃëÊı
+        // fallback: ä»…ä½¿ç”¨ç§’æ•°
         tmDest.tm_year = 70; tmDest.tm_mon = 0; tmDest.tm_mday = 1;
     }
-    int ms = static_cast<int>(usec / 1000); // ºÁÃë²¿·Ö
+    int ms = static_cast<int>(usec / 1000); // æ¯«ç§’éƒ¨åˆ†
 
     char fname[128];
-    // ¸ñÊ½: ../Output/YYYY-MM-DD_HH-MM-SS-ms.pcap
+    // æ ¼å¼: ../Output/YYYY-MM-DD_HH-MM-SS-ms.pcap
     snprintf(fname, sizeof(fname), "../Output/%04d-%02d-%02d_%02d-%02d-%02d-%03d.pcap",
         tmDest.tm_year + 1900, tmDest.tm_mon + 1, tmDest.tm_mday,
         tmDest.tm_hour, tmDest.tm_min, tmDest.tm_sec, ms);
