@@ -1,4 +1,4 @@
 .vs/
 NetworkGrabPackage/NetworkGrabPackage/x64/
 NetworkGrabPackage/x64/
-.pcap
+*.pcap
