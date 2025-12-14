@@ -42,38 +42,47 @@ int Render::Select(const std::vector<std::string>& items)
     }
     CONSOLE_SCREEN_BUFFER_INFO csbi{};
     GetConsoleScreenBufferInfo(hOutBuf, &csbi);
-    const SHORT bufW = csbi.dwSize.X;
+    SHORT bufW = csbi.dwSize.X;
+    SHORT bufH = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+
+    const WORD normalAttr = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;                   
+    // »Ò×ÖºÚµ×
+    const WORD highAttr = BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE;                  
+    // ºÚ×Ö°×µ×
 
     int  idx = 0;
-    int  key;
-    const WORD normalAttr = BACKGROUND_BLUE |
-        FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
-    const WORD highAttr = BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE;
-    //°×µ×ºÚ×Ö¸ßÁÁ
-
     std::ios::sync_with_stdio(false);
 
     while (true)
     {
-        SetConsoleTextAttribute(hOutBuf, normalAttr);
-        SetConsoleCursorPosition(hOutBuf, { 0, 0 });
+        DWORD written;
+        COORD home = { 0, 0 };
+        FillConsoleOutputCharacterW(hOutBuf, L' ', bufW * bufH, home, &written);
+        FillConsoleOutputAttribute(hOutBuf, normalAttr, bufW * bufH, home, &written);
+        SetConsoleCursorPosition(hOutBuf, home);
 
-        for (size_t i = 0; i < items.size(); i++)
+        for (size_t i = 0; i < items.size(); ++i)
         {
-            SetConsoleTextAttribute(hOutBuf,
-                                    static_cast<int>(i) == idx ? highAttr
-                                                               : normalAttr);
-            std::cout << std::left << std::setw(bufW - 1)
-                      << ("  " + items[i]) << '\n';
+            std::string line = "  " + items[i];
+            line.resize(bufW, ' ');
+
+            std::vector<WORD> attrLine(line.size(),
+                static_cast<int>(i) == idx ? highAttr : normalAttr);
+
+            COORD pos = { 0, static_cast<SHORT>(i) };
+            DWORD written;
+            WriteConsoleOutputCharacterA(hOutBuf, line.c_str(),
+                static_cast<DWORD>(line.size()),
+                pos, &written);
+
+            WriteConsoleOutputAttribute(hOutBuf, attrLine.data(),
+                static_cast<DWORD>(attrLine.size()),
+                pos, &written);
         }
 
-        SetConsoleTextAttribute(hOutBuf, normalAttr);
-        DWORD written;
-        COORD tail = { 0, static_cast<SHORT>(items.size()) };
-        FillConsoleOutputCharacterW(hOutBuf, L' ',
-                                    bufW * 10, tail, &written);
+        SetConsoleActiveScreenBuffer(hOutBuf);
 
-        key = _getch();
+        int key = _getch();
         if (key == 0 || key == 0xE0) 
         {
             key = _getch();
