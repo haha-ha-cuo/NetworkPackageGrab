@@ -1,8 +1,9 @@
-.vs/
-NetworkGrabPackage/NetworkGrabPackage/x64/
-NetworkGrabPackage/x64/
-*.pcap
+x64/
 
+*.pcap
+.vs/
 .vscode/
 .trae/
 .idea/
+
+Test/
