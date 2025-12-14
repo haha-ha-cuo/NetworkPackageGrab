@@ -19,22 +19,22 @@ Render::Render()
 
     SetConsoleScreenBufferSize(hOutBuf, csbi.dwSize);
 }
-//创建一块与当前窗口大小相同的备用屏幕缓冲区（双缓冲）
+// 创建一块与当前窗口大小相同的备用屏幕缓冲区（双缓冲）
 
 Render::~Render()
 {
+    SetConsoleActiveScreenBuffer(hOutput);
     CloseHandle(hOutBuf);
 }
-//程序退出时把缓冲区释放掉，防止句柄泄漏
-
+// 程序退出时把缓冲区释放掉，防止句柄泄漏
 
 void Render::SetDoubleBuff() const
 {
     SetConsoleActiveScreenBuffer(hOutBuf);
 }
-//把刚刚画好的备用缓冲区一下子切到前台，用户瞬间看到最新画面
+// 把刚刚画好的备用缓冲区一下子切到前台，用户瞬间看到最新画面
 
-int Render::Select(const std::vector<std::string>& items) const
+int Render::Select(const std::vector<std::string> &items) const
 {
     if (items.empty())
     {
@@ -45,9 +45,9 @@ int Render::Select(const std::vector<std::string>& items) const
     SHORT bufW = csbi.dwSize.X;
     SHORT bufH = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
 
-    const WORD normalAttr = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;                   
+    const WORD normalAttr = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
     // 灰字黑底
-    const WORD highAttr = BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE;                  
+    const WORD highAttr = BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE;
     // 黑字白底
 
     int idx = 0;
@@ -56,7 +56,7 @@ int Render::Select(const std::vector<std::string>& items) const
     while (true)
     {
         DWORD written;
-        COORD home = { 0, 0 };
+        COORD home = {0, 0};
         FillConsoleOutputCharacterW(hOutBuf, L' ', bufW * bufH, home, &written);
         FillConsoleOutputAttribute(hOutBuf, normalAttr, bufW * bufH, home, &written);
         SetConsoleCursorPosition(hOutBuf, home);
@@ -67,23 +67,23 @@ int Render::Select(const std::vector<std::string>& items) const
             line.resize(bufW, ' ');
 
             std::vector<WORD> attrLine(line.size(),
-                static_cast<int>(i) == idx ? highAttr : normalAttr);
+                                       static_cast<int>(i) == idx ? highAttr : normalAttr);
 
-            COORD pos = { 0, static_cast<SHORT>(i) };
+            COORD pos = {0, static_cast<SHORT>(i)};
             DWORD written;
             WriteConsoleOutputCharacterA(hOutBuf, line.c_str(),
-                static_cast<DWORD>(line.size()),
-                pos, &written);
+                                         static_cast<DWORD>(line.size()),
+                                         pos, &written);
 
             WriteConsoleOutputAttribute(hOutBuf, attrLine.data(),
-                static_cast<DWORD>(attrLine.size()),
-                pos, &written);
+                                        static_cast<DWORD>(attrLine.size()),
+                                        pos, &written);
         }
 
         SetConsoleActiveScreenBuffer(hOutBuf);
 
         int key = _getch();
-        if (key == 0 || key == 0xE0) 
+        if (key == 0 || key == 0xE0)
         {
             key = _getch();
         }
@@ -92,7 +92,7 @@ int Render::Select(const std::vector<std::string>& items) const
         {
         case 72: // ↑
             idx = (idx - 1 + static_cast<int>(items.size())) %
-                static_cast<int>(items.size());
+                  static_cast<int>(items.size());
             break;
         case 80: // ↓
             idx = (idx + 1) % static_cast<int>(items.size());
@@ -102,5 +102,4 @@ int Render::Select(const std::vector<std::string>& items) const
         }
     }
 }
-//在控制台里做一个“上下选择菜单”，高亮当前项，按 ↑ ↓ 改变光标，按 Enter 返回选中序号
-
+// 在控制台里做一个“上下选择菜单”，高亮当前项，按 ↑ ↓ 改变光标，按 Enter 返回选中序号
