@@ -50,7 +50,7 @@ int Render::Select(const std::vector<std::string>& items) const
     const WORD highAttr = BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE;                  
     // 黑字白底
 
-    int  idx = 0;
+    int idx = 0;
     std::ios::sync_with_stdio(false);
 
     while (true)
@@ -104,9 +104,3 @@ int Render::Select(const std::vector<std::string>& items) const
 }
 //在控制台里做一个“上下选择菜单”，高亮当前项，按 ↑ ↓ 改变光标，按 Enter 返回选中序号
 
-void Render::PauseEnter()
-{
-    std::cout <<">>按下Enter继续";
-    while (std::cin.get() != '\n') {}
-}
-//在控制台里显示“按下Enter继续”，等待用户按下回车键

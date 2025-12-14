@@ -6,7 +6,6 @@
 
 HomePage::HomePage()
 {
-    std::cout << "[HOME] 构造函数 this=" << this << std::endl;
 
     subPages.push_back(new DevicePage());
     subPages.push_back(new StatisticsPage());
