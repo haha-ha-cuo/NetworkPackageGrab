@@ -114,7 +114,7 @@
     <ClCompile Include="Data\UDP.cpp">
       <Filter>源文件\data</Filter>
     </ClCompile>
-    <ClCompile Include="Pages..cpp">
+    <ClCompile Include="Pages.cpp">
       <Filter>源文件\Render</Filter>
     </ClCompile>
     <ClCompile Include="Render\StatisticsPage.cpp">
