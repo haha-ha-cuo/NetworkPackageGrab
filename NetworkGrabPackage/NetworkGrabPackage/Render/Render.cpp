@@ -98,7 +98,7 @@ int Render::Select(const std::vector<std::string> &items) const
             idx = (idx + 1) % static_cast<int>(items.size());
             break;
         case 13: // Enter
-            return idx;
+            return idx+1;
         }
     }
 }
