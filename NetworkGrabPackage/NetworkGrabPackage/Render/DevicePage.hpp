@@ -8,6 +8,6 @@ public:
     DevicePage();
     ~DevicePage();
     Pages* display() override;
-    Pages* chiocePage(int index);
+    Pages* choicePage(int index);
     const char* getDeviceName(int i) const;
 };

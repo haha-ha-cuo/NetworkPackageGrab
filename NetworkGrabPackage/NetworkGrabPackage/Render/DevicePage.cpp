@@ -21,7 +21,7 @@ Pages* DevicePage::display()
     int n;
     cin >> n;
 	
-    if (chiocePage(n - 1)) {
+    if (choicePage(n - 1)) {
         int i;
 		cout << ">>Select Device Index: ";
         cin >> i;
@@ -31,14 +31,14 @@ Pages* DevicePage::display()
         getchar();
 		getline(cin, port);
         Pages::pageStack.push(this);
-		return chiocePage(n - 1);
+		return choicePage(n - 1);
     }
     else {
 		return Pages::Back();
     }
 }
 
-Pages* DevicePage::chiocePage(int index)
+Pages* DevicePage::choicePage(int index)
 {
     if (!index)
         return new CapturePage();

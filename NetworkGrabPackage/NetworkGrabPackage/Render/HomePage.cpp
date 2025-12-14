@@ -6,13 +6,14 @@
 
 HomePage::HomePage()
 {
+    std::cout << "[HOME] 构造函数 this=" << this << std::endl;
 
     subPages.push_back(new DevicePage());
     subPages.push_back(new StatisticsPage());
     subPages.push_back(new HttpPage()); // HTTP解析页面
     subPages.push_back(nullptr);
     
-    
+
 }
 
 HomePage::~HomePage()
@@ -38,10 +39,10 @@ Pages *HomePage::display()
 
     Pages::pageStack.push(this);
 
-    return chiocePage(n);
+    return choicePage(n);
 }
 
-Pages *HomePage::chiocePage(int index)
+Pages *HomePage::choicePage(int index)
 {
     if (index < 1 || index > static_cast<int>(subPages.size()))
     {
