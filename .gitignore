@@ -2,3 +2,7 @@
 NetworkGrabPackage/NetworkGrabPackage/x64/
 NetworkGrabPackage/x64/
 *.pcap
+
+.vscode/
+.trae/
+.idea/
