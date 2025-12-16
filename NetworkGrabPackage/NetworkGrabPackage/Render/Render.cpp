@@ -104,9 +104,9 @@ int Render::Select(const std::vector<std::string> &items) const
 }
 // 在控制台里做一个“上下选择菜单”，高亮当前项，按 ↑ ↓ 改变光标，按 Enter 返回选中序号
 
-int Render::Select(const char* items[]) const
+int Render::Select(std::vector<const char*> items ) const
 {
-    if (!items || !items[0])
+    if (items.empty())
     {
         return -1;
     }
@@ -120,12 +120,11 @@ int Render::Select(const char* items[]) const
     const WORD highAttr = BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE;   
     // 黑字白底
 
-    size_t itemCount = 0;
-    while (items[itemCount]) ++itemCount;
+    
 
     int idx = 0;
     std::ios::sync_with_stdio(false);
-
+	int itemCount = items.size();
     while (true)
     {
         DWORD written;
@@ -134,10 +133,10 @@ int Render::Select(const char* items[]) const
         FillConsoleOutputAttribute(hOutBuf, normalAttr, bufW * bufH, home, &written);
         SetConsoleCursorPosition(hOutBuf, home);
 
-        for (size_t i = 0; i < itemCount; ++i)
+        for (size_t i = 0; i < items.size(); ++i)
         {
-            std::string line = "  ";
-            line += items[i];                 
+			std::string line = "  " + std::string(items[i]);
+                             
             line.resize(bufW, ' ');           
 
             std::vector<WORD> attrLine(line.size(),

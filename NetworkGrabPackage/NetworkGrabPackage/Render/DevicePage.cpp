@@ -1,6 +1,7 @@
 ﻿#include "DevicePage.hpp"
 #include "CapturePage.hpp"
 #include <iostream>
+#include "Render.hpp"
 
 DevicePage::DevicePage() {}
 
@@ -9,27 +10,32 @@ DevicePage::~DevicePage() {}
 Pages* DevicePage::display()
 {
     system("cls");
+    const Render render;
     std::cout << "Device Page Display" << std::endl;
-    int i = 0;
-    for (const char* deviceName : devicesDescription) {
-        std::cout << i++ << " : " << deviceName << std::endl;
-    }
     std::cout << ">>1. next" << std::endl;
     std::cout << ">>2. Back to Home Page" << std::endl;
     std::cout << ">>";
-
     int n;
     cin >> n;
+    /*for (const char* deviceName : devicesDescription) {
+        std::cout << i++ << " : " << deviceName << std::endl;
+    }*/
+	
 	
     if (choicePage(n - 1)) {
-        int i;
-		cout << ">>Select Device Index: ";
-        cin >> i;
-		deviceName = const_cast<char*>(getDeviceName(i));
-       
-		cout << ">>Input Port Number: ";
+		system("cls");
+        cout << ">>Input Port Number: ";
         getchar();
-		getline(cin, port);
+        getline(cin, port);
+
+        system("cls");
+        int i = 0;
+        int index;
+        //cout << ">>Select Device";
+        index = render.Select(devicesDescription);
+        deviceName = const_cast<char*>(getDeviceName(index-1));
+        
+        
         Pages::pageStack.push(this);
 		return choicePage(n - 1);
     }
