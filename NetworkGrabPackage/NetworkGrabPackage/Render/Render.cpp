@@ -103,3 +103,71 @@ int Render::Select(const std::vector<std::string> &items) const
     }
 }
 // 在控制台里做一个“上下选择菜单”，高亮当前项，按 ↑ ↓ 改变光标，按 Enter 返回选中序号
+
+int Render::Select(const char* items[]) const
+{
+    if (!items || !items[0])
+    {
+        return -1;
+    }
+    CONSOLE_SCREEN_BUFFER_INFO csbi{};
+    GetConsoleScreenBufferInfo(hOutBuf, &csbi);
+    SHORT bufW = csbi.dwSize.X;
+    SHORT bufH = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+
+    const WORD normalAttr = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;   
+    // 灰字黑底
+    const WORD highAttr = BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE;   
+    // 黑字白底
+
+    size_t itemCount = 0;
+    while (items[itemCount]) ++itemCount;
+
+    int idx = 0;
+    std::ios::sync_with_stdio(false);
+
+    while (true)
+    {
+        DWORD written;
+        COORD home = { 0, 0 };
+        FillConsoleOutputCharacterW(hOutBuf, L' ', bufW * bufH, home, &written);
+        FillConsoleOutputAttribute(hOutBuf, normalAttr, bufW * bufH, home, &written);
+        SetConsoleCursorPosition(hOutBuf, home);
+
+        for (size_t i = 0; i < itemCount; ++i)
+        {
+            std::string line = "  ";
+            line += items[i];                 
+            line.resize(bufW, ' ');           
+
+            std::vector<WORD> attrLine(line.size(),
+                                       static_cast<WORD>(i == static_cast<size_t>(idx) ? highAttr : normalAttr));
+
+            COORD pos = { 0, static_cast<SHORT>(i) };
+            WriteConsoleOutputCharacterA(hOutBuf, line.c_str(),
+                                         static_cast<DWORD>(line.size()),
+                                         pos, &written);
+            WriteConsoleOutputAttribute(hOutBuf, attrLine.data(),
+                                        static_cast<DWORD>(attrLine.size()),
+                                        pos, &written);
+        }
+
+        SetConsoleActiveScreenBuffer(hOutBuf);
+
+        int key = _getch();
+        if (key == 0 || key == 0xE0)        
+            key = _getch();
+
+        switch (key)
+        {
+        case 72:   // ↑
+            idx = (idx - 1 + static_cast<int>(itemCount)) % static_cast<int>(itemCount);
+            break;
+        case 80:   // ↓
+            idx = (idx + 1) % static_cast<int>(itemCount);
+            break;
+        case 13:   // Enter
+            return idx + 1;                   
+        }
+    }
+}

@@ -22,4 +22,5 @@ public:
 	~Render();
 	void SetDoubleBuff() const;
 	int Select(const std::vector<std::string>& items) const;
+	int Select(const char* items[]) const;
 };
