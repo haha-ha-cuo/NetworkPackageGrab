@@ -16,5 +16,5 @@ public:
     PacketFilter();
     ~PacketFilter();
     
-    void setFilter(const char* filterExp, pcap_t* handle, const char* name);
+    bool setFilter(const char* filterExp, pcap_t* handle, const char* name);
 };
