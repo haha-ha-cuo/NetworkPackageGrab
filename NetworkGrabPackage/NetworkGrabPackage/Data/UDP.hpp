@@ -9,22 +9,11 @@ private:
     uint16_t length;
 
 public:
-    UDP(const std::vector<uint8_t> &data)
-        : Packet(data, PacketType::UDP), src_port(0), dst_port(0),
-          length(0) {}
+    UDP(const std::vector<uint8_t> &data);
     void Parse() override;
     void display() const override;
-    std::string getSummary() const override;
-    uint16_t getSrcPort() const
-    {
-        return src_port;
-    }
-    uint16_t getDstPort() const
-    {
-        return dst_port;
-    }
-    uint16_t getLength() const
-    {
-        return length;
-    }
+    void showSummary(size_t index, tm localTm) const override;
+    uint16_t getSrcPort() const;
+    uint16_t getDstPort() const;
+    uint16_t getLength() const;
 };

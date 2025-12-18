@@ -132,7 +132,7 @@ void HttpPage::analyzeFile(const string &filepath)
             // 仅处理 TCP 报文
             if (packet->GetPacketType() == PacketType::TCP)
             {
-                TCP *tcpPacket = dynamic_cast<TCP *>(packet.get());
+                TCP *tcpPacket = static_cast<TCP *>(packet.get());
                 if (tcpPacket)
                 {
                     // 尝试作为 HTTP 解析 Payload

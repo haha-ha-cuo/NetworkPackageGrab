@@ -6,12 +6,11 @@ class CapturePage : public Pages
 {
 private:
     mutable std::mutex mtx;
-    
-    char* port;
+
+    char *port;
 
 public:
+    Pages *display() override;
 
-    Pages* display() override;
-
-    void show();
+    // void show();
 };

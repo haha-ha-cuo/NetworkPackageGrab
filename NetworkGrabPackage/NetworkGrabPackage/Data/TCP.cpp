@@ -2,6 +2,9 @@
 
 using namespace std;
 
+TCP::TCP(const std::vector<uint8_t> &data) : Packet(data, PacketType::TCP), src_port(0), dst_port(0),
+                                             sequence_number(0), acknowledgment_number(0), data_offset(0) {}
+
 void TCP::Parse()
 {
     if (raw_data.size() < 20)
@@ -44,7 +47,33 @@ void TCP::display() const
     cout << "Packet Size: " << GetPacketSize() << " bytes" << endl;
 }
 
-string TCP::getSummary() const
+void TCP::showSummary(size_t index, tm localTm) const
 {
-    return "TCP: " + to_string(src_port) + " -> " + to_string(dst_port);
+    clog << index << "\t" << put_time(&localTm, "%H:%M:%S") << "\t" << PacketTypeToString(packet_type) << "\t"
+         << to_string(src_port) << "\t\t\t" << to_string(dst_port) << "\t\t\t" << GetPacketSize() << endl;
+}
+
+uint16_t TCP::getSrcPort() const
+{
+    return src_port;
+}
+uint16_t TCP::getDstPort() const
+{
+    return dst_port;
+}
+uint32_t TCP::getSequenceNumber() const
+{
+    return sequence_number;
+}
+uint32_t TCP::getAcknowledgmentNumber() const
+{
+    return acknowledgment_number;
+}
+uint8_t TCP::getDataOffset() const
+{
+    return data_offset;
+}
+vector<uint8_t> TCP::getPayload() const
+{
+    return payload;
 }

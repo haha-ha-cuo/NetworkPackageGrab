@@ -24,8 +24,9 @@ Pages* CapturePage::display()
 }
 
 //道行太浅以后再用吧
+/*
 void CapturePage::show() {
-	
+
     while (!Pages::captureRunning)
     {
         system("cls");
@@ -49,12 +50,12 @@ void CapturePage::show() {
             continue;
         }
 
-        
+
         const auto& pkts = capturePtr.getPacketManager().GetPackets();
-        
+
         for (const auto& p : pkts)
         {
-            
+
             switch (p->GetPacketType())
             {
             case PacketType::TCP:
@@ -88,7 +89,8 @@ void CapturePage::show() {
                 break;
             }
         }
-		cout << ">> Press 'q' or 'Esc' to stop capturing..." << endl;
+        cout << ">> Press 'q' or 'Esc' to stop capturing..." << endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     }
 }
+*/

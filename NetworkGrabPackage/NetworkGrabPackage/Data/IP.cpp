@@ -1,6 +1,9 @@
 #include "IP.hpp"
 
 using namespace std;
+
+IP::IP(const std::vector<uint8_t> &data) : Packet(data, PacketType::IP), protocol(0), total_length(0), ttl(0) {}
+IP::IP(const IP &other) : Packet(other), protocol(other.protocol), total_length(other.total_length), ttl(other.ttl) {}
 void IP::Parse()
 {
     if (raw_data.size() < 20)
@@ -42,7 +45,13 @@ void IP::display() const
     cout << "Packet Size: " << GetPacketSize() << " bytes" << endl;
 }
 
-string IP::getSummary() const
+void IP::showSummary(size_t index, tm localTm) const
 {
-    return "IP: " + src_ip + " -> " + dst_ip + " Proto:" + to_string(protocol);
+    clog << index << "\t" << put_time(&localTm, "%H:%M:%S") << "\t" << PacketTypeToString(packet_type) << "\t"
+         << src_ip << "\t\t\t" << dst_ip << "\t\t\t" << GetPacketSize() << endl;
 }
+string IP::getSrcIP() const { return src_ip; }
+string IP::getDestIP() const { return dst_ip; }
+uint8_t IP::getProtocol() const { return protocol; }
+uint16_t IP::getTotalLength() const { return total_length; }
+uint8_t IP::getTTL() const { return ttl; }

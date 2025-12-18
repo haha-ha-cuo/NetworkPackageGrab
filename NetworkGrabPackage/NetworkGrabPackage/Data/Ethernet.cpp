@@ -2,6 +2,9 @@
 
 using namespace std;
 
+Ethernet::Ethernet(const std::vector<uint8_t> &data)
+    : Packet(data, PacketType::ETHERNET), ether_type(0) {}
+
 void Ethernet::Parse()
 {
     if (raw_data.size() < 14)
@@ -30,7 +33,21 @@ void Ethernet::display() const
     cout << "Pakcet Size: " << GetPacketSize() << " bytes" << endl;
 }
 
-string Ethernet::getSummary() const
+void Ethernet::showSummary(size_t index, tm localTm) const
 {
-    return "ETH: " + src_mac + " -> " + dst_mac;
+    clog << index << "\t" << put_time(&localTm, "%H:%M:%S") << "\t" << PacketTypeToString(packet_type) << "\t"
+         << src_mac << "\t\t\t" << dst_mac << "\t\t\t" << GetPacketSize() << endl;
+}
+
+string Ethernet::getSrcMac()
+{
+    return src_mac;
+}
+string Ethernet::getDestMac()
+{
+    return dst_mac;
+}
+uint16_t Ethernet::getEtherType()
+{
+    return ether_type;
 }

@@ -8,32 +8,29 @@ void PacketManager::AddPacket(unique_ptr<Packet> packet)
 
 void PacketManager::ParseAll()
 {
-    for (auto &packet : packets)
-    {
-        try
-        {
-            packet->Parse();
-        }
-        catch (const exception &e)
-        {
-            cerr << "Error parsing packet: " << e.what() << endl;
-        }
-    }
+    forEach([](Packet &p)
+            {
+                try
+                {
+                    p.Parse();
+                }
+                catch (const exception &e)
+                {
+                    cerr << "Error parsing packet: " << e.what() << endl;
+                } });
 }
-
 void PacketManager::displayAll() const
 {
-    for (const auto &packet : packets)
-    {
-        packet->display();
-        cout << endl;
-    }
+    forEach([](const Packet &p)
+            { p.display(); });
+}
+const vector<std::unique_ptr<Packet>> &PacketManager::GetPackets() const
+{
+    lock_guard<std::mutex> lg(packets_mutex);
+    return packets;
 }
 
-void PacketManager::displaySummaries() const
+size_t PacketManager::GetPacketCount() const
 {
-    for (const auto &packet : packets)
-    {
-        cout << packet->getSummary() << endl;
-    }
+    return packets.size();
 }

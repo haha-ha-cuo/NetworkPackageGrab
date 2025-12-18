@@ -7,7 +7,7 @@ class PacketManager
 {
 private:
     std::vector<std::unique_ptr<Packet>> packets;
-    mutable std::mutex packets_mutex; // ĞÂÔö£º±£»¤ packets
+    mutable std::mutex packets_mutex; // æ–°å¢ï¼šä¿æŠ¤ packets
 
 public:
     PacketManager() = default;
@@ -16,18 +16,30 @@ public:
     PacketManager &operator=(const PacketManager &) = delete;
     PacketManager(PacketManager &&) = default;
     PacketManager &operator=(PacketManager &&) = default;
+
     void AddPacket(std::unique_ptr<Packet> packet);
-    void ParseAll();
-    void displayAll() const;
-    void displaySummaries() const;
-    const std::vector<std::unique_ptr<Packet>> &GetPackets() const
+    template <typename Func>
+    void forEach(Func &&f)
     {
         std::lock_guard<std::mutex> lg(packets_mutex);
-        return packets;
+        for (auto &p : packets)
+        {
+            f(*p);
+        }
     }
-   
-    size_t GetPacketCount() const
+
+    template <typename Func>
+    void forEach(Func &&f) const
     {
-        return packets.size();
+        std::lock_guard<std::mutex> lg(packets_mutex);
+        for (const auto &p : packets)
+        {
+            f(*p);
+        }
     }
+    void ParseAll();
+    void displayAll() const;
+
+    const std::vector<std::unique_ptr<Packet>> &GetPackets() const;
+    size_t GetPacketCount() const;
 };

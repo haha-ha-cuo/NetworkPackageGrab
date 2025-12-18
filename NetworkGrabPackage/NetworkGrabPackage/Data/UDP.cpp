@@ -1,6 +1,10 @@
 #include "UDP.hpp"
 
 using namespace std;
+
+UDP::UDP(const std::vector<uint8_t> &data)
+    : Packet(data, PacketType::UDP), src_port(0), dst_port(0),
+      length(0) {}
 void UDP::Parse()
 {
     if (raw_data.size() < 8)
@@ -23,7 +27,20 @@ void UDP::display() const
     cout << "Packet Size: " << GetPacketSize() << " bytes" << endl;
 }
 
-string UDP::getSummary() const
+void UDP::showSummary(size_t index, tm localTm) const
 {
-    return "UDP: " + to_string(src_port) + " -> " + to_string(dst_port);
+    clog << index << "\t" << put_time(&localTm, "%H:%M:%S") << "\t" << PacketTypeToString(packet_type) << "\t"
+         << to_string(src_port) << "\t\t\t" << to_string(dst_port) << "\t\t\t" << GetPacketSize() << endl;
+}
+uint16_t UDP::getSrcPort() const
+{
+    return src_port;
+}
+uint16_t UDP::getDstPort() const
+{
+    return dst_port;
+}
+uint16_t UDP::getLength() const
+{
+    return length;
 }

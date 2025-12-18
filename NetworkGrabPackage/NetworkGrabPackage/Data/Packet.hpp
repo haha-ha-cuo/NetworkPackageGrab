@@ -26,7 +26,7 @@ public:
 
     virtual void Parse() = 0;
     virtual void display() const = 0;
-    virtual std::string getSummary() const = 0;
+    virtual void showSummary(size_t index, tm localTm) const = 0;
 
     std::vector<uint8_t> GetRawData() const { return raw_data; }
     PacketType GetPacketType() const { return packet_type; }

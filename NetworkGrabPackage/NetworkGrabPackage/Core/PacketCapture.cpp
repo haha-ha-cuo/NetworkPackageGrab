@@ -251,29 +251,7 @@ bool PacketCapture::displayData() const
         std::time_t tt = std::chrono::system_clock::to_time_t(p->GetTimestamp());
         tm localTm{};
         localtime_s(&localTm, &tt);
-        auto typeStr = PacketTypeToString(p->GetPacketType());
-
-        switch (p->GetPacketType())
-        {
-        case PacketType::TCP:
-        {
-            const TCP *t = static_cast<const TCP *>(p.get());
-            std::clog << index << "\t" << std::put_time(&localTm, "%H:%M:%S") << "\t" << typeStr << "\t"
-                      << t->getSrcPort() << "\t\t\t" << t->getDstPort() << "\t\t\t" << p->GetPacketSize() << std::endl;
-            break;
-        }
-        case PacketType::UDP:
-        {
-            const UDP *u = static_cast<const UDP *>(p.get());
-            std::clog << index << "\t" << std::put_time(&localTm, "%H:%M:%S") << "\t" << typeStr << "\t"
-                      << u->getSrcPort() << "\t\t\t" << u->getDstPort() << "\t\t\t" << p->GetPacketSize() << std::endl;
-            break;
-        }
-        default:
-            std::clog << index << "\t" << std::put_time(&localTm, "%H:%M:%S") << "\t" << typeStr
-                      << "\t-\t\t\t-\t\t\t" << p->GetPacketSize() << std::endl;
-            break;
-        }
+        p->showSummary(index, localTm);
 
         ++index;
     }
@@ -287,18 +265,18 @@ bool PacketCapture::displayData() const
         }
         else if ((ch == 'd' || ch == 'D') && !pkts.empty())
         {
-            std::cout << "\nEnter packet index [0 - " << pkts.size() - 1 << "]: ";
+            std::cout << "\nEnter packet index [1 - " << pkts.size() << "]: ";
             size_t idx;
             if (!(std::cin >> idx))
             {
                 std::cin.clear();
                 std::cin.ignore(1024, '\n');
             }
-            else if (idx < pkts.size())
+            else if (idx <= pkts.size())
             {
                 system("cls");
                 std::cout << "[Info]Packet #" << idx << " detail:" << std::endl;
-                pkts[idx]->display();
+                pkts[idx - 1]->display();
                 std::cout << "\n[Info]Press any key to return..." << std::endl;
                 _getch();
             }
