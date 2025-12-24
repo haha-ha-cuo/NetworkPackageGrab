@@ -1,4 +1,6 @@
 #include "UDP.hpp"
+#include <iomanip>
+#include <sstream>
 
 using namespace std;
 
@@ -29,8 +31,17 @@ void UDP::display() const
 
 void UDP::showSummary(size_t index, tm localTm) const
 {
-    clog << index << "\t" << put_time(&localTm, "%H:%M:%S") << "\t" << PacketTypeToString(packet_type) << "\t"
-         << to_string(src_port) << "\t\t\t" << to_string(dst_port) << "\t\t\t" << GetPacketSize() << endl;
+    ostringstream time_ss;
+    time_ss << put_time(&localTm, "%H:%M:%S");
+
+    clog << left
+         << setw(6) << index
+         << setw(10) << time_ss.str()
+         << setw(12) << PacketTypeToString(packet_type)
+         << setw(22) << to_string(src_port)
+         << setw(22) << to_string(dst_port)
+         << setw(8) << GetPacketSize()
+         << endl;
 }
 uint16_t UDP::getSrcPort() const
 {

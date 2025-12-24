@@ -6,6 +6,7 @@
 #include <chrono>
 #include <conio.h>
 #include <Windows.h>
+#include <iomanip>
 
 using namespace std;
 
@@ -223,7 +224,14 @@ void PacketCapture::dumpPacket(const char *name)
 bool PacketCapture::displayData() const
 {
     system("cls");
-    std::clog << "Idx\tTime\t\t" << "Type\t" << "Source Port\t\t" << "Destination Port\t" << "Size" << std::endl;
+    std::clog << std::left
+              << std::setw(6) << "Idx"
+              << std::setw(10) << "Time"
+              << std::setw(12) << "Type"
+              << std::setw(22) << "Source"
+              << std::setw(22) << "Destination"
+              << std::setw(8) << "Size"
+              << std::endl;
 
     const auto &pkts = getPacketManager().GetPackets();
 

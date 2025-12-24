@@ -1,4 +1,6 @@
 #include "IP.hpp"
+#include <iomanip>
+#include <sstream>
 
 using namespace std;
 
@@ -47,8 +49,17 @@ void IP::display() const
 
 void IP::showSummary(size_t index, tm localTm) const
 {
-    clog << index << "\t" << put_time(&localTm, "%H:%M:%S") << "\t" << PacketTypeToString(packet_type) << "\t"
-         << src_ip << "\t\t\t" << dst_ip << "\t\t\t" << GetPacketSize() << endl;
+    ostringstream time_ss;
+    time_ss << put_time(&localTm, "%H:%M:%S");
+
+    clog << left
+         << setw(6) << index
+         << setw(10) << time_ss.str()
+         << setw(12) << PacketTypeToString(packet_type)
+         << setw(22) << src_ip
+         << setw(22) << dst_ip
+         << setw(8) << GetPacketSize()
+         << endl;
 }
 string IP::getSrcIP() const { return src_ip; }
 string IP::getDestIP() const { return dst_ip; }
