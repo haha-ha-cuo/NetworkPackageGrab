@@ -6,7 +6,6 @@ class CapturePage : public Pages
 {
 private:
     mutable std::mutex mtx;
-
     char *port;
 
 public:
