@@ -8,6 +8,8 @@
 #include <pcap.h>
 #include <vector>
 #include <mutex>
+#include <atomic>
+#include <string>
 
 class PacketCapture
 {
@@ -41,7 +43,11 @@ public:
     PacketCapture();
     ~PacketCapture();
 
-    void startCapture(const char *deviceName, const char *port);
+    void startCapture(const char *deviceName, const char *port, const char *inputPath = "../Output/input.txt");
+    bool parseInputFileToOutput(const std::string &inputPath = "../Output/input.txt",
+                                const std::string &outputPath = "../Output/output.txt",
+                                const std::string &logPath = "../Output/error.log") const;
+
     void closeCapture();
     const PacketManager &getPacketManager() const;
 

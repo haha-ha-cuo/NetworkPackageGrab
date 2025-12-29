@@ -1,12 +1,15 @@
 ﻿#include "PacketCapture.hpp"
 #include "Consts.hpp"
 #include "Types.hpp"
+#include "PacketFilePipeline.hpp"
 #include <iostream>
 #include <pcap.h>
 #include <chrono>
 #include <conio.h>
 #include <Windows.h>
 #include <iomanip>
+#include <filesystem>
+#include <fstream>
 
 using namespace std;
 
@@ -27,7 +30,7 @@ PacketCapture::~PacketCapture()
     closeCapture();
 };
 
-void PacketCapture::startCapture(const char *deviceName, const char *port)
+void PacketCapture::startCapture(const char *deviceName, const char *port, const char *inputPath)
 {
 
     cout << "[Info]Starting packet capture on device: " << deviceName << endl;
@@ -51,6 +54,24 @@ void PacketCapture::startCapture(const char *deviceName, const char *port)
     if (!packetFilter.setFilter(port, handle, deviceName))
     {
         cerr << "[Error]Failed to apply filter. Stopping packet capture." << endl;
+        pcap_close(handle);
+        handle = nullptr;
+        return;
+    }
+
+    namespace fs = std::filesystem;
+    try
+    {
+        fs::create_directories("../Output");
+    }
+    catch (...)
+    {
+    }
+
+    std::ofstream inputOut(inputPath, std::ios::out | std::ios::binary | std::ios::trunc);
+    if (!inputOut.is_open())
+    {
+        std::cerr << "[Error]Failed to open input file for writing: " << inputPath << std::endl;
         pcap_close(handle);
         handle = nullptr;
         return;
@@ -105,6 +126,19 @@ void PacketCapture::startCapture(const char *deviceName, const char *port)
         }
         timeoutCount = 0;
 
+        if (header && pktData && header->caplen > 0)
+        {
+            std::string err;
+            if (PacketFilePipeline::AppendCapturedPacketLine(inputOut, *header, pktData, &err))
+            {
+                capturedPackets++;
+            }
+            else
+            {
+                std::cerr << "[Warn]Write input.txt failed: " << err << std::endl;
+            }
+        }
+
         vector<uint8_t> dataVec(pktData, pktData + header->caplen);
 
         unique_lock<std::mutex> lk(handleMutex);
@@ -120,7 +154,6 @@ void PacketCapture::startCapture(const char *deviceName, const char *port)
                 continue;
             }
             packetManager.AddPacket(move(packet));
-            capturedPackets++;
         }
 
         lk.unlock();
@@ -153,6 +186,9 @@ void PacketCapture::startCapture(const char *deviceName, const char *port)
     }
     else
     {
+        inputOut.flush();
+        inputOut.close();
+
         cout << "[Info]Total packets captured: " << capturedPackets << endl;
         if (capturedPackets == 0)
         {
@@ -178,6 +214,13 @@ void PacketCapture::closeCapture()
 const PacketManager &PacketCapture::getPacketManager() const
 {
     return packetManager;
+}
+
+bool PacketCapture::parseInputFileToOutput(const std::string &inputPath,
+                                          const std::string &outputPath,
+                                          const std::string &logPath) const
+{
+    return PacketFilePipeline::ParseInputFileToOutput(inputPath, outputPath, logPath);
 }
 
 void PacketCapture::dumpPacket(const char *name)

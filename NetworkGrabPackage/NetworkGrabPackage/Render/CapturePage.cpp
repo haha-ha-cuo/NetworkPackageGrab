@@ -13,14 +13,25 @@ Pages* CapturePage::display()
 	system("cls"); 
     cout << "[Info]Starting packet capture..." << endl;
     thread threadCapture([this]() {
-        capturePtr.startCapture(Pages::deviceName, const_cast<char*>(Pages::port.c_str()));
-		});
+        capturePtr.startCapture(Pages::deviceName, const_cast<char *>(Pages::port.c_str()));
+        });
 
     threadCapture.join();
-	cout << "[Info]Stopping packet capture..." << endl;
-	cout << "[Info]Press [Enter] to continue >>";
+    cout << "[Info]Stopping packet capture..." << endl;
+
+    cout << "[Info]Parsing ../Output/input.txt -> ../Output/output.txt ..." << endl;
+    if (capturePtr.parseInputFileToOutput())
+    {
+        cout << "[Info]Parse finished: ../Output/output.txt" << endl;
+    }
+    else
+    {
+        cout << "[Warn]Parse failed. See ../Output/error.log" << endl;
+    }
+
+    cout << "[Info]Press [Enter] to continue >>";
     getchar();
-	return Pages::Back();
+    return Pages::Back();
 }
 
 //道行太浅以后再用吧

@@ -206,6 +206,9 @@
     <ClInclude Include="Render\StatisticsPage.hpp">
       <Filter>头文件\Render</Filter>
     </ClInclude>
+    <ClInclude Include="Common\PacketFilePipeline.hpp">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="NetworkGrabPackage.rc">
