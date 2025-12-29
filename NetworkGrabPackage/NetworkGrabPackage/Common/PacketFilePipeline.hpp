@@ -144,6 +144,62 @@ namespace PacketFilePipeline
         log << "line\t" << lineNo << "\t" << msg << "\n";
     }
 
+    inline std::string ToFullWidthDigits(std::uint64_t n)
+    {
+        std::string s = std::to_string(n);
+        std::string out;
+        out.reserve(s.size() * 3);
+
+        for (char ch : s)
+        {
+            if (ch >= '0' && ch <= '9')
+            {
+                const char32_t fw = U'０' + (ch - '0');
+                if (fw <= 0x7F)
+                {
+                    out.push_back(static_cast<char>(fw));
+                }
+                else
+                {
+                    char buf[4] = {0};
+                    const std::uint32_t cp = static_cast<std::uint32_t>(fw);
+                    buf[0] = static_cast<char>(0xE0 | ((cp >> 12) & 0x0F));
+                    buf[1] = static_cast<char>(0x80 | ((cp >> 6) & 0x3F));
+                    buf[2] = static_cast<char>(0x80 | (cp & 0x3F));
+                    out.append(buf, buf + 3);
+                }
+            }
+            else
+            {
+                out.push_back(ch);
+            }
+        }
+
+        return out;
+    }
+
+    inline std::string PacketTitleZh(const std::string &proto)
+    {
+        if (proto == "TCP")
+            return "TCP 数据包（传输层，面向连接）";
+        if (proto == "UDP")
+            return "UDP 数据包（传输层，无连接）";
+        if (proto == "ICMP")
+            return "ICMP 数据包（网络层控制消息）";
+        if (proto == "NON_IPV4")
+            return "非 IPv4 数据包（未解析 L3/L4）";
+        if (proto == "BAD_IPV4")
+            return "IPv4 数据包（头部不完整或异常）";
+        if (proto.rfind("IP(", 0) == 0)
+            return "IP 数据包（其他上层协议）";
+        return "未知类型数据包";
+    }
+
+    inline std::string MakeSeparatorLine(std::uint64_t index)
+    {
+        return std::string("# ＝＝＝＝＝＝ 包分隔 ") + ToFullWidthDigits(index) + " ＝＝＝＝＝＝";
+    }
+
     inline bool ParseInputFileToOutput(const std::string &inputPath,
                                        const std::string &outputPath,
                                        const std::string &logPath)
@@ -196,6 +252,7 @@ namespace PacketFilePipeline
         std::uint64_t lineNo = 0;
         std::uint64_t ok = 0;
         std::uint64_t bad = 0;
+        std::uint64_t packetIndex = 0;
 
         auto lastReport = std::chrono::steady_clock::now();
 
@@ -356,6 +413,13 @@ namespace PacketFilePipeline
                     proto = "NON_IPV4";
                 }
             }
+
+            ++packetIndex;
+
+            out << "\n";
+            out << MakeSeparatorLine(packetIndex) << "\n";
+            out << "\n";
+            out << "# 包名: " << PacketTitleZh(proto) << "\n";
 
             out << ts << "\t"
                 << proto << "\t"

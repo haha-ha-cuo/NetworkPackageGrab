@@ -217,8 +217,8 @@ const PacketManager &PacketCapture::getPacketManager() const
 }
 
 bool PacketCapture::parseInputFileToOutput(const std::string &inputPath,
-                                          const std::string &outputPath,
-                                          const std::string &logPath) const
+                                           const std::string &outputPath,
+                                           const std::string &logPath) const
 {
     return PacketFilePipeline::ParseInputFileToOutput(inputPath, outputPath, logPath);
 }
