@@ -46,7 +46,7 @@ public:
     void startCapture(const char *deviceName, const char *port, const char *inputPath = "../Output/input.txt");
     bool parseInputFileToOutput(const std::string &inputPath = "../Output/input.txt",
                                 const std::string &outputPath = "../Output/output.txt",
-                                const std::string &logPath = "../Output/error.log") const;
+                                const std::string &logPath = "") const;
 
     void closeCapture();
     const PacketManager &getPacketManager() const;

@@ -11,7 +11,6 @@ public:
     Pages *display() override;
 
 private:
-    void listFiles(std::vector<std::string> &files);
-    void analyzeFile(const std::string &filepath);
+    void analyzeInputOutput(const std::string &inputPath, const std::string &outputPath);
     std::string parseTLSClientHello(const std::vector<uint8_t> &payload);
 };

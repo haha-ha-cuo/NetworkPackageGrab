@@ -1,9 +1,10 @@
 #include "TrafficStatistics.hpp"
 
-#include <pcap.h>
 #include <filesystem>
+#include <fstream>
 #include <iostream>
 #include <map>
+#include <sstream>
 
 namespace fs = std::filesystem;
 
@@ -71,105 +72,106 @@ char TrafficStatistics::getIPClass(const std::string& ip) const
  */
 void TrafficStatistics::analyzeTraffic()
 {
-    records_.clear(); // 清空现有记录
+    records_.clear();
 
-    try
+    std::string path = "../Output/output.txt";
+    if (!fs::exists(path))
     {
-        // 以当前源文件为基准，找到上一级目录的 Output 目录
-        fs::path currentFile = __FILE__;
-        fs::path parentDir = currentFile.parent_path().parent_path().parent_path();
-        fs::path outputDir = parentDir / "Output";
+        if (fs::exists("Output/output.txt"))
+            path = "Output/output.txt";
+    }
 
-        if (!fs::exists(outputDir))
+    std::ifstream in(path, std::ios::in | std::ios::binary);
+    if (!in.is_open())
+    {
+        std::cerr << "[Error] output.txt not found: " << path << std::endl;
+        return;
+    }
+
+    std::string line;
+    while (std::getline(in, line))
+    {
+        if (line.empty())
+            continue;
+        if (!line.empty() && line[0] == '#')
+            continue;
+
+        std::vector<std::string> cols;
+        cols.reserve(8);
+
+        std::size_t start = 0;
+        while (true)
         {
-            std::cerr << "[Error] Output folder does not exist: " << outputDir << std::endl;
-            return;
-        }
-        if (!fs::is_directory(outputDir))
-        {
-            std::cerr << "[Error] Output path is not a directory: " << outputDir << std::endl;
-            return;
-        }
-
-        std::cout << "[Info] Analyze pcap files in: " << outputDir << std::endl;
-
-        char errbuf[PCAP_ERRBUF_SIZE] = { 0 };
-
-        // 遍历 Output 目录下的所有文件
-        for (const auto& entry : fs::directory_iterator(outputDir))
-        {
-            if (!entry.is_regular_file())
-                continue;
-
-            if (entry.path().extension() != ".pcap")
-                continue;
-
-            std::string filename = entry.path().string();
-            std::cout << "[Info] Open pcap file: " << filename << std::endl;
-
-            pcap_t* handle = pcap_open_offline(filename.c_str(), errbuf);
-            if (!handle)
+            std::size_t pos = line.find('\t', start);
+            if (pos == std::string::npos)
             {
-                std::cerr << "[Error] Failed to open pcap file: " << filename
-                    << " , reason: " << errbuf << std::endl;
-                continue;
+                cols.push_back(line.substr(start));
+                break;
             }
+            cols.push_back(line.substr(start, pos - start));
+            start = pos + 1;
+        }
 
-            struct pcap_pkthdr* header = nullptr;
-            const u_char* data = nullptr;
-            int res = 0;
+        if (cols.size() < 4)
+            continue;
 
-            while ((res = pcap_next_ex(handle, &header, &data)) >= 0)
+        const std::string &proto = cols[1];
+        const std::string &src = cols[2];
+        const std::string &dst = cols[3];
+
+        auto stripPort = [](const std::string &s) -> std::string {
+            std::size_t pos = s.find(':');
+            if (pos == std::string::npos)
+                return s;
+            return s.substr(0, pos);
+        };
+
+        TrafficRecord rec;
+        rec.srcIP = stripPort(src);
+        rec.dstIP = stripPort(dst);
+
+        if (proto == "ICMP")
+            rec.protocol = 1;
+        else if (proto == "TCP")
+            rec.protocol = 6;
+        else if (proto == "UDP")
+            rec.protocol = 17;
+        else if (proto.rfind("IP(", 0) == 0)
+        {
+            std::size_t l = proto.find('(');
+            std::size_t r = proto.find(')', l + 1);
+            if (l != std::string::npos && r != std::string::npos && r > l + 1)
             {
-                if (res == 0)
-                {
-                    // 读取超时（离线文件一般很少遇到），跳过
-                    continue;
-                }
-
-                // 至少要有以太网头(14字节) + 最小IP头(20字节)
-                if (!header || header->caplen < 14 + 20)
-                {
-                    continue;
-                }
-
-                // 简单认为是 Ethernet + IPv4，IP 头从 14 字节偏移处开始
-                const u_char* ipData = data + 14;
-                std::size_t   ipLen = header->caplen - 14;
-
-                std::vector<std::uint8_t> ipVector(ipData, ipData + ipLen);
-
                 try
                 {
-                    IP ipPacket(ipVector);
-                    ipPacket.Parse();
-
-                    TrafficRecord rec;
-                    rec.srcIP = ipPacket.getSrcIP();
-                    rec.dstIP = ipPacket.getDestIP();
-                    rec.protocol = ipPacket.getProtocol();
-                    rec.ipClass = getIPClass(rec.dstIP);
-
-                    records_.push_back(rec);
+                    int v = std::stoi(proto.substr(l + 1, r - (l + 1)));
+                    if (v >= 0 && v <= 255)
+                        rec.protocol = static_cast<std::uint8_t>(v);
+                    else
+                        rec.protocol = 0;
                 }
-                catch (const std::exception& e)
+                catch (...)
                 {
-                    // 不是 IPv4 包或解析失败，直接忽略
-                    // std::cerr << "[Warn] IP parse error: " << e.what() << std::endl;
-                    continue;
+                    rec.protocol = 0;
                 }
             }
-
-            pcap_close(handle);
+            else
+            {
+                rec.protocol = 0;
+            }
+        }
+        else
+        {
+            rec.protocol = 0;
         }
 
-        std::cout << "[Info] Traffic analysis completed. Parsed IP packets: "
-            << records_.size() << std::endl;
+        rec.ipClass = getIPClass(rec.dstIP);
+
+        if (!rec.srcIP.empty() && rec.srcIP != "-" && !rec.dstIP.empty() && rec.dstIP != "-")
+            records_.push_back(rec);
     }
-    catch (const std::exception& e)
-    {
-        std::cerr << "[Error] analyzeTraffic exception: " << e.what() << std::endl;
-    }
+
+    std::cout << "[Info] Traffic analysis completed. Parsed records: " << records_.size() << std::endl;
 }
 
 /**

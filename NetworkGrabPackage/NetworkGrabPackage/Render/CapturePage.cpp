@@ -26,7 +26,7 @@ Pages* CapturePage::display()
     }
     else
     {
-        cout << "[Warn]Parse failed. See ../Output/error.log" << endl;
+        cout << "[Warn]Parse failed." << endl;
     }
 
     cout << "[Info]Press [Enter] to continue >>";

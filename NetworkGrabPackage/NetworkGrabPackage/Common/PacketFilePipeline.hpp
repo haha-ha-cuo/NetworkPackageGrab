@@ -11,7 +11,6 @@
 #include <sstream>
 #include <iomanip>
 #include <iostream>
-#include <chrono>
 
 namespace PacketFilePipeline
 {
@@ -139,43 +138,9 @@ namespace PacketFilePipeline
         return hex;
     }
 
-    inline void WriteLog(std::ofstream &log, std::uint64_t lineNo, const std::string &msg)
-    {
-        log << "line\t" << lineNo << "\t" << msg << "\n";
-    }
-
     inline std::string ToFullWidthDigits(std::uint64_t n)
     {
-        std::string s = std::to_string(n);
-        std::string out;
-        out.reserve(s.size() * 3);
-
-        for (char ch : s)
-        {
-            if (ch >= '0' && ch <= '9')
-            {
-                const char32_t fw = U'０' + (ch - '0');
-                if (fw <= 0x7F)
-                {
-                    out.push_back(static_cast<char>(fw));
-                }
-                else
-                {
-                    char buf[4] = {0};
-                    const std::uint32_t cp = static_cast<std::uint32_t>(fw);
-                    buf[0] = static_cast<char>(0xE0 | ((cp >> 12) & 0x0F));
-                    buf[1] = static_cast<char>(0x80 | ((cp >> 6) & 0x3F));
-                    buf[2] = static_cast<char>(0x80 | (cp & 0x3F));
-                    out.append(buf, buf + 3);
-                }
-            }
-            else
-            {
-                out.push_back(ch);
-            }
-        }
-
-        return out;
+        return std::to_string(n);
     }
 
     inline std::string PacketTitleZh(const std::string &proto)
@@ -199,19 +164,18 @@ namespace PacketFilePipeline
     {
         return std::string("# ＝＝＝＝＝＝ 包分隔 ") + ToFullWidthDigits(index) + " ＝＝＝＝＝＝";
     }
-
+//读
     inline bool ParseInputFileToOutput(const std::string &inputPath,
                                        const std::string &outputPath,
                                        const std::string &logPath)
     {
+        (void)logPath;
         namespace fs = std::filesystem;
 
         try
         {
             if (fs::path(outputPath).has_parent_path())
                 fs::create_directories(fs::path(outputPath).parent_path());
-            if (fs::path(logPath).has_parent_path())
-                fs::create_directories(fs::path(logPath).parent_path());
         }
         catch (...)
         {
@@ -231,30 +195,12 @@ namespace PacketFilePipeline
             return false;
         }
 
-        std::ofstream log(logPath, std::ios::out | std::ios::binary | std::ios::trunc);
-        if (!log.is_open())
-        {
-            std::cerr << "[Error]Open log failed: " << logPath << std::endl;
-            return false;
-        }
-
-        std::uintmax_t totalSize = 0;
-        try
-        {
-            if (fs::exists(inputPath))
-                totalSize = fs::file_size(inputPath);
-        }
-        catch (...)
-        {
-        }
 
         std::string line;
         std::uint64_t lineNo = 0;
         std::uint64_t ok = 0;
         std::uint64_t bad = 0;
         std::uint64_t packetIndex = 0;
-
-        auto lastReport = std::chrono::steady_clock::now();
 
         while (std::getline(in, line))
         {
@@ -267,7 +213,6 @@ namespace PacketFilePipeline
             std::size_t p3 = (p2 == std::string::npos) ? std::string::npos : line.find('\t', p2 + 1);
             if (p1 == std::string::npos || p2 == std::string::npos || p3 == std::string::npos)
             {
-                WriteLog(log, lineNo, "format_error");
                 ++bad;
                 continue;
             }
@@ -284,7 +229,6 @@ namespace PacketFilePipeline
             }
             catch (...)
             {
-                WriteLog(log, lineNo, "len_parse_error");
                 ++bad;
                 continue;
             }
@@ -296,14 +240,12 @@ namespace PacketFilePipeline
             }
             catch (...)
             {
-                WriteLog(log, lineNo, "crc_parse_error");
                 ++bad;
                 continue;
             }
 
             if (hex.size() != caplen * 2)
             {
-                WriteLog(log, lineNo, "hex_len_mismatch");
                 ++bad;
                 continue;
             }
@@ -311,7 +253,6 @@ namespace PacketFilePipeline
             std::vector<std::uint8_t> bytes;
             if (!HexToBytes(hex, bytes))
             {
-                WriteLog(log, lineNo, "hex_decode_error");
                 ++bad;
                 continue;
             }
@@ -319,7 +260,6 @@ namespace PacketFilePipeline
             const std::uint32_t crcCalc = Crc32(bytes.data(), bytes.size());
             if (crcCalc != crcIn)
             {
-                WriteLog(log, lineNo, "crc_mismatch");
                 ++bad;
                 continue;
             }
@@ -330,89 +270,95 @@ namespace PacketFilePipeline
             std::size_t payloadLen = 0;
             std::string extra;
 
-            if (bytes.size() >= 14)
-            {
-                const std::uint16_t etherType = ReadBE16(bytes.data(), 12);
+            bool parsedIp = false;
+            auto parseAt = [&](std::size_t ipOff) -> bool {
+                if (bytes.size() < ipOff + 20)
+                    return false;
 
-                if (etherType == 0x0800 && bytes.size() >= 14 + 20)
+                const std::uint8_t *ip = bytes.data() + ipOff;
+                const std::size_t ipAvail = bytes.size() - ipOff;
+
+                const std::uint8_t version = (ip[0] >> 4) & 0x0F;
+                const std::size_t ihl = static_cast<std::size_t>(ip[0] & 0x0F) * 4;
+                if (version != 4 || ihl < 20 || ihl > ipAvail)
+                    return false;
+
+                const std::uint8_t ipProto = ip[9];
+                const std::string srcIP = IPv4ToString(ip + 12);
+                const std::string dstIP = IPv4ToString(ip + 16);
+                const std::size_t l4 = ipOff + ihl;
+
+                if (ipProto == 6)
                 {
-                    const std::uint8_t *ip = bytes.data() + 14;
-                    const std::size_t ipAvail = bytes.size() - 14;
-
-                    const std::uint8_t version = (ip[0] >> 4) & 0x0F;
-                    const std::size_t ihl = static_cast<std::size_t>(ip[0] & 0x0F) * 4;
-
-                    if (version == 4 && ihl >= 20 && ihl <= ipAvail)
+                    proto = "TCP";
+                    if (bytes.size() >= l4 + 20)
                     {
-                        const std::uint8_t ipProto = ip[9];
+                        const std::uint8_t *tcp = bytes.data() + l4;
+                        const std::uint16_t sp = ReadBE16(tcp, 0);
+                        const std::uint16_t dp = ReadBE16(tcp, 2);
+                        src = srcIP + ":" + std::to_string(sp);
+                        dst = dstIP + ":" + std::to_string(dp);
 
-                        const std::string srcIP = IPv4ToString(ip + 12);
-                        const std::string dstIP = IPv4ToString(ip + 16);
-
-                        const std::size_t l4 = 14 + ihl;
-
-                        if (ipProto == 6)
+                        const std::size_t doff = static_cast<std::size_t>((tcp[12] >> 4) & 0x0F) * 4;
+                        const std::size_t payloadOff = l4 + doff;
+                        if (doff >= 20 && payloadOff <= bytes.size())
                         {
-                            proto = "TCP";
-                            if (bytes.size() >= l4 + 20)
-                            {
-                                const std::uint8_t *tcp = bytes.data() + l4;
-                                const std::uint16_t sp = ReadBE16(tcp, 0);
-                                const std::uint16_t dp = ReadBE16(tcp, 2);
-                                src = srcIP + ":" + std::to_string(sp);
-                                dst = dstIP + ":" + std::to_string(dp);
-
-                                const std::size_t doff = static_cast<std::size_t>((tcp[12] >> 4) & 0x0F) * 4;
-                                const std::size_t payloadOff = l4 + doff;
-                                if (doff >= 20 && payloadOff <= bytes.size())
-                                {
-                                    payloadLen = bytes.size() - payloadOff;
-                                    extra = HexPreview(bytes, payloadOff, 64);
-                                }
-                            }
-                        }
-                        else if (ipProto == 17)
-                        {
-                            proto = "UDP";
-                            if (bytes.size() >= l4 + 8)
-                            {
-                                const std::uint8_t *udp = bytes.data() + l4;
-                                const std::uint16_t sp = ReadBE16(udp, 0);
-                                const std::uint16_t dp = ReadBE16(udp, 2);
-                                src = srcIP + ":" + std::to_string(sp);
-                                dst = dstIP + ":" + std::to_string(dp);
-
-                                const std::size_t payloadOff = l4 + 8;
-                                if (payloadOff <= bytes.size())
-                                {
-                                    payloadLen = bytes.size() - payloadOff;
-                                    extra = HexPreview(bytes, payloadOff, 64);
-                                }
-                            }
-                        }
-                        else if (ipProto == 1)
-                        {
-                            proto = "ICMP";
-                            src = srcIP;
-                            dst = dstIP;
-                        }
-                        else
-                        {
-                            proto = "IP(" + std::to_string(static_cast<int>(ipProto)) + ")";
-                            src = srcIP;
-                            dst = dstIP;
+                            payloadLen = bytes.size() - payloadOff;
+                            extra = HexPreview(bytes, payloadOff, 64);
                         }
                     }
-                    else
+                }
+                else if (ipProto == 17)
+                {
+                    proto = "UDP";
+                    if (bytes.size() >= l4 + 8)
                     {
-                        proto = "BAD_IPV4";
+                        const std::uint8_t *udp = bytes.data() + l4;
+                        const std::uint16_t sp = ReadBE16(udp, 0);
+                        const std::uint16_t dp = ReadBE16(udp, 2);
+                        src = srcIP + ":" + std::to_string(sp);
+                        dst = dstIP + ":" + std::to_string(dp);
+
+                        const std::size_t payloadOff = l4 + 8;
+                        if (payloadOff <= bytes.size())
+                        {
+                            payloadLen = bytes.size() - payloadOff;
+                            extra = HexPreview(bytes, payloadOff, 64);
+                        }
                     }
+                }
+                else if (ipProto == 1)
+                {
+                    proto = "ICMP";
+                    src = srcIP;
+                    dst = dstIP;
                 }
                 else
                 {
-                    proto = "NON_IPV4";
+                    proto = "IP(" + std::to_string(static_cast<int>(ipProto)) + ")";
+                    src = srcIP;
+                    dst = dstIP;
                 }
+
+                return true;
+            };
+
+            if (bytes.size() >= 14)
+            {
+                const std::uint16_t etherType = ReadBE16(bytes.data(), 12);
+                if (etherType == 0x0800)
+                    parsedIp = parseAt(14);
             }
+
+            if (!parsedIp)
+            {
+                parsedIp = parseAt(0);
+                if (!parsedIp)
+                    parsedIp = parseAt(4);
+            }
+
+            if (!parsedIp)
+                proto = "NON_IPV4";
 
             ++packetIndex;
 
@@ -433,26 +379,6 @@ namespace PacketFilePipeline
 
             ++ok;
 
-            auto now = std::chrono::steady_clock::now();
-            if (now - lastReport >= std::chrono::seconds(1))
-            {
-                lastReport = now;
-
-                std::uintmax_t pos = 0;
-                auto tell = in.tellg();
-                if (tell != std::streampos(-1))
-                    pos = static_cast<std::uintmax_t>(tell);
-
-                if (totalSize > 0)
-                {
-                    int pct = static_cast<int>((pos * 100) / totalSize);
-                    std::cout << "\r[Progress] " << pct << "%  packets=" << ok << "  errors=" << bad << std::flush;
-                }
-                else
-                {
-                    std::cout << "\r[Progress] packets=" << ok << "  errors=" << bad << std::flush;
-                }
-            }
         }
 
         std::cout << "\n[Info]Parse done. packets=" << ok << " errors=" << bad << "\n";

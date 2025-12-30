@@ -25,7 +25,7 @@ public:
     TrafficStatistics();
     ~TrafficStatistics();
 
-    // 分析网络流量，从pcap文件中提取IP信息
+    // 分析网络流量，从 output.txt 中提取 IP 信息
     void analyzeTraffic();
     
     // 生成并显示流量统计报告
